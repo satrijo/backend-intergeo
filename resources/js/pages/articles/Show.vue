@@ -116,8 +116,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <div v-if="article.image" class="mb-6">
                         <img :src="article.image" :alt="article.title" class="w-full rounded-lg" />
                     </div>
-                    <div class="prose prose-sm max-w-none dark:prose-invert">
-                        <div class="whitespace-pre-wrap">{{ article.body }}</div>
+                    <div class="prose prose-sm max-w-none dark:prose-invert prose-headings:font-bold prose-p:leading-relaxed prose-img:rounded-lg">
+                        <div v-html="article.body"></div>
                     </div>
                 </CardContent>
             </Card>

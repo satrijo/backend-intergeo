@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import CategorySelect from '@/components/CategorySelect.vue';
+import RichTextEditor from '@/components/RichTextEditor.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ArrowLeft } from 'lucide-vue-next';
@@ -98,23 +99,16 @@ const submit = () => {
                             </p>
                         </div>
 
-                        <div class="space-y-2">
-                            <Label for="body">Content</Label>
-                            <textarea
-                                id="body"
-                                v-model="form.body"
-                                rows="10"
-                                class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                placeholder="Write your article content here..."
-                                :class="{ 'border-red-500': form.errors.body }"
-                            ></textarea>
-                            <p v-if="form.errors.body" class="text-sm text-red-500">
-                                {{ form.errors.body }}
-                            </p>
-                        </div>
+                        <RichTextEditor
+                            v-model="form.body"
+                            label="Content"
+                            placeholder="Write your article content here..."
+                            :error="form.errors.body"
+                            :height="500"
+                        />
 
                         <div class="space-y-2">
-                            <Label for="image">Image URL (Optional)</Label>
+                            <Label for="image">Featured Image URL (Optional)</Label>
                             <Input
                                 id="image"
                                 v-model="form.image"
