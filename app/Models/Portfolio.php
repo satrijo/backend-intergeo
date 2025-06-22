@@ -23,6 +23,15 @@ class Portfolio extends Model
         'sort_order',
     ];
 
+    protected $hidden = [
+        'user_id',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
     protected $casts = [
         'images' => 'array',
         'technologies' => 'array',

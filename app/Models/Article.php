@@ -19,8 +19,18 @@ class Article extends Model
         'published',
     ];
 
+    protected $hidden = [
+        'user_id',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
     protected $casts = [
         'published' => 'boolean',
+        'published_at' => 'datetime',
     ];
 
     public function user()
@@ -31,5 +41,10 @@ class Article extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('published', true);
     }
 }

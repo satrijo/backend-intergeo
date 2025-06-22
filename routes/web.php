@@ -6,6 +6,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\UserController;
 use App\Models\Article;
 use App\Models\Portfolio;
 
@@ -33,6 +34,7 @@ Route::get('dashboard', function () {
 Route::resource('articles', ArticleController::class)->middleware(['auth', 'verified']);
 Route::resource('categories', CategoryController::class)->middleware(['auth', 'verified']);
 Route::resource('portfolios', PortfolioController::class)->middleware(['auth', 'verified']);
+Route::resource('users', UserController::class)->middleware(['auth', 'verified']);
 
 // Media upload routes
 Route::post('media/upload', [MediaController::class, 'store'])->middleware(['auth', 'verified'])->name('media.upload');
