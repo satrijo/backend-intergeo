@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // API Version 1
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->name('api.v1.')->group(function () {
     // Article Endpoints
     Route::apiResource('articles', ArticleApiController::class)->only(['index', 'show']);
 
