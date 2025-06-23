@@ -11,8 +11,28 @@ use App\Models\Article;
 use App\Models\Portfolio;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('Home/Index');
 })->name('home');
+
+Route::get('/about', function () {
+    return Inertia::render('Home/About');
+})->name('about');
+
+Route::get('/blog', function () {
+    return Inertia::render('Home/Blog');
+})->name('blog');
+
+Route::get('/faq', function () {
+    return Inertia::render('Home/FAQ');
+})->name('faq');
+
+Route::get('/contact', function () {
+    return Inertia::render('Home/Contact');
+})->name('contact');
+
+Route::get('/portfolio', function () {
+    return Inertia::render('Home/Portfolios');
+})->name('portfolios');
 
 Route::get('dashboard', function () {
     $recentArticles = Article::where('user_id', auth()->id())
