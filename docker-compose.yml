@@ -1,39 +1,68 @@
+# Gunakan versi compose file yang modern
 version: '3.8'
 
 services:
+  # 1. Servis Aplikasi Laravel (PHP-FPM)
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: laravel-app:latest
-    container_name: laravel-app
+    container_name: laravel_app # Nama ini akan digunakan oleh Caddy
     restart: unless-stopped
-    env_file:
-      - .env
+    working_dir: /var/www
+    # TIDAK ADA VOLUMES UNTUK KODE APLIKASI DI PRODUKSI
+    # Image sudah self-contained. Semua file sudah di-copy oleh Dockerfile.
+    # Namun, kita bisa menambahkan volume untuk storage jika diperlukan.
     volumes:
-      - ./:/var/www
+      - storage_data:/var/www/storage
+      - ./:/var/www/
+    environment:
+      # Variabel environment diambil dari file .env di host
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      # Pastikan APP_KEY ada di file .env Anda
+      - APP_KEY=${APP_KEY}
+      - APP_ENV=production
+      - APP_DEBUG=false
     depends_on:
       - db
     networks:
-      - laravel
+      # Hubungkan ke network internal dan network eksternal Caddy
+      - default
+      - caddy_net
 
+  # 2. Servis Database (MySQL)
   db:
     image: mysql:8.0
-    container_name: laravel-db
+    container_name: mysql_db
     restart: unless-stopped
+    # Port tidak perlu di-expose ke host jika hanya diakses oleh 'app' service
+    # ports:
+    #   - "3306:3306"
     environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: rootsecret
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}_root"
     volumes:
-      - dbdata:/var/lib/mysql
+      - db_data:/var/lib/mysql
     networks:
-      - laravel
+      - default
 
+# Definisi Networks & Volumes
 volumes:
-  dbdata:
+  db_data:
+    driver: local
+  storage_data: # Volume untuk menyimpan file upload, log, dll secara persisten
+    driver: local
 
 networks:
-  laravel:
-    driver: bridge 
+  default: # Network internal untuk komunikasi app <-> db
+    driver: bridge
+  caddy_net: # Menandakan kita akan menggunakan network yang sudah ada
+    external: true
+    name: integrate # <-- PASTIKAN NAMA INI SESUAI dengan nama network Caddy Anda
