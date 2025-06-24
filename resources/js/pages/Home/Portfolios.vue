@@ -1,101 +1,43 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { MapPin, Calendar, Users, Building } from 'lucide-vue-next';
 import NavMenu from '@/components/NavMenu.vue';
 import Footer from '@/components/Footer.vue';
-
+import { usePage, router } from '@inertiajs/vue3';
 
 const activeFilter = ref('all');
+const projects = ref([]);
+const loading = ref(true);
+const error = ref(null);
 
-const projects = ref([
-  {
-    id: 1,
-    title: 'Kompleks Perumahan Green Valley',
-    category: 'residential',
-    location: 'Jakarta Selatan',
-    year: '2023',
-    client: 'PT. Properti Nusantara',
-    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop',
-    description: 'Perencanaan dan pengembangan kompleks perumahan mewah dengan 150 unit rumah dan fasilitas lengkap.',
-    services: ['Perencanaan Tata Ruang', 'Analisis Tanah', 'Manajemen Proyek']
-  },
-  {
-    id: 2,
-    title: 'Gedung Perkantoran Central Plaza',
-    category: 'commercial',
-    location: 'Jakarta Pusat',
-    year: '2023',
-    client: 'PT. Maju Bersama',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop',
-    description: 'Konsultasi pembangunan gedung perkantoran 25 lantai dengan konsep green building.',
-    services: ['Analisis Struktur', 'Perizinan', 'Supervisi Konstruksi']
-  },
-  {
-    id: 3,
-    title: 'Pusat Perbelanjaan Metro Square',
-    category: 'commercial',
-    location: 'Bandung',
-    year: '2022',
-    client: 'CV. Retail Indonesia',
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop',
-    description: 'Perencanaan dan konsultasi pengembangan pusat perbelanjaan modern dengan luas 50.000 m².',
-    services: ['Studi Kelayakan', 'Desain Konsep', 'Analisis Investasi']
-  },
-  {
-    id: 4,
-    title: 'Kompleks Industri Tech Park',
-    category: 'industrial',
-    location: 'Karawang',
-    year: '2022',
-    client: 'PT. Industri Teknologi',
-    image: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=600&h=400&fit=crop',
-    description: 'Pengembangan kawasan industri teknologi dengan infrastruktur modern dan ramah lingkungan.',
-    services: ['Masterplan', 'Analisis Lingkungan', 'Infrastruktur']
-  },
-  {
-    id: 5,
-    title: 'Apartemen Luxury Heights',
-    category: 'residential',
-    location: 'Surabaya',
-    year: '2021',
-    client: 'PT. Urban Living',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=400&fit=crop',
-    description: 'Konsultasi pengembangan apartemen mewah 40 lantai dengan fasilitas premium.',
-    services: ['Analisis Pasar', 'Perencanaan Unit', 'Strategi Pemasaran']
-  },
-  {
-    id: 6,
-    title: 'Hotel Resort Pantai Indah',
-    category: 'hospitality',
-    location: 'Bali',
-    year: '2021',
-    client: 'PT. Hospitality Nusantara',
-    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=400&fit=crop',
-    description: 'Perencanaan resort mewah tepi pantai dengan 200 kamar dan fasilitas rekreasi lengkap.',
-    services: ['Konsep Desain', 'Analisis Site', 'Perizinan Pariwisata']
-  }
-]);
-
-const categories = ref([
-  { id: 'all', label: 'Semua Proyek' },
-  { id: 'residential', label: 'Perumahan' },
-  { id: 'commercial', label: 'Komersial' },
-  { id: 'industrial', label: 'Industri' },
-  { id: 'hospitality', label: 'Perhotelan' }
-]);
+const categories = ref([{ id: 'all', label: 'Semua' }]);
 
 const portfolioStats = ref([
-  { number: "150+", label: "Proyek Selesai" },
-  { number: "15+", label: "Tahun Pengalaman" },
-  { number: "98%", label: "Kepuasan Klien" },
-  { number: "25+", label: "Kota di Indonesia" }
+  { number: '-', label: 'Total Proyek' },
+  { number: '-', label: 'Tahun Pengalaman' },
+  { number: '-', label: 'Client Unik' },
+  { number: '-', label: 'Teknologi Unik' }
 ]);
+
+const updateCategories = (items) => {
+  const techSet = new Set();
+  items.forEach(item => {
+    (item.technologies || []).forEach(tech => techSet.add(tech));
+  });
+  categories.value = [
+    { id: 'all', label: 'Semua' },
+    ...Array.from(techSet).map(tech => ({ id: tech, label: tech }))
+  ];
+};
 
 const filteredProjects = computed(() => {
   if (activeFilter.value === 'all') {
     return projects.value;
   }
-  return projects.value.filter(project => project.category === activeFilter.value);
+  // Filter berdasarkan teknologi
+  return projects.value.filter(project =>
+    project.technologies && project.technologies.includes(activeFilter.value)
+  );
 });
 
 const setActiveFilter = (filterId) => {
@@ -103,14 +45,89 @@ const setActiveFilter = (filterId) => {
 };
 
 const scrollToContact = () => {
-  const section = document.getElementById('contact'); // Pastikan ID 'contact' ada di halaman Anda
+  const section = document.getElementById('contact');
   if (section) {
     section.scrollIntoView({ behavior: 'smooth' });
   } else {
-    // router.push('/contact'); // Jika contact adalah halaman terpisah
     console.warn('Elemen dengan ID "contact" tidak ditemukan untuk scroll.');
   }
 };
+
+const goToPortfolioDetail = (project) => {
+  router.visit(`/portfolio/${project.id}`);
+};
+
+// Function to strip HTML tags from text
+const stripHtml = (html) => {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || '';
+};
+
+const formatDate = (dateString) => {
+  if (!dateString) return '-';
+  const date = new Date(dateString);
+  return date.toLocaleDateString('id-ID', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+
+// Fetch portfolios from API
+const fetchPortfolios = async () => {
+  try {
+    loading.value = true;
+    error.value = null;
+    const response = await fetch('/api/v1/portfolios');
+    if (!response.ok) throw new Error('Gagal mengambil data portfolio');
+    const data = await response.json();
+    const items = data.data || data;
+    projects.value = items.map(item => {
+      const cleanDesc = stripHtml(item.description || '');
+      const excerpt = cleanDesc.length > 120 ? cleanDesc.substring(0, 120) + '...' : cleanDesc;
+      return {
+        id: item.id,
+        title: item.title,
+        description: excerpt,
+        images: item.images || [],
+        client: item.client || (item.user?.name ?? '-'),
+        technologies: item.technologies || [],
+        status: item.status,
+        project_date: item.project_date ? formatDate(item.project_date) : '-',
+        created_at: item.created_at,
+      };
+    });
+    updateCategories(projects.value);
+  } catch (err) {
+    error.value = err.message;
+    projects.value = [];
+    updateCategories([]);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const fetchPortfolioStats = async () => {
+  try {
+    const response = await fetch('/api/v1/portfolios/stats');
+    if (!response.ok) throw new Error('Gagal mengambil statistik portfolio');
+    const stats = await response.json();
+    portfolioStats.value = [
+      { number: stats.total_projects, label: 'Total Proyek' },
+      { number: stats.years_experience + ' Tahun', label: 'Tahun Pengalaman' },
+      { number: stats.unique_clients, label: 'Client' },
+      { number: stats.unique_technologies, label: 'Teknologi' },
+    ];
+  } catch (err) {
+    // Biarkan default jika gagal
+  }
+};
+
+onMounted(() => {
+  fetchPortfolios();
+  fetchPortfolioStats();
+});
 </script>
 
 <template>
@@ -139,7 +156,7 @@ const scrollToContact = () => {
       </div>
     </section>
 
-    <section class="py-16 bg-white">
+    <!-- <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-8">
           <div
@@ -152,7 +169,7 @@ const scrollToContact = () => {
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <section class="py-8 bg-gray-100">
       <div class="max-w-7xl mx-auto px-6">
@@ -176,47 +193,61 @@ const scrollToContact = () => {
 
     <section class="py-16">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
-          <div
-              v-for="project in filteredProjects"
-              :key="project.id"
-              class="overflow-hidden hover:shadow-lg transition-shadow bg-white rounded-lg border"
-          >
-            <div class="aspect-video overflow-hidden">
-              <img
-                  :src="project.image"
-                  :alt="project.title"
-                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-900 mb-2">{{ project.title }}</h3>
-              <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                {{ project.description }}
-              </p>
-              <div class="space-y-3">
-                <div class="flex items-center space-x-2 text-sm text-gray-600">
-                  <MapPin class="w-4 h-4 flex-shrink-0" />
-                  <span>{{ project.location }}</span>
-                </div>
-                <div class="flex items-center space-x-2 text-sm text-gray-600">
-                  <Calendar class="w-4 h-4 flex-shrink-0" />
-                  <span>{{ project.year }}</span>
-                </div>
-                <div class="flex items-center space-x-2 text-sm text-gray-600">
-                  <Building class="w-4 h-4 flex-shrink-0" />
-                  <span>{{ project.client }}</span>
-                </div>
-                <div class="pt-2">
-                  <h4 class="font-semibold text-sm mb-2 text-gray-800">Layanan:</h4>
-                  <div class="flex flex-wrap gap-1">
-                    <span
-                        v-for="(service, sIndex) in project.services"
-                        :key="sIndex"
-                        class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
-                    >
-                      {{ service }}
-                    </span>
+        <div v-if="loading" class="text-center py-12">
+          <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+          <p class="mt-4 text-gray-600">Memuat portfolio...</p>
+        </div>
+        <div v-else-if="error" class="text-center py-12">
+          <p class="text-red-600 mb-4">{{ error }}</p>
+          <button @click="fetchPortfolios" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            Coba Lagi
+          </button>
+        </div>
+        <div v-else>
+          <div v-if="filteredProjects.length === 0" class="text-center py-12">
+            <p class="text-gray-600 text-lg">Belum ada portfolio yang dipublikasikan.</p>
+            <p class="text-gray-500 mt-2">Silakan kembali lagi nanti.</p>
+          </div>
+          <div v-else class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+            <div
+                v-for="project in filteredProjects"
+                :key="project.id"
+                class="overflow-hidden hover:shadow-lg transition-shadow bg-white rounded-lg border"
+                @click="goToPortfolioDetail(project)"
+                style="cursor:pointer"
+            >
+              <div class="aspect-video overflow-hidden">
+                <img
+                    :src="project.images[0]"
+                    :alt="project.title"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ project.title }}</h3>
+                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                  {{ project.description }}
+                </p>
+                <div class="space-y-3">
+                  <div class="flex items-center space-x-2 text-sm text-gray-600">
+                    <MapPin class="w-4 h-4 flex-shrink-0" />
+                    <span>{{ project.client }}</span>
+                  </div>
+                  <div class="flex items-center space-x-2 text-sm text-gray-600">
+                    <Calendar class="w-4 h-4 flex-shrink-0" />
+                    <span>{{ project.project_date }}</span>
+                  </div>
+                  <div v-if="project.technologies && project.technologies.length" class="pt-2">
+                    <h4 class="font-semibold text-sm mb-2 text-gray-800">Technologies:</h4>
+                    <div class="flex flex-wrap gap-1">
+                      <span
+                          v-for="(technology, tIndex) in project.technologies"
+                          :key="tIndex"
+                          class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                      >
+                        {{ technology }}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

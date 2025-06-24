@@ -92,8 +92,12 @@ class PortfolioController extends Controller
             abort(403);
         }
 
+        // Kirim data sebagai array, project_date diformat yyyy-mm-dd
+        $data = $portfolio->toArray();
+        $data['project_date'] = $portfolio->project_date ? $portfolio->project_date->format('Y-m-d') : null;
+
         return Inertia::render('Portfolios/Edit', [
-            'portfolio' => $portfolio,
+            'portfolio' => $data,
         ]);
     }
 

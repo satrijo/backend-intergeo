@@ -27,6 +27,7 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     Route::apiResource('articles', ArticleApiController::class)->only(['index', 'show']);
 
     // Portfolio Endpoints
+    Route::get('portfolios/stats', [PortfolioApiController::class, 'stats']);
     Route::apiResource('portfolios', PortfolioApiController::class)->only(['index', 'show']);
 
     // Category Endpoints

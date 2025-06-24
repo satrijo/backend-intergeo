@@ -106,7 +106,7 @@ const submit = () => {
                         <ImageUpload
                             v-model="form.images"
                             label="Project Images"
-                            :max-images="5"
+                            :max-images="4"
                             :error="form.errors.images"
                         />
 

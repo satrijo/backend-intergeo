@@ -123,11 +123,11 @@ const submit = () => {
                         />
 
                         <div class="space-y-2">
-                            <Label for="images">Project Images (Optional)</Label>
+                            <!-- <Label for="images">Project Images (Optional)</Label> -->
                             <ImageUpload
                                 v-model="form.images"
                                 label="Project Images"
-                                :max-images="5"
+                                :max-images="4"
                                 :error="form.errors.images"
                             />
                         </div>

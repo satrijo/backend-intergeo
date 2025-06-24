@@ -34,4 +34,30 @@ class PortfolioApiController extends Controller
 
         return response()->json($portfolio);
     }
+
+    /**
+     * Display portfolio statistics.
+     */
+    public function stats()
+    {
+        $published = Portfolio::published();
+        $totalProjects = $published->count();
+        $firstProject = Portfolio::published()->orderBy('project_date', 'asc')->first();
+        $lastProject = Portfolio::published()->orderBy('project_date', 'desc')->first();
+        $earliestYear = $firstProject && $firstProject->project_date ? (int)date('Y', strtotime($firstProject->project_date)) : null;
+        $latestYear = $lastProject && $lastProject->project_date ? (int)date('Y', strtotime($lastProject->project_date)) : null;
+        $currentYear = (int)date('Y');
+        $yearsExperience = $earliestYear ? max(1, $currentYear - $earliestYear + 1) : 0;
+        $uniqueClients = Portfolio::published()->whereNotNull('client')->distinct('client')->count('client');
+        $allTechnologies = Portfolio::published()->pluck('technologies')->flatten()->unique()->filter()->count();
+
+        return response()->json([
+            'total_projects' => $totalProjects,
+            'years_experience' => $yearsExperience,
+            'unique_clients' => $uniqueClients,
+            'unique_technologies' => $allTechnologies,
+            'earliest_year' => $earliestYear,
+            'latest_year' => $latestYear,
+        ]);
+    }
 } 

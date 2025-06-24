@@ -57,6 +57,17 @@ const confirmDelete = (portfolioId: string, portfolioTitle: string) => {
 const getStatusBadgeVariant = (status: string) => {
     return status === 'published' ? 'default' : 'secondary';
 };
+
+const stripHtml = (html: string) => {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+};
+
+const getExcerpt = (html: string, maxLength = 120) => {
+    const clean = stripHtml(html || '');
+    return clean.length > maxLength ? clean.substring(0, maxLength) + '...' : clean;
+};
 </script>
 
 <template>
@@ -117,7 +128,7 @@ const getStatusBadgeVariant = (status: string) => {
                                         <div>
                                             <div class="font-medium">{{ portfolio.title }}</div>
                                             <div class="text-sm text-muted-foreground line-clamp-2">
-                                                {{ portfolio.description }}
+                                                {{ getExcerpt(portfolio.description) }}
                                             </div>
                                         </div>
                                     </TableCell>

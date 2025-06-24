@@ -47,6 +47,17 @@ Route::get('/portfolio', function () {
     return Inertia::render('Home/Portfolios');
 })->name('portfolios');
 
+// Public portfolio view route
+Route::get('/portfolio/{portfolio}', function (Portfolio $portfolio) {
+    if ($portfolio->status !== 'published') {
+        abort(404);
+    }
+    $portfolio->load('user');
+    return Inertia::render('Home/PortfolioDetail', [
+        'portfolio' => $portfolio,
+    ]);
+})->name('portfolio.show');
+
 Route::get('dashboard', function () {
     $recentArticles = Article::where('user_id', auth()->id())
         ->orderBy('created_at', 'desc')
