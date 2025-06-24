@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { router, Head } from '@inertiajs/vue3';
 // Jika menggunakan Vue Router, pastikan sudah terkonfigurasi
 // import { useRouter } from 'vue-router';
 import Footer from '@/components/Footer.vue';
@@ -119,6 +119,22 @@ onMounted(() => {
 </script>
 
 <template>
+    <Head>
+        <title>Blog Intergeo | Artikel & Wawasan Geoteknik, Survey, dan Properti</title>
+        <meta name="description" content="Baca artikel terbaru seputar geoteknik, survey, properti, dan konsultasi dari PT. Intergeo Mitigasi. Tips, wawasan, dan berita industri terkini." />
+        <link rel="canonical" href="https://surveyseismikgpr.com/blog" />
+        <meta name="keywords" content="blog intergeo, artikel geoteknik, artikel survey, artikel properti, PT. Intergeo Mitigasi" />
+        <meta property="og:title" content="Blog Intergeo | Artikel & Wawasan Geoteknik, Survey, dan Properti" />
+        <meta property="og:description" content="Baca artikel terbaru seputar geoteknik, survey, properti, dan konsultasi dari PT. Intergeo Mitigasi." />
+        <meta property="og:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
+        <meta property="og:url" content="https://surveyseismikgpr.com/blog" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Blog Intergeo | Artikel & Wawasan Geoteknik, Survey, dan Properti" />
+        <meta name="twitter:description" content="Baca artikel terbaru seputar geoteknik, survey, properti, dan konsultasi dari PT. Intergeo Mitigasi." />
+        <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
+    </Head>
     <NavMenu />
     <div class="min-h-screen bg-gray-50 light-mode">
         <section class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 py-20 text-white">

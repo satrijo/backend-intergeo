@@ -40,6 +40,10 @@ const services = shallowRef([
     features: ["Project Planning", "Quality Control", "Timeline Management"]
   }
 ]);
+
+const goToContact = () => {
+  window.location.href = '/contact';
+};
 </script>
 
 <template>
@@ -89,7 +93,7 @@ const services = shallowRef([
         <p class="text-lg text-gray-600 mb-6">
           Tidak menemukan layanan yang Anda cari?
         </p>
-        <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+        <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors cursor-pointer" @click="goToContact">
           Konsultasi Custom
         </button>
       </div>

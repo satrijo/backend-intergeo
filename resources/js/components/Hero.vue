@@ -6,6 +6,8 @@ const scrollToContact = () => {
   const section = document.getElementById('contact');
   if (section) {
     section.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    window.location.href = '/contact';
   }
 };
 
@@ -13,6 +15,8 @@ const scrollToPortfolio = () => {
   const section = document.getElementById('portfolio');
   if (section) {
     section.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    window.location.href = '/portfolio';
   }
 };
 </script>
@@ -42,13 +46,13 @@ const scrollToPortfolio = () => {
           <div class="flex flex-col sm:flex-row gap-4">
             <button
                 @click="scrollToContact"
-                class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 text-lg px-8 py-3 rounded-md font-semibold transition-colors"
+                class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 text-lg px-8 py-3 rounded-md font-semibold transition-colors cursor-pointer"
             >
               Konsultasi Gratis
             </button>
             <button
                 @click="scrollToPortfolio"
-                class="border-white text-white hover:bg-white hover:text-blue-900 text-lg px-8 py-3 rounded-md font-semibold transition-colors border"
+                class="border-white text-white hover:bg-white hover:text-blue-900 text-lg px-8 py-3 rounded-md font-semibold transition-colors border cursor-pointer"
             >
               Lihat Portfolio
             </button>

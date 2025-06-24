@@ -16,6 +16,10 @@ const featuresList = shallowRef([
   "Garansi kepuasan 100%",
   "Dukungan after-sales terbaik"
 ]);
+
+const goToContact = () => {
+  window.location.href = '/contact';
+};
 </script>
 
 <template>
@@ -46,7 +50,8 @@ const featuresList = shallowRef([
           </div>
 
           <button
-              class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold"
+              class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold cursor-pointer"
+              @click="goToContact"
           >
             Pelajari Lebih Lanjut
           </button>

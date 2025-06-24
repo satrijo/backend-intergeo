@@ -3,7 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import { MapPin, Calendar, Users, Building } from 'lucide-vue-next';
 import NavMenu from '@/components/NavMenu.vue';
 import Footer from '@/components/Footer.vue';
-import { usePage, router } from '@inertiajs/vue3';
+import { usePage, router, Head } from '@inertiajs/vue3';
 
 const activeFilter = ref('all');
 const projects = ref([]);
@@ -49,7 +49,7 @@ const scrollToContact = () => {
   if (section) {
     section.scrollIntoView({ behavior: 'smooth' });
   } else {
-    console.warn('Elemen dengan ID "contact" tidak ditemukan untuk scroll.');
+    window.location.href = '/contact';
   }
 };
 
@@ -131,6 +131,22 @@ onMounted(() => {
 </script>
 
 <template>
+  <Head>
+    <title>Portfolio Proyek | PT. Intergeo Mitigasi</title>
+    <meta name="description" content="Lihat portfolio proyek-proyek terbaik PT. Intergeo Mitigasi di bidang survey, geoteknik, dan konsultasi. Bukti nyata kualitas dan profesionalisme kami." />
+    <link rel="canonical" href="https://surveyseismikgpr.com/portfolios" />
+    <meta name="keywords" content="portfolio intergeo, proyek survey, proyek geoteknik, PT. Intergeo Mitigasi" />
+    <meta property="og:title" content="Portfolio Proyek | PT. Intergeo Mitigasi" />
+    <meta property="og:description" content="Lihat portfolio proyek-proyek terbaik PT. Intergeo Mitigasi di bidang survey, geoteknik, dan konsultasi." />
+    <meta property="og:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
+    <meta property="og:url" content="https://surveyseismikgpr.com/portfolios" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Portfolio Proyek | PT. Intergeo Mitigasi" />
+    <meta name="twitter:description" content="Lihat portfolio proyek-proyek terbaik PT. Intergeo Mitigasi di bidang survey, geoteknik, dan konsultasi." />
+    <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
+  </Head>
   <NavMenu />
   <div class="min-h-screen bg-gray-50 light-mode">
     <section class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-20">
@@ -267,7 +283,7 @@ onMounted(() => {
         </p>
         <button
             @click="scrollToContact"
-            class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 px-8 py-3 rounded-md text-lg font-semibold transition-colors"
+            class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 px-8 py-3 rounded-md text-lg font-semibold transition-colors cursor-pointer"
         >
           Konsultasi Gratis Sekarang
         </button>

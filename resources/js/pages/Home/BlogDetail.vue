@@ -1,7 +1,7 @@
 <script setup>
 import Footer from '@/components/Footer.vue';
 import NavMenu from '@/components/NavMenu.vue';
-import { router } from '@inertiajs/vue3';
+import { router, Head } from '@inertiajs/vue3';
 import { ArrowLeft, Calendar, ChevronLeft, Clock, User } from 'lucide-vue-next';
 import { onMounted, onUnmounted, ref, computed } from 'vue';
 
@@ -49,9 +49,37 @@ const readTime = computed(() => {
 const goBack = () => {
     router.visit('/blog');
 };
+
+// Fungsi untuk mengambil excerpt dari body artikel
+const getExcerpt = (html, maxLength = 150) => {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  const text = tmp.textContent || tmp.innerText || '';
+  return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+};
+
+const canonicalUrl = `https://surveyseismikgpr.com/blog/${props.article.slug}`;
+const ogImage = props.article.image || 'https://surveyseismikgpr.com/images/og-image.jpg';
+const description = getExcerpt(props.article.body);
 </script>
 
 <template>
+    <Head>
+        <title>{{ props.article.title }} | PT. Intergeo Mitigasi</title>
+        <meta name="description" :content="description" />
+        <link rel="canonical" :href="canonicalUrl" />
+        <meta name="keywords" content="survey seismik, jasa gpr, jasa georadar, ground penetrating radar, survey geofisika, deteksi utilitas, PT. Intergeo Mitigasi, artikel, blog" />
+        <meta property="og:title" :content="props.article.title + ' | PT. Intergeo Mitigasi'" />
+        <meta property="og:description" :content="description" />
+        <meta property="og:image" :content="ogImage" />
+        <meta property="og:url" :content="canonicalUrl" />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" :content="props.article.title + ' | PT. Intergeo Mitigasi'" />
+        <meta name="twitter:description" :content="description" />
+        <meta name="twitter:image" :content="ogImage" />
+    </Head>
     <NavMenu />
     <div class="min-h-screen bg-gray-50">
         <!-- Article Header -->
@@ -108,7 +136,7 @@ const goBack = () => {
                 <div class="prose prose-lg max-w-none text-gray-800" v-html="article.body"></div>
 
                 <!-- Article Footer -->
-                <div class="mt-12 border-t border-gray-200 pt-8">
+                <div class="mt-12 border-t border-gray-200 pt-8 mb-12">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center text-sm text-gray-600">
                             <span>Ditulis oleh {{ article.user?.name || 'Anonymous' }}</span>

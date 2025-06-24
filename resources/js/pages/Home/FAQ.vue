@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { Head } from '@inertiajs/vue3';
 // Jika menggunakan Vue Router, pastikan sudah terkonfigurasi
 // import { useRouter } from 'vue-router';
 import { ArrowLeft, HelpCircle, Phone, Mail, ChevronDown } from 'lucide-vue-next';
@@ -61,7 +62,7 @@ const scrollToContact = () => {
   if (contactSection) {
     contactSection.scrollIntoView({ behavior: 'smooth' });
   } else {
-    console.warn('Elemen dengan ID "contact" tidak ditemukan untuk scroll.');
+    window.location.href = '/contact';
   }
 };
 
@@ -71,104 +72,119 @@ const scrollToContact = () => {
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col light-mode">
-      <NavMenuSimple />
-  
-      <section class="py-20 bg-gray-50 flex-grow">
-        <div class="max-w-4xl mx-auto px-6">
-          <div class="text-center mb-16">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6">
-              <HelpCircle class="w-8 h-8 text-blue-600" />
-            </div>
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions
-            </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-              Temukan jawaban untuk pertanyaan yang sering diajukan tentang layanan konsultasi kami
-            </p>
+  <Head>
+    <title>FAQ Intergeo | Pertanyaan Umum Layanan Konsultan & Survey</title>
+    <meta name="description" content="Temukan jawaban atas pertanyaan umum tentang layanan PT. Intergeo Mitigasi: konsultasi, survey, geoteknik, properti, dan lainnya. Hubungi kami untuk info lebih lanjut." />
+    <link rel="canonical" href="https://surveyseismikgpr.com/faq" />
+    <meta name="keywords" content="faq intergeo, pertanyaan umum, layanan konsultasi, survey, PT. Intergeo Mitigasi" />
+    <meta property="og:title" content="FAQ Intergeo | Pertanyaan Umum Layanan Konsultan & Survey" />
+    <meta property="og:description" content="Temukan jawaban atas pertanyaan umum tentang layanan PT. Intergeo Mitigasi: konsultasi, survey, geoteknik, properti, dan lainnya." />
+    <meta property="og:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
+    <meta property="og:url" content="https://surveyseismikgpr.com/faq" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FAQ Intergeo | Pertanyaan Umum Layanan Konsultan & Survey" />
+    <meta name="twitter:description" content="Temukan jawaban atas pertanyaan umum tentang layanan PT. Intergeo Mitigasi: konsultasi, survey, geoteknik, properti, dan lainnya." />
+    <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
+  </Head>
+  <div class="min-h-screen flex flex-col light-mode">
+    <NavMenuSimple />
+
+    <section class="py-20 bg-gray-50 flex-grow">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6">
+            <HelpCircle class="w-8 h-8 text-blue-600" />
           </div>
-  
-          <div class="mb-12 bg-white shadow-md rounded-lg border">
-            <div class="p-6 md:p-8">
-              <div class="space-y-1">
-                <div
-                    v-for="(item, index) in faqData"
-                    :key="index"
-                    class="border-b border-gray-200 last:border-b-0"
-                >
-                  <button
-                      @click="toggleAccordion(index)"
-                      class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-900 hover:text-blue-600 py-5 md:py-6 focus:outline-none transition-colors"
-                  >
-                    <span>{{ item.question }}</span>
-                    <ChevronDown
-                        class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0"
-                        :class="{ 'rotate-180': openAccordionIndex === index }"
-                    />
-                  </button>
-                  <div
-                      v-show="openAccordionIndex === index"
-                      class="text-gray-600 pb-5 md:pb-6 leading-relaxed animate-fade-in-down"
-                  >
-                    {{ item.answer }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-  
-          <div class="bg-blue-900 text-white rounded-lg shadow-xl">
-            <div class="p-6 md:p-8 text-center">
-              <h2 class="text-2xl font-semibold mb-2">Masih Ada Pertanyaan?</h2>
-              <p class="text-blue-100 mb-6">
-                Tim ahli kami siap membantu Anda dengan pertanyaan spesifik tentang proyek Anda
-              </p>
-              <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
-                <div class="flex items-center space-x-2">
-                  <Phone class="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                  <a href="tel:+6281234567890" class="hover:text-yellow-300 transition-colors">+62 812-3456-7890</a>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <Mail class="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                  <a href="mailto:intergeo.mitigasi@gmail.com" class="hover:text-yellow-300 transition-colors">intergeo.mitigasi@gmail.com</a>
-                </div>
-              </div>
-              <button
-                  @click="scrollToContact"
-                  class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 px-8 py-3 rounded-md text-lg font-semibold transition-colors"
+          <h1 class="text-4xl font-bold text-gray-900 mb-4">
+            Frequently Asked Questions
+          </h1>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Temukan jawaban untuk pertanyaan yang sering diajukan tentang layanan konsultasi kami
+          </p>
+        </div>
+
+        <div class="mb-12 bg-white shadow-md rounded-lg border">
+          <div class="p-6 md:p-8">
+            <div class="space-y-1">
+              <div
+                  v-for="(item, index) in faqData"
+                  :key="index"
+                  class="border-b border-gray-200 last:border-b-0"
               >
-                Hubungi Kami Sekarang
-              </button>
+                <button
+                    @click="toggleAccordion(index)"
+                    class="flex justify-between items-center w-full text-left text-lg font-semibold text-gray-900 hover:text-blue-600 py-5 md:py-6 focus:outline-none transition-colors"
+                >
+                  <span>{{ item.question }}</span>
+                  <ChevronDown
+                      class="w-5 h-5 transform transition-transform duration-300 flex-shrink-0"
+                      :class="{ 'rotate-180': openAccordionIndex === index }"
+                  />
+                </button>
+                <div
+                    v-show="openAccordionIndex === index"
+                    class="text-gray-600 pb-5 md:pb-6 leading-relaxed animate-fade-in-down"
+                >
+                  {{ item.answer }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-      <Footer />
-  </div>
-  </template>
-  
-  
-  <style scoped>
-  /* Untuk transisi expand/collapse akordion yang lebih halus (opsional) */
-  /* Anda mungkin memerlukan pendekatan yang lebih canggih dengan <transition> Vue jika
-     ingin animasi tinggi yang dinamis */
-  .animate-fade-in-down {
-    animation: fadeInDown 0.3s ease-out;
-  }
-  
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
-  /* Force light mode for homepage */
-  .light-mode {
-    color-scheme: light;
+        <div class="bg-blue-900 text-white rounded-lg shadow-xl">
+          <div class="p-6 md:p-8 text-center">
+            <h2 class="text-2xl font-semibold mb-2">Masih Ada Pertanyaan?</h2>
+            <p class="text-blue-100 mb-6">
+              Tim ahli kami siap membantu Anda dengan pertanyaan spesifik tentang proyek Anda
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+              <div class="flex items-center space-x-2">
+                <Phone class="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                <a href="tel:+6281234567890" class="hover:text-yellow-300 transition-colors">+62 812-3456-7890</a>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Mail class="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                <a href="mailto:intergeo.mitigasi@gmail.com" class="hover:text-yellow-300 transition-colors">intergeo.mitigasi@gmail.com</a>
+              </div>
+            </div>
+            <button
+                @click="scrollToContact"
+                class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 px-8 py-3 rounded-md text-lg font-semibold transition-colors cursor-pointer"
+            >
+              Hubungi Kami Sekarang
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <Footer />
+  </div>
+</template>
+
+<style scoped>
+/* Untuk transisi expand/collapse akordion yang lebih halus (opsional) */
+/* Anda mungkin memerlukan pendekatan yang lebih canggih dengan <transition> Vue jika
+   ingin animasi tinggi yang dinamis */
+.animate-fade-in-down {
+  animation: fadeInDown 0.3s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  </style>
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Force light mode for homepage */
+.light-mode {
+  color-scheme: light;
+}
+</style>
