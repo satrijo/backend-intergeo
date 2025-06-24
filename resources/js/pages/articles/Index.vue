@@ -57,12 +57,19 @@ const deleteArticle = (articleId: string) => {
                     <h1 class="text-2xl font-bold">Articles</h1>
                     <p class="text-muted-foreground">Manage your articles</p>
                 </div>
-                <Button as-child>
-                    <Link :href="route('articles.create')">
-                        <Plus class="mr-2 h-4 w-4" />
-                        Create Article
-                    </Link>
-                </Button>
+                <div class="flex gap-2">
+                    <Button variant="outline" as-child>
+                        <Link :href="route('blog')">
+                            View Blog
+                        </Link>
+                    </Button>
+                    <Button as-child>
+                        <Link :href="route('articles.create')">
+                            <Plus class="mr-2 h-4 w-4" />
+                            Create Article
+                        </Link>
+                    </Button>
+                </div>
             </div>
 
             <Card>

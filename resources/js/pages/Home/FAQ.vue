@@ -71,7 +71,7 @@ const scrollToContact = () => {
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col light-mode">
       <NavMenuSimple />
   
       <section class="py-20 bg-gray-50 flex-grow">
@@ -165,5 +165,10 @@ const scrollToContact = () => {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /* Force light mode for homepage */
+  .light-mode {
+    color-scheme: light;
   }
   </style>

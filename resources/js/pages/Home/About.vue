@@ -84,7 +84,7 @@ const scrollToPortfolio = () => {
 
 <template>
     <NavMenu />
-    <div class="min-h-screen">
+    <div class="min-h-screen light-mode">
       <section class="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">
         <div class="absolute inset-0 opacity-10">
           <div
@@ -238,4 +238,9 @@ const scrollToPortfolio = () => {
   
   <style scoped>
   /* Gaya spesifik komponen bisa ditambahkan di sini jika perlu */
+
+  /* Force light mode for homepage */
+  .light-mode {
+    color-scheme: light;
+  }
   </style>

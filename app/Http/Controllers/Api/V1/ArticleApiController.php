@@ -34,7 +34,7 @@ class ArticleApiController extends Controller
      */
     public function show(Article $article)
     {
-        if ($article->status !== 'published') {
+        if (!$article->published) {
             return response()->json(['message' => 'Article not found.'], 404);
         }
         

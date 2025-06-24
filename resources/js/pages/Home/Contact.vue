@@ -6,7 +6,7 @@ import NavSimple from '@/components/NavMenuSimple.vue';
 </script>
 
 <template>
-    <div class="flex min-h-screen flex-col">
+    <div class="flex min-h-screen flex-col light-mode">
         <NavSimple />
 
         <Contact />
@@ -28,5 +28,10 @@ import NavSimple from '@/components/NavMenuSimple.vue';
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Force light mode for homepage */
+.light-mode {
+    color-scheme: light;
 }
 </style>

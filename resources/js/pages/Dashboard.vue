@@ -146,6 +146,12 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </CardHeader>
                     <CardContent class="space-y-2">
                         <Button variant="outline" class="w-full justify-start" as-child>
+                            <Link :href="route('blog')">
+                                <FileText class="mr-2 h-4 w-4" />
+                                View Blog
+                            </Link>
+                        </Button>
+                        <Button variant="outline" class="w-full justify-start" as-child>
                             <Link :href="route('articles.index')">
                                 <FileText class="mr-2 h-4 w-4" />
                                 View All Articles

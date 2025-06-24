@@ -212,32 +212,5 @@ const breadcrumbs: BreadcrumbItem[] = [
 </template>
 
 <style scoped>
-.prose {
-    color: hsl(var(--foreground));
-}
-
-.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-    color: hsl(var(--foreground));
-}
-
-.prose p {
-    color: hsl(var(--muted-foreground));
-}
-
-.prose a {
-    color: hsl(var(--primary));
-}
-
-.prose strong {
-    color: hsl(var(--foreground));
-}
-
-.prose ul, .prose ol {
-    color: hsl(var(--muted-foreground));
-}
-
-.prose blockquote {
-    border-left-color: hsl(var(--border));
-    color: hsl(var(--muted-foreground));
-}
+/* Prose styles are now defined globally in app.css */
 </style> 

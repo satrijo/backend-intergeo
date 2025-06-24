@@ -1,4 +1,5 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@source "../views";
 
 @import 'tw-animate-css';
 
@@ -81,6 +82,97 @@
     html {
         --font-sans:
             'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    }
+}
+
+/* Tailwind v4 Typography Styles */
+@layer components {
+    .prose {
+        @apply text-gray-700 dark:text-gray-300;
+    }
+    
+    .prose h1 {
+        @apply text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 mt-8;
+    }
+    
+    .prose h2 {
+        @apply text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 mt-6;
+    }
+    
+    .prose h3 {
+        @apply text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 mt-5;
+    }
+    
+    .prose h4 {
+        @apply text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 mt-4;
+    }
+    
+    .prose h5 {
+        @apply text-base font-bold text-gray-900 dark:text-gray-100 mb-2 mt-3;
+    }
+    
+    .prose h6 {
+        @apply text-sm font-bold text-gray-900 dark:text-gray-100 mb-1 mt-2;
+    }
+    
+    .prose p {
+        @apply text-gray-700 dark:text-gray-300 leading-relaxed mb-4;
+    }
+    
+    .prose a {
+        @apply text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline;
+    }
+    
+    .prose strong {
+        @apply font-bold text-gray-900 dark:text-gray-100;
+    }
+    
+    .prose em {
+        @apply italic text-gray-900 dark:text-gray-100;
+    }
+    
+    .prose ul {
+        @apply list-disc list-outside text-gray-700 dark:text-gray-300 mb-4 space-y-1 ml-6;
+    }
+    
+    .prose ol {
+        @apply list-decimal list-outside text-gray-700 dark:text-gray-300 mb-4 space-y-1 ml-6;
+    }
+    
+    .prose li {
+        @apply text-gray-700 dark:text-gray-300 pl-2;
+    }
+    
+    .prose blockquote {
+        @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-700 dark:text-gray-300 mb-4;
+    }
+    
+    .prose img {
+        @apply rounded-lg max-w-full h-auto mb-4;
+    }
+    
+    .prose code {
+        @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-1 py-0.5 rounded text-sm font-mono;
+    }
+    
+    .prose pre {
+        @apply bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4 rounded-lg overflow-x-auto mb-4;
+    }
+    
+    .prose pre code {
+        @apply bg-transparent p-0;
+    }
+    
+    .prose table {
+        @apply w-full border-collapse mb-4;
+    }
+    
+    .prose th {
+        @apply border border-gray-300 dark:border-gray-600 px-4 py-2 text-left font-bold text-gray-900 dark:text-gray-100;
+    }
+    
+    .prose td {
+        @apply border border-gray-300 dark:border-gray-600 px-4 py-2 text-gray-700 dark:text-gray-300;
     }
 }
 

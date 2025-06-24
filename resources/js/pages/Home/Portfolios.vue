@@ -115,7 +115,7 @@ const scrollToContact = () => {
 
 <template>
   <NavMenu />
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-50 light-mode">
     <section class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-20">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center space-y-6">
@@ -249,5 +249,10 @@ const scrollToContact = () => {
 <style scoped>
 .aspect-video {
   aspect-ratio: 16 / 9;
+}
+
+/* Force light mode for homepage */
+.light-mode {
+  color-scheme: light;
 }
 </style>

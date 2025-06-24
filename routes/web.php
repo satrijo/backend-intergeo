@@ -22,6 +22,19 @@ Route::get('/blog', function () {
     return Inertia::render('Home/Blog');
 })->name('blog');
 
+// Public article view route
+Route::get('/blog/{article:slug}', function (Article $article) {
+    if (!$article->published) {
+        abort(404);
+    }
+    
+    $article->load(['user', 'categories']);
+    
+    return Inertia::render('Home/BlogDetail', [
+        'article' => $article,
+    ]);
+})->name('blog.show');
+
 Route::get('/faq', function () {
     return Inertia::render('Home/FAQ');
 })->name('faq');
