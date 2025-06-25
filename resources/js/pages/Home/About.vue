@@ -115,8 +115,7 @@ const scrollToPortfolio = () => {
           Tentang <span class="text-yellow-400">Intergeo Mitigasi</span>
         </h1>
         <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-          Dipercaya selama lebih dari 15 tahun sebagai spesialis survey seismik, GPR, dan georadar
-          terbaik di Indonesia
+          Dipercaya sejak 2018 sebagai spesialis survey seismik, GPR, dan georadar terbaik di Indonesia dengan pengalaman lebih dari 7 tahun.
         </p>
       </div>
     </section>

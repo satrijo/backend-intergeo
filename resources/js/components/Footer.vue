@@ -8,7 +8,7 @@
                 <span class="text-yellow-400">Intergeo</span> Mitigasi
               </h3>
               <p class="text-gray-300 leading-relaxed">
-                Spesialis survey seismik, GPR, dan georadar terpercaya dengan pengalaman lebih dari 15 tahun.
+                Spesialis survey seismik, GPR, dan georadar terpercaya dengan pengalaman lebih dari 7 tahun.
                 Membantu proyek survey geofisika Anda dengan teknologi canggih dan hasil akurat.
               </p>
             </div>
@@ -72,7 +72,7 @@
         <div class="border-t border-gray-800 mt-12 pt-8">
           <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p class="text-gray-400 text-sm">
-              © {{ currentYear }} PT. Intergeo Mitigasi - Spesialis Survey Seismik & GPR. Semua hak cipta dilindungi.
+              © 2018–{{ currentYear }} PT. Intergeo Mitigasi - Spesialis Survey Seismik & GPR. Semua hak cipta dilindungi.
             </p>
             <div class="flex space-x-6 text-sm text-gray-400">
               <a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a>
