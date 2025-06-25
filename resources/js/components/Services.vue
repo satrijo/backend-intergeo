@@ -1,6 +1,6 @@
 <script setup>
 import { shallowRef } from 'vue'; //
-import { Radio, MapPin, Search, FileText, Calculator, Users } from 'lucide-vue-next';
+import { Radio, MapPin, Search, FileText, Calculator, Users, Compass, HardHat, Settings } from 'lucide-vue-next';
 
 const services = shallowRef([
   {
@@ -20,6 +20,24 @@ const services = shallowRef([
     title: "Survey Georadar",
     description: "Pemetaan geologi bawah permukaan, deteksi air tanah, dan analisis struktur tanah untuk konstruksi dan eksplorasi.",
     features: ["Pemetaan Geologi", "Deteksi Air Tanah", "Analisis Struktur Tanah"]
+  },
+  {
+    icon: Compass,
+    title: "Survey dan Pemetaan",
+    description: "Layanan survey dan pemetaan topografi, batimetri, dan geologi permukaan untuk perencanaan proyek dan eksplorasi.",
+    features: ["Survey Topografi", "Survey Batimetri", "Pemetaan Geologi"]
+  },
+  {
+    icon: HardHat,
+    title: "Studi Kelayakan Tambang",
+    description: "Analisis kelayakan tambang, studi geologi ekonomi, dan evaluasi potensi mineral untuk industri pertambangan.",
+    features: ["Analisis Kelayakan", "Studi Geologi Ekonomi", "Evaluasi Potensi Mineral"]
+  },
+  {
+    icon: Settings,
+    title: "Survey Infrastruktur & Jembatan",
+    description: "Inspeksi kondisi fondasi jembatan, analisis struktur infrastruktur, dan pemantauan keamanan bangunan dengan teknologi geofisika.",
+    features: ["Inspeksi Fondasi", "Analisis Struktur", "Pemantauan Keamanan"]
   },
   {
     icon: FileText,

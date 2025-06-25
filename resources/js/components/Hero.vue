@@ -39,8 +39,8 @@ const scrollToPortfolio = () => {
             Jasa <span class="text-yellow-400">Survey Seismik & GPR</span> Profesional
           </h1>
           <p class="text-xl text-blue-100 leading-relaxed">
-            Spesialis survey seismik, Ground Penetrating Radar (GPR), dan georadar untuk deteksi utilitas, 
-            analisa struktur tanah, dan studi geoteknik. Tim ahli dengan teknologi canggih untuk hasil akurat.
+            Spesialis survey seismik, Ground Penetrating Radar (GPR), georadar, survey dan pemetaan, studi kelayakan tambang, serta survey infrastruktur dan jembatan. 
+            Tim ahli dengan teknologi canggih untuk hasil akurat dalam deteksi utilitas, analisa struktur tanah, dan studi geoteknik.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <button

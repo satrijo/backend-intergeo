@@ -12,7 +12,7 @@ import Footer from "@/components/Footer.vue";
 const faqData = ref([
   {
     question: "Apa saja layanan survey yang ditawarkan Intergeo Mitigasi?",
-    answer: "Kami menyediakan layanan survey geofisika lengkap meliputi survey seismik, Ground Penetrating Radar (GPR), survey georadar, analisis geoteknik, interpretasi data survey, dan konsultasi survey untuk berbagai kebutuhan proyek."
+    answer: "Kami menyediakan layanan survey geofisika lengkap meliputi survey seismik, Ground Penetrating Radar (GPR), survey georadar, survey dan pemetaan, studi kelayakan tambang, analisis geoteknik, interpretasi data survey, dan konsultasi survey untuk berbagai kebutuhan proyek."
   },
   {
     question: "Berapa lama proses survey seismik dan GPR?",
@@ -40,7 +40,15 @@ const faqData = ref([
   },
   {
     question: "Apakah Intergeo Mitigasi memiliki izin resmi untuk survey geofisika?",
-    answer: "Ya, Intergeo Mitigasi memiliki izin resmi dan terdaftar di asosiasi profesi terkait. Tim kami terdiri dari ahli survey geofisika bersertifikat dengan pengalaman bertahun-tahun di bidang survey seismik, GPR, dan georadar."
+    answer: "Ya, Intergeo Mitigasi memiliki izin resmi dan terdaftar di asosiasi profesi terkait. Tim kami terdiri dari ahli survey geofisika bersertifikat dengan pengalaman bertahun-tahun di bidang survey seismik, GPR, georadar, dan studi kelayakan tambang."
+  },
+  {
+    question: "Apa yang termasuk dalam layanan Survey dan Pemetaan?",
+    answer: "Layanan Survey dan Pemetaan meliputi survey topografi, survey batimetri, pemetaan geologi permukaan, dan pembuatan peta digital. Kami menggunakan teknologi GPS dan drone untuk hasil yang akurat dan efisien."
+  },
+  {
+    question: "Bagaimana proses Studi Kelayakan Tambang dilakukan?",
+    answer: "Studi Kelayakan Tambang meliputi analisis geologi ekonomi, evaluasi potensi mineral, studi teknis dan ekonomis, serta analisis dampak lingkungan. Proses ini membutuhkan waktu 2-4 minggu tergantung kompleksitas lokasi dan jenis mineral."
   }
 ]);
 

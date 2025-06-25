@@ -33,19 +33,19 @@ onUnmounted(() => {
 
 <template>
   <Head>
-    <title>Jasa Survey Seismik, GPR & Georadar Profesional | PT. Intergeo Mitigasi</title>
-    <meta name="description" content="PT. Intergeo Mitigasi adalah spesialis survey seismik, GPR, dan georadar untuk deteksi utilitas, analisa struktur & studi geoteknik. Tim ahli & hasil akurat. Hubungi kami!" />
-    <link rel="canonical" href="https://surveyseismikgpr.com/" />
-    <meta name="keywords" content="survey seismik, jasa gpr, jasa georadar, ground penetrating radar, survey geofisika, deteksi utilitas, PT. Intergeo Mitigasi" />
-    <meta property="og:title" content="Jasa Survey Seismik, GPR & Georadar Profesional | PT. Intergeo Mitigasi" />
-    <meta property="og:description" content="Spesialis survey seismik, GPR, dan georadar untuk deteksi utilitas, analisa struktur & studi geoteknik." />
+    <title>PT. Intergeo Mitigasi - Jasa Survey Seismik, GPR, Georadar & Studi Kelayakan Tambang</title>
+    <meta name="description" content="Spesialis survey seismik, GPR, georadar, survey dan pemetaan, serta studi kelayakan tambang. Tim ahli dengan teknologi canggih untuk hasil akurat dalam deteksi utilitas, analisa struktur tanah, dan studi geoteknik." />
+    <link rel="canonical" href="https://surveyseismikgpr.com" />
+    <meta name="keywords" content="survey seismik, GPR, georadar, survey pemetaan, studi kelayakan tambang, PT. Intergeo Mitigasi, jasa survey geofisika" />
+    <meta property="og:title" content="PT. Intergeo Mitigasi - Jasa Survey Seismik, GPR, Georadar & Studi Kelayakan Tambang" />
+    <meta property="og:description" content="Spesialis survey seismik, GPR, georadar, survey dan pemetaan, serta studi kelayakan tambang dengan teknologi canggih." />
     <meta property="og:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
-    <meta property="og:url" content="https://surveyseismikgpr.com/" />
+    <meta property="og:url" content="https://surveyseismikgpr.com" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jasa Survey Seismik, GPR & Georadar Profesional | PT. Intergeo Mitigasi" />
-    <meta name="twitter:description" content="Spesialis survey seismik, GPR, dan georadar untuk deteksi utilitas, analisa struktur & studi geoteknik." />
+    <meta name="twitter:title" content="PT. Intergeo Mitigasi - Jasa Survey Seismik, GPR, Georadar & Studi Kelayakan Tambang" />
+    <meta name="twitter:description" content="Spesialis survey seismik, GPR, georadar, survey dan pemetaan, serta studi kelayakan tambang dengan teknologi canggih." />
     <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
   </Head>
   <Hero />

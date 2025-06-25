@@ -187,6 +187,9 @@ const submitForm = () => {
                       <option>Survey Seismik</option>
                       <option>Ground Penetrating Radar (GPR)</option>
                       <option>Survey Georadar</option>
+                      <option>Survey dan Pemetaan</option>
+                      <option>Studi Kelayakan Tambang</option>
+                      <option>Survey Infrastruktur & Jembatan</option>
                       <option>Analisis Geoteknik</option>
                       <option>Interpretasi Data Survey</option>
                       <option>Konsultasi Survey Geofisika</option>

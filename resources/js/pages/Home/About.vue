@@ -5,6 +5,7 @@ import NavMenu from '@/components/NavMenu.vue';
 import Footer from '@/components/Footer.vue';
 import { Head } from '@inertiajs/vue3';
 
+
 const values = shallowRef([
   {
     icon: Target,
@@ -97,7 +98,7 @@ const scrollToPortfolio = () => {
     <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
   </Head>
   <NavMenu />
-  <div class="min-h-screen light-mode">
+  <div class="min-h-screen">
     <section class="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">
       <div class="absolute inset-0 opacity-10">
         <div
@@ -191,7 +192,7 @@ const scrollToPortfolio = () => {
     </section>
 
 
-    <section class="py-20 bg-blue-900 text-white">
+    <!-- <section class="py-20 bg-blue-900 text-white">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
           <h2 class="text-4xl lg:text-5xl font-bold mb-6">
@@ -216,27 +217,27 @@ const scrollToPortfolio = () => {
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="py-20 bg-white">
+    <section class="py-20 bg-blue-900 text-white">
       <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">
+        <h2 class="text-4xl font-bold text-white mb-6">
           Siap Memulai Proyek Survey Anda?
         </h2>
-        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+        <p class="text-xl text-blue-100 mb-8 leading-relaxed">
           Mari diskusikan proyek survey seismik, GPR, atau georadar Anda dan temukan solusi terbaik 
           bersama tim ahli survey geofisika kami. Konsultasi survey gratis untuk evaluasi awal.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button
               @click="scrollToContact"
-              class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-semibold transition-colors cursor-pointer"
+              class="bg-yellow-400 hover:bg-yellow-500 text-blue-900 px-8 py-3 rounded-md text-lg font-semibold transition-colors cursor-pointer"
           >
             Konsultasi Survey Gratis
           </button>
           <button
               @click="scrollToPortfolio"
-              class="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-md text-lg font-semibold transition-colors border cursor-pointer"
+              class="border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-blue-900 px-8 py-3 rounded-md text-lg font-semibold transition-colors border cursor-pointer"
           >
             Lihat Portfolio Survey
           </button>
@@ -251,10 +252,5 @@ const scrollToPortfolio = () => {
 
 
 <style scoped>
-/* Gaya spesifik komponen bisa ditambahkan di sini jika perlu */
 
-/* Force light mode for homepage */
-.light-mode {
-  color-scheme: light;
-}
 </style>

@@ -32,10 +32,10 @@ const goToContact = () => {
               Mengapa Memilih <span class="text-blue-600">Intergeo Mitigasi?</span>
             </h2>
             <p class="text-xl text-gray-600 leading-relaxed mb-8">
-              Kami adalah spesialis survey seismik, GPR, dan georadar yang telah membantu
+              Kami adalah spesialis survey seismik, GPR, georadar, survey dan pemetaan, studi kelayakan tambang, serta survey infrastruktur dan jembatan yang telah membantu
               ratusan klien dengan proyek survey geofisika mereka. Dengan keahlian mendalam
-              di bidang survey bawah permukaan, kami memberikan solusi terbaik untuk deteksi utilitas,
-              analisis struktur tanah, dan studi geoteknik.
+              di bidang survey bawah permukaan dan pemetaan, kami memberikan solusi terbaik untuk deteksi utilitas,
+              analisis struktur tanah, studi geoteknik, evaluasi kelayakan tambang, dan inspeksi infrastruktur.
             </p>
           </div>
 
