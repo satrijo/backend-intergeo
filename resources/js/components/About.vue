@@ -3,18 +3,18 @@ import { shallowRef } from 'vue';
 import { CheckCircle, Award, Users, Calendar } from 'lucide-vue-next'; // Pastikan menggunakan lucide-vue-next
 
 const stats = shallowRef([
-  { icon: Users, number: "500+", label: "Klien Puas" },
-  { icon: CheckCircle, number: "1000+", label: "Proyek Selesai" },
+  { icon: Users, number: "500+", label: "Klien Survey" },
+  { icon: CheckCircle, number: "1000+", label: "Proyek Survey Selesai" },
   { icon: Award, number: "15+", label: "Tahun Pengalaman" },
   { icon: Calendar, number: "24/7", label: "Layanan Support" }
 ]);
 
 const featuresList = shallowRef([
-  "Tim ahli bersertifikat internasional",
-  "Penggunaan teknologi terdepan",
-  "Konsultasi gratis untuk evaluasi awal",
-  "Garansi kepuasan 100%",
-  "Dukungan after-sales terbaik"
+  "Tim ahli survey geofisika bersertifikat",
+  "Teknologi survey seismik & GPR terdepan",
+  "Konsultasi survey gratis untuk evaluasi awal",
+  "Hasil survey akurat dengan garansi 100%",
+  "Dukungan teknis after-survey terbaik"
 ]);
 
 const goToContact = () => {
@@ -32,9 +32,10 @@ const goToContact = () => {
               Mengapa Memilih <span class="text-blue-600">Intergeo Mitigasi?</span>
             </h2>
             <p class="text-xl text-gray-600 leading-relaxed mb-8">
-              Kami adalah tim konsultan properti berpengalaman yang telah membantu
-              ratusan klien mewujudkan proyek impian mereka. Dengan keahlian mendalam
-              di bidang tanah dan bangunan, kami memberikan solusi terbaik untuk setiap kebutuhan Anda.
+              Kami adalah spesialis survey seismik, GPR, dan georadar yang telah membantu
+              ratusan klien dengan proyek survey geofisika mereka. Dengan keahlian mendalam
+              di bidang survey bawah permukaan, kami memberikan solusi terbaik untuk deteksi utilitas,
+              analisis struktur tanah, dan studi geoteknik.
             </p>
           </div>
 
@@ -53,7 +54,7 @@ const goToContact = () => {
               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold cursor-pointer"
               @click="goToContact"
           >
-            Pelajari Lebih Lanjut
+            Konsultasi Survey Gratis
           </button>
         </div>
 
@@ -61,7 +62,7 @@ const goToContact = () => {
           <div class="relative z-10">
             <img
                 src="https://images.unsplash.com/photo-1460574283810-2aab119d8511?w=600&h=500&fit=crop"
-                alt="About Us"
+                alt="Tim Survey Geofisika Intergeo Mitigasi"
                 class="w-full h-96 object-cover rounded-2xl shadow-2xl"
             />
 

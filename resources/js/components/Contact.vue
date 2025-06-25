@@ -1,17 +1,38 @@
 <script setup>
 import { shallowRef, reactive } from 'vue';
 import { MapPin, Phone, Mail, Clock } from 'lucide-vue-next'; // Pastikan menggunakan lucide-vue-next
+import { onMounted, onUnmounted, ref, computed } from 'vue';
+
+
+const wasDarkMode = ref(false);
+
+onMounted(() => {
+    const htmlElement = document.documentElement;
+    // Cek apakah dark mode aktif saat komponen dimuat
+    if (htmlElement.classList.contains('dark')) {
+        wasDarkMode.value = true;
+        // Hapus class 'dark' untuk memaksa light mode
+        htmlElement.classList.remove('dark');
+    }
+});
+
+onUnmounted(() => {
+    // Saat meninggalkan halaman, kembalikan class 'dark' jika sebelumnya aktif
+    if (wasDarkMode.value) {
+        document.documentElement.classList.add('dark');
+    }
+});
 
 const contactInfo = shallowRef([
   {
     icon: MapPin,
     title: "Alamat Kantor",
-    details: ["Jl. Sudirman No. 123", "Jakarta Pusat 10220", "Indonesia"]
+    details: ["Jl. DR. Ide Anak Agung Gde Agung", "Kota Jakarta Selatan, DKI Jakarta", "Indonesia"]
   },
   {
     icon: Phone,
     title: "Telepon",
-    details: ["+62 21 5555-0123", "+62 812-3456-7890", "WhatsApp Available"]
+    details: ["+62 858-8628-3658", "+62 858-1049-2011", "WhatsApp Available"]
   },
   {
     icon: Mail,
@@ -41,7 +62,7 @@ const submitForm = () => {
   }
   // Logika untuk mengirim form, misalnya menggunakan fetch atau axios
   console.log('Form Submitted:', form);
-  alert('Permintaan konsultasi Anda telah terkirim!');
+  alert('Permintaan konsultasi survey Anda telah terkirim!');
   // Reset form (opsional)
   // form.fullName = '';
   // form.email = '';
@@ -65,11 +86,11 @@ const submitForm = () => {
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-          Siap Memulai <span class="text-blue-600">Proyek</span> Anda?
+          Siap Memulai <span class="text-blue-600">Survey Geofisika</span> Anda?
         </h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Hubungi kami sekarang untuk konsultasi gratis. Tim ahli kami siap membantu
-          mewujudkan proyek impian Anda dengan solusi terbaik.
+          Hubungi kami sekarang untuk konsultasi survey seismik, GPR, dan georadar gratis. Tim ahli survey geofisika kami siap membantu
+          proyek survey Anda dengan teknologi terdepan dan solusi terbaik.
         </p>
       </div>
 
@@ -104,10 +125,10 @@ const submitForm = () => {
           <div class="border-0 shadow-xl rounded-lg overflow-hidden bg-white">
             <div class="p-6 sm:p-8">
               <h3 class="text-2xl text-gray-900 font-semibold mb-2">
-                Dapatkan Konsultasi Gratis
+                Dapatkan Konsultasi Survey Geofisika Gratis
               </h3>
               <p class="text-gray-600 mb-6">
-                Isi formulir di bawah ini dan tim kami akan menghubungi Anda dalam 24 jam.
+                Isi formulir di bawah ini dan tim ahli survey geofisika kami akan menghubungi Anda dalam 24 jam untuk membahas kebutuhan survey seismik, GPR, atau georadar Anda.
               </p>
               <form @submit.prevent="submitForm" class="space-y-6">
                 <div class="grid md:grid-cols-2 gap-4">
@@ -148,39 +169,39 @@ const submitForm = () => {
                         id="phoneNumber"
                         v-model="form.phoneNumber"
                         type="tel"
-                        placeholder="+62 812-3456-7890"
+                        placeholder="+62 858-8628-3658"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         required
                     />
                   </div>
                   <div>
                     <label for="serviceType" class="block text-sm font-medium text-gray-700 mb-2">
-                      Jenis Layanan
+                      Jenis Layanan Survey Geofisika
                     </label>
                     <select
                         id="serviceType"
                         v-model="form.serviceType"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                     >
-                      <option value="">Pilih layanan</option>
-                      <option>Konsultasi Pembangunan</option>
-                      <option>Survei & Pemetaan</option>
-                      <option>Perencanaan Properti</option>
-                      <option>Perizinan & Legal</option>
-                      <option>Estimasi Biaya</option>
-                      <option>Manajemen Proyek</option>
+                      <option value="">Pilih layanan survey geofisika</option>
+                      <option>Survey Seismik</option>
+                      <option>Ground Penetrating Radar (GPR)</option>
+                      <option>Survey Georadar</option>
+                      <option>Analisis Geoteknik</option>
+                      <option>Interpretasi Data Survey</option>
+                      <option>Konsultasi Survey Geofisika</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
                   <label for="projectDescription" class="block text-sm font-medium text-gray-700 mb-2">
-                    Deskripsi Proyek *
+                    Deskripsi Proyek Survey Geofisika *
                   </label>
                   <textarea
                       id="projectDescription"
                       v-model="form.projectDescription"
-                      placeholder="Ceritakan detail proyek Anda, lokasi, budget estimasi, dan timeline yang diinginkan..."
+                      placeholder="Ceritakan detail proyek survey geofisika Anda, lokasi, tujuan survey (deteksi utilitas, analisis struktur tanah, eksplorasi mineral, dll), dan timeline yang diinginkan..."
                       class="w-full h-32 resize-none px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       required
                   ></textarea>
@@ -203,11 +224,11 @@ const submitForm = () => {
                     type="submit"
                     class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-semibold rounded-md transition-colors"
                 >
-                  Kirim Permintaan Konsultasi
+                  Kirim Permintaan Konsultasi Survey Geofisika
                 </button>
 
                 <p class="text-center text-sm text-gray-500">
-                  Tim kami akan merespons dalam waktu maksimal 24 jam
+                  Tim ahli survey geofisika kami akan merespons dalam waktu maksimal 24 jam
                 </p>
               </form>
             </div>
@@ -217,20 +238,20 @@ const submitForm = () => {
 
       <div class="mt-20 text-center bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-12 text-white">
         <h3 class="text-3xl font-bold mb-4">
-          Konsultasi Darurat? Hubungi Kami Sekarang!
+          Survey Geofisika Darurat? Hubungi Kami Sekarang!
         </h3>
         <p class="text-xl mb-8 opacity-90">
-          Layanan 24/7 untuk kebutuhan konsultasi mendesak
+          Layanan 24/7 untuk kebutuhan survey seismik, GPR, dan georadar mendesak
         </p>
         <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
           <a
-              href="tel:+6281234567890"
+              href="tel:+6285886283658"
               class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
           >
-            📞 +62 812-3456-7890
+            📞 +62 858-8628-3658
           </a>
           <a
-              href="https://wa.me/6281234567890"
+              href="https://wa.me/6285886283658"
               target="_blank"
               rel="noopener noreferrer"
               class="bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors"

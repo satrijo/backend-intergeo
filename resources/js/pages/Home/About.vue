@@ -8,18 +8,18 @@ import { Head } from '@inertiajs/vue3';
 const values = shallowRef([
   {
     icon: Target,
-    title: "Profesionalisme",
-    description: "Kami berkomitmen memberikan layanan terbaik dengan standar profesional tinggi dalam setiap proyek."
+    title: "Profesionalisme Survey",
+    description: "Kami berkomitmen memberikan layanan survey geofisika terbaik dengan standar profesional tinggi dan teknologi canggih."
   },
   {
     icon: Eye,
-    title: "Transparansi",
-    description: "Keterbukaan dalam setiap proses kerja dan komunikasi yang jelas dengan klien."
+    title: "Akurasi Data",
+    description: "Hasil survey seismik, GPR, dan georadar yang akurat dan detail untuk analisis yang tepat."
   },
   {
     icon: Heart,
-    title: "Kepercayaan",
-    description: "Membangun hubungan jangka panjang berdasarkan kepercayaan dan hasil yang memuaskan."
+    title: "Kepercayaan Klien",
+    description: "Membangun hubungan jangka panjang berdasarkan kepercayaan dan hasil survey yang memuaskan."
   }
 ]);
 
@@ -29,27 +29,27 @@ const team = shallowRef([
     role: "Founder & CEO",
     experience: "20+ tahun",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
-    description: "Ahli perencanaan kota dengan pengalaman internasional"
+    description: "Ahli survey geofisika dengan pengalaman internasional"
   },
   {
     name: "Ir. Sari Kusuma",
-    role: "Lead Consultant",
+    role: "Lead Survey Consultant",
     experience: "15+ tahun",
     image: "https://images.unsplash.com/photo-1494790108755-2616b612b5fc?w=300&h=300&fit=crop&crop=face",
-    description: "Spesialis struktur bangunan dan analisis tanah"
+    description: "Spesialis survey seismik dan analisis struktur bawah permukaan"
   },
   {
     name: "Budi Santoso, S.T.",
-    role: "Project Manager",
+    role: "Survey Project Manager",
     experience: "12+ tahun",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
-    description: "Expert dalam manajemen proyek dan perizinan"
+    description: "Expert dalam manajemen proyek survey dan interpretasi data"
   }
 ]);
 
 const stats = shallowRef([
-  { icon: Users, number: "500+", label: "Klien Puas" },
-  { icon: CheckCircle, number: "1000+", label: "Proyek Selesai" },
+  { icon: Users, number: "500+", label: "Klien Survey" },
+  { icon: CheckCircle, number: "1000+", label: "Proyek Survey Selesai" },
   { icon: Award, number: "15+", label: "Tahun Pengalaman" },
   { icon: Calendar, number: "24/7", label: "Layanan Support" }
 ]);
@@ -81,19 +81,19 @@ const scrollToPortfolio = () => {
 
 <template>
   <Head>
-    <title>Tentang PT. Intergeo Mitigasi | Konsultan Geoteknik & Survey Profesional</title>
-    <meta name="description" content="Kenali PT. Intergeo Mitigasi, konsultan geoteknik dan survey profesional dengan pengalaman lebih dari 15 tahun di Indonesia. Tim ahli, layanan terpercaya, solusi inovatif." />
+    <title>Tentang PT. Intergeo Mitigasi | Spesialis Survey Seismik & GPR Profesional</title>
+    <meta name="description" content="Kenali PT. Intergeo Mitigasi, spesialis survey seismik, GPR, dan georadar dengan pengalaman lebih dari 15 tahun di Indonesia. Tim ahli survey geofisika, layanan terpercaya, hasil akurat." />
     <link rel="canonical" href="https://surveyseismikgpr.com/about" />
-    <meta name="keywords" content="tentang intergeo, konsultan geoteknik, tim ahli, pengalaman, PT. Intergeo Mitigasi" />
-    <meta property="og:title" content="Tentang PT. Intergeo Mitigasi | Konsultan Geoteknik & Survey Profesional" />
-    <meta property="og:description" content="Kenali PT. Intergeo Mitigasi, konsultan geoteknik dan survey profesional dengan pengalaman lebih dari 15 tahun di Indonesia." />
+    <meta name="keywords" content="tentang intergeo, survey seismik, GPR, georadar, tim ahli survey, pengalaman survey geofisika, PT. Intergeo Mitigasi" />
+    <meta property="og:title" content="Tentang PT. Intergeo Mitigasi | Spesialis Survey Seismik & GPR Profesional" />
+    <meta property="og:description" content="Kenali PT. Intergeo Mitigasi, spesialis survey seismik, GPR, dan georadar dengan pengalaman lebih dari 15 tahun di Indonesia." />
     <meta property="og:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
     <meta property="og:url" content="https://surveyseismikgpr.com/about" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Tentang PT. Intergeo Mitigasi | Konsultan Geoteknik & Survey Profesional" />
-    <meta name="twitter:description" content="Kenali PT. Intergeo Mitigasi, konsultan geoteknik dan survey profesional dengan pengalaman lebih dari 15 tahun di Indonesia." />
+    <meta name="twitter:title" content="Tentang PT. Intergeo Mitigasi | Spesialis Survey Seismik & GPR Profesional" />
+    <meta name="twitter:description" content="Kenali PT. Intergeo Mitigasi, spesialis survey seismik, GPR, dan georadar dengan pengalaman lebih dari 15 tahun di Indonesia." />
     <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
   </Head>
   <NavMenu />
@@ -114,8 +114,8 @@ const scrollToPortfolio = () => {
           Tentang <span class="text-yellow-400">Intergeo Mitigasi</span>
         </h1>
         <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-          Dipercaya selama lebih dari 15 tahun sebagai mitra terbaik dalam konsultasi
-          tanah dan bangunan di Indonesia
+          Dipercaya selama lebih dari 15 tahun sebagai spesialis survey seismik, GPR, dan georadar
+          terbaik di Indonesia
         </p>
       </div>
     </section>
@@ -125,24 +125,24 @@ const scrollToPortfolio = () => {
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div class="space-y-8">
             <h2 class="text-4xl lg:text-5xl font-bold text-gray-900">
-              Perjalanan <span class="text-blue-600">Kami</span>
+              Perjalanan <span class="text-blue-600">Survey</span> Kami
             </h2>
             <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
               <p>
                 Didirikan pada tahun 2009, Intergeo Mitigasi lahir dari visi untuk
-                memberikan solusi terbaik dalam bidang konsultasi tanah dan bangunan.
-                Kami memulai perjalanan dengan tim kecil yang berpengalaman dan
-                komitmen tinggi untuk memberikan layanan berkualitas.
+                memberikan solusi terbaik dalam bidang survey geofisika. Kami memulai perjalanan 
+                dengan tim kecil yang berpengalaman dan komitmen tinggi untuk memberikan 
+                layanan survey seismik, GPR, dan georadar berkualitas.
               </p>
               <p>
                 Seiring berjalannya waktu, kami terus berkembang dan memperluas
-                jangkauan layanan. Dari proyek-proyek kecil hingga mega proyek,
-                kami telah membuktikan kemampuan dalam menangani berbagai tantangan
-                dengan solusi inovatif dan efektif.
+                jangkauan layanan survey. Dari proyek survey kecil hingga mega proyek,
+                kami telah membuktikan kemampuan dalam menangani berbagai tantangan survey
+                dengan teknologi canggih dan hasil yang akurat.
               </p>
               <p>
-                Hari ini, Intergeo Mitigasi telah menjadi nama terpercaya dengan
-                lebih dari 500 klien puas dan 1000+ proyek yang berhasil diselesaikan
+                Hari ini, Intergeo Mitigasi telah menjadi nama terpercaya dalam survey geofisika
+                dengan lebih dari 500 klien survey puas dan 1000+ proyek survey yang berhasil diselesaikan
                 di seluruh Indonesia.
               </p>
             </div>
@@ -151,12 +151,12 @@ const scrollToPortfolio = () => {
           <div class="relative">
             <img
                 src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=500&fit=crop"
-                alt="Tim Intergeo Mitigasi"
+                alt="Tim Survey Geofisika Intergeo Mitigasi"
                 class="w-full h-96 object-cover rounded-2xl shadow-2xl"
             />
             <div class="absolute -bottom-8 -left-8 bg-yellow-400 text-blue-900 p-6 rounded-xl shadow-xl">
               <div class="text-3xl font-bold">15+</div>
-              <div class="text-sm font-medium">Tahun Pengalaman</div>
+              <div class="text-sm font-medium">Tahun Pengalaman Survey</div>
             </div>
           </div>
         </div>
@@ -167,10 +167,10 @@ const scrollToPortfolio = () => {
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
           <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Nilai-Nilai <span class="text-blue-600">Kami</span>
+            Nilai-Nilai <span class="text-blue-600">Survey</span> Kami
           </h2>
           <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Prinsip-prinsip yang menjadi fondasi dalam setiap layanan yang kami berikan
+            Prinsip-prinsip yang menjadi fondasi dalam setiap layanan survey geofisika yang kami berikan
           </p>
         </div>
 
@@ -195,10 +195,10 @@ const scrollToPortfolio = () => {
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
           <h2 class="text-4xl lg:text-5xl font-bold mb-6">
-            Pencapaian <span class="text-yellow-400">Kami</span>
+            Pencapaian <span class="text-yellow-400">Survey</span> Kami
           </h2>
           <p class="text-xl text-blue-100 max-w-3xl mx-auto">
-            Angka-angka yang menunjukkan dedikasi dan kualitas layanan kami
+            Angka-angka yang menunjukkan dedikasi dan kualitas layanan survey geofisika kami
           </p>
         </div>
 
@@ -221,24 +221,24 @@ const scrollToPortfolio = () => {
     <section class="py-20 bg-white">
       <div class="max-w-4xl mx-auto px-6 text-center">
         <h2 class="text-4xl font-bold text-gray-900 mb-6">
-          Siap Bekerja Sama dengan Kami?
+          Siap Memulai Proyek Survey Anda?
         </h2>
         <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-          Mari diskusikan proyek Anda dan temukan solusi terbaik bersama tim ahli kami.
-          Konsultasi gratis untuk evaluasi awal proyek Anda.
+          Mari diskusikan proyek survey seismik, GPR, atau georadar Anda dan temukan solusi terbaik 
+          bersama tim ahli survey geofisika kami. Konsultasi survey gratis untuk evaluasi awal.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button
               @click="scrollToContact"
               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-semibold transition-colors cursor-pointer"
           >
-            Konsultasi Gratis
+            Konsultasi Survey Gratis
           </button>
           <button
               @click="scrollToPortfolio"
               class="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-md text-lg font-semibold transition-colors border cursor-pointer"
           >
-            Lihat Portfolio
+            Lihat Portfolio Survey
           </button>
         </div>
       </div>

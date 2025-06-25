@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
+// import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from '@inertiajs/vue3';
 
@@ -25,9 +25,11 @@ defineProps<{
                 <!-- Logo -->
                 <Link :href="route('home')" class="flex items-center gap-3 self-center font-semibold text-lg">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg">
-                        <AppLogoIcon class="size-6 fill-current text-white" />
+                        <div class="bg-white rounded-md p-1">
+                            <img src="/images/intergeo-logo-sm.png" alt="Intergeo Mitigasi Logo" class="size-5 object-contain" />
+                        </div>
                     </div>
-                    <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">InterGeo</span>
+                    <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">InterGeo Mitigasi</span>
                 </Link>
 
                 <!-- Auth Card -->

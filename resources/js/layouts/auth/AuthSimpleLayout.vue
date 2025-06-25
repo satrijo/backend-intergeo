@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
+// import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { Link } from '@inertiajs/vue3';
 
 defineProps<{
@@ -15,7 +15,9 @@ defineProps<{
                 <div class="flex flex-col items-center gap-4">
                     <Link :href="route('home')" class="flex flex-col items-center gap-2 font-medium">
                         <div class="mb-1 flex h-9 w-9 items-center justify-center rounded-md">
-                            <AppLogoIcon class="size-9 fill-current text-[var(--foreground)] dark:text-white" />
+                            <div class="bg-white rounded-md p-1">
+                                <img src="/images/intergeo-logo-sm.png" alt="Intergeo Mitigasi Logo" class="size-7 object-contain" />
+                            </div>
                         </div>
                         <span class="sr-only">{{ title }}</span>
                     </Link>

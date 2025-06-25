@@ -1,43 +1,43 @@
 <script setup>
 import { shallowRef } from 'vue'; //
-import { Building, MapPin, Home, FileText, Calculator, Users } from 'lucide-vue-next';
+import { Radio, MapPin, Search, FileText, Calculator, Users } from 'lucide-vue-next';
 
 const services = shallowRef([
   {
-    icon: Building,
-    title: "Konsultasi Pembangunan",
-    description: "Perencanaan dan pengawasan pembangunan gedung, rumah, dan infrastruktur dengan standar internasional.",
-    features: ["Desain Arsitektur", "Analisis Struktur", "Pengawasan Konstruksi"]
+    icon: Radio,
+    title: "Survey Seismik",
+    description: "Layanan survey seismik untuk analisis struktur bawah permukaan, deteksi reservoir, dan studi geoteknik dengan teknologi canggih.",
+    features: ["Seismic Reflection", "Seismic Refraction", "Cross-hole Seismic"]
+  },
+  {
+    icon: Search,
+    title: "Ground Penetrating Radar (GPR)",
+    description: "Deteksi utilitas bawah tanah, analisis struktur beton, dan pemetaan bawah permukaan menggunakan teknologi radar.",
+    features: ["Deteksi Utilitas", "Analisis Beton", "Pemetaan Bawah Tanah"]
   },
   {
     icon: MapPin,
-    title: "Survei & Pemetaan Tanah",
-    description: "Layanan survei topografi, pemetaan digital, dan analisis kelayakan tanah untuk berbagai keperluan.",
-    features: ["Survei Topografi", "Pemetaan Digital", "Analisis Tanah"]
-  },
-  {
-    icon: Home,
-    title: "Perencanaan Properti",
-    description: "Konsultasi pengembangan properti residensial dan komersial dari konsep hingga implementasi.",
-    features: ["Master Plan", "Feasibility Study", "Market Analysis"]
+    title: "Survey Georadar",
+    description: "Pemetaan geologi bawah permukaan, deteksi air tanah, dan analisis struktur tanah untuk konstruksi dan eksplorasi.",
+    features: ["Pemetaan Geologi", "Deteksi Air Tanah", "Analisis Struktur Tanah"]
   },
   {
     icon: FileText,
-    title: "Perizinan & Legal",
-    description: "Pengurusan dokumen legal, IMB, sertifikat tanah, dan berbagai perizinan konstruksi.",
-    features: ["Pengurusan IMB", "Sertifikat Tanah", "Dokumen Legal"]
+    title: "Analisis Geoteknik",
+    description: "Studi kelayakan tanah, analisis stabilitas lereng, dan rekomendasi fondasi berdasarkan data survey geofisika.",
+    features: ["Studi Kelayakan", "Analisis Stabilitas", "Rekomendasi Fondasi"]
   },
   {
     icon: Calculator,
-    title: "Estimasi Biaya",
-    description: "Perhitungan detail biaya konstruksi, RAB, dan analisis investasi properti yang akurat.",
-    features: ["RAB Detail", "Cost Planning", "Investment Analysis"]
+    title: "Interpretasi Data Survey",
+    description: "Pengolahan dan interpretasi data survey seismik, GPR, dan georadar untuk laporan teknis yang akurat.",
+    features: ["Pengolahan Data", "Interpretasi Hasil", "Laporan Teknis"]
   },
   {
     icon: Users,
-    title: "Manajemen Proyek",
-    description: "Pengelolaan proyek konstruksi end-to-end dengan timeline yang terstruktur dan efisien.",
-    features: ["Project Planning", "Quality Control", "Timeline Management"]
+    title: "Konsultasi Survey",
+    description: "Konsultasi lengkap untuk perencanaan survey, pemilihan metode, dan implementasi proyek survey geofisika.",
+    features: ["Perencanaan Survey", "Pemilihan Metode", "Implementasi Proyek"]
   }
 ]);
 
@@ -51,11 +51,11 @@ const goToContact = () => {
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-          Layanan <span class="text-blue-600">Profesional</span> Kami
+          Layanan <span class="text-blue-600">Survey Geofisika</span> Kami
         </h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Solusi lengkap untuk semua kebutuhan konsultasi tanah dan bangunan Anda
-          dengan tim ahli berpengalaman lebih dari 15 tahun.
+          Solusi lengkap survey seismik, GPR, dan georadar untuk deteksi utilitas, 
+          analisis struktur tanah, dan studi geoteknik dengan teknologi canggih.
         </p>
       </div>
 
@@ -91,10 +91,10 @@ const goToContact = () => {
 
       <div class="text-center mt-12">
         <p class="text-lg text-gray-600 mb-6">
-          Tidak menemukan layanan yang Anda cari?
+          Butuh layanan survey geofisika khusus?
         </p>
         <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors cursor-pointer" @click="goToContact">
-          Konsultasi Custom
+          Konsultasi Survey Custom
         </button>
       </div>
     </div>

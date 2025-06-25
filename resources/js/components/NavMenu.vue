@@ -28,8 +28,13 @@ const toggleMobileMenu = () => {
 <template>
   <nav class="relative z-20 px-6 py-4" :class="[transparentBg ? 'bg-transparent' : 'bg-blue-900 text-white shadow-md']">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <Link :href="route('home')" class="text-2xl font-bold" :class="[transparentBg ? 'text-white' : '']">
-        <span class="text-yellow-400">Intergeo</span> Mitigasi
+      <Link :href="route('home')" class="flex items-center space-x-2" :class="[transparentBg ? 'text-white' : '']">
+        <div class="bg-white rounded-md p-1">
+            <img src="/images/intergeo-logo-sm.png" alt="Intergeo Mitigasi Logo" class="h-6 w-6 object-contain" />
+        </div>
+        <span class="text-2xl font-bold">
+          <span class="text-yellow-400">Intergeo</span> Mitigasi
+        </span>
       </Link>
       <div class="hidden md:flex space-x-8">
         <Link

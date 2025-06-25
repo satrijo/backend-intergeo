@@ -120,19 +120,19 @@ onMounted(() => {
 
 <template>
     <Head>
-        <title>Blog Intergeo | Artikel & Wawasan Geoteknik, Survey, dan Properti</title>
-        <meta name="description" content="Baca artikel terbaru seputar geoteknik, survey, properti, dan konsultasi dari PT. Intergeo Mitigasi. Tips, wawasan, dan berita industri terkini." />
+        <title>Blog Survey Seismik & GPR | PT. Intergeo Mitigasi</title>
+        <meta name="description" content="Baca artikel terbaru seputar survey seismik, GPR, georadar, dan survey geofisika dari PT. Intergeo Mitigasi. Tips, wawasan, dan berita industri survey terkini." />
         <link rel="canonical" href="https://surveyseismikgpr.com/blog" />
-        <meta name="keywords" content="blog intergeo, artikel geoteknik, artikel survey, artikel properti, PT. Intergeo Mitigasi" />
-        <meta property="og:title" content="Blog Intergeo | Artikel & Wawasan Geoteknik, Survey, dan Properti" />
-        <meta property="og:description" content="Baca artikel terbaru seputar geoteknik, survey, properti, dan konsultasi dari PT. Intergeo Mitigasi." />
+        <meta name="keywords" content="blog survey seismik, artikel GPR, artikel georadar, survey geofisika, PT. Intergeo Mitigasi, blog intergeo" />
+        <meta property="og:title" content="Blog Survey Seismik & GPR | PT. Intergeo Mitigasi" />
+        <meta property="og:description" content="Baca artikel terbaru seputar survey seismik, GPR, georadar, dan survey geofisika dari PT. Intergeo Mitigasi." />
         <meta property="og:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
         <meta property="og:url" content="https://surveyseismikgpr.com/blog" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Blog Intergeo | Artikel & Wawasan Geoteknik, Survey, dan Properti" />
-        <meta name="twitter:description" content="Baca artikel terbaru seputar geoteknik, survey, properti, dan konsultasi dari PT. Intergeo Mitigasi." />
+        <meta name="twitter:title" content="Blog Survey Seismik & GPR | PT. Intergeo Mitigasi" />
+        <meta name="twitter:description" content="Baca artikel terbaru seputar survey seismik, GPR, georadar, dan survey geofisika dari PT. Intergeo Mitigasi." />
         <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
     </Head>
     <NavMenu />
@@ -140,9 +140,9 @@ onMounted(() => {
         <section class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 py-20 text-white">
             <div class="mx-auto max-w-7xl px-6">
                 <div class="text-center">
-                    <h1 class="mb-6 text-5xl font-bold">Blog <span class="text-yellow-400">Intergeo</span></h1>
+                    <h1 class="mb-6 text-5xl font-bold">Blog <span class="text-yellow-400">Survey Geofisika</span></h1>
                     <p class="mx-auto max-w-3xl text-xl text-blue-100">
-                        Dapatkan wawasan terbaru seputar properti, investasi, dan konsultasi dari para ahli di bidangnya
+                        Dapatkan wawasan terbaru seputar survey seismik, GPR, georadar, dan teknologi survey geofisika dari para ahli di bidangnya
                     </p>
                     <!-- Dashboard Link for Authenticated Users -->
                     <div v-if="$page.props.auth?.user" class="mt-8">
@@ -158,9 +158,9 @@ onMounted(() => {
         <nav class="bg-white py-4 shadow-sm">
             <div class="mx-auto max-w-7xl px-6">
                 <div class="flex items-center space-x-2 text-sm text-gray-600">
-                    <router-link to="/" class="hover:text-blue-600">Beranda</router-link>
+                    <button @click="() => router.visit('/')" class="hover:text-blue-600 cursor-pointer">Beranda</button>
                     <ChevronRight class="h-4 w-4 flex-shrink-0" />
-                    <span class="font-medium text-blue-600">Blog</span>
+                    <span class="font-medium text-blue-600">Blog Survey Geofisika</span>
                 </div>
             </div>
         </nav>
@@ -287,6 +287,32 @@ onMounted(() => {
             </div>
         </div>
     </div>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-blue-900 text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center space-y-6">
+            <h2 class="text-3xl font-bold">
+                Butuh Survey <span class="text-yellow-400">Seismik atau GPR?</span>
+            </h2>
+            <p class="text-xl text-blue-100">
+                Konsultasikan kebutuhan survey geofisika Anda dengan tim ahli kami. Dapatkan solusi terbaik untuk proyek Anda.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                    @click="() => router.visit('/contact')"
+                    class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 px-8 py-3 rounded-md text-lg font-semibold transition-colors cursor-pointer"
+                >
+                    Konsultasi Survey Gratis
+                </button>
+                <button
+                    @click="() => router.visit('/portfolio')"
+                    class="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-3 rounded-md text-lg font-semibold transition-colors border cursor-pointer"
+                >
+                    Lihat Portfolio Kami
+                </button>
+            </div>
+        </div>
+    </section>
     <Footer />
 </template>
 

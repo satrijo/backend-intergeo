@@ -7,6 +7,28 @@ import About from "@/components/About.vue";
 import Contact from "@/components/Contact.vue";
 import Footer from "@/components/Footer.vue";
 
+import { onMounted, onUnmounted, ref, computed } from 'vue';
+
+
+const wasDarkMode = ref(false);
+
+onMounted(() => {
+    const htmlElement = document.documentElement;
+    // Cek apakah dark mode aktif saat komponen dimuat
+    if (htmlElement.classList.contains('dark')) {
+        wasDarkMode.value = true;
+        // Hapus class 'dark' untuk memaksa light mode
+        htmlElement.classList.remove('dark');
+    }
+});
+
+onUnmounted(() => {
+    // Saat meninggalkan halaman, kembalikan class 'dark' jika sebelumnya aktif
+    if (wasDarkMode.value) {
+        document.documentElement.classList.add('dark');
+    }
+});
+
 </script>
 
 <template>

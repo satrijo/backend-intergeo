@@ -36,25 +36,24 @@ const scrollToPortfolio = () => {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="space-y-8 animate-fade-in">
           <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
-            Konsultan <span class="text-yellow-400">Tanah & Bangunan</span> Terpercaya
+            Jasa <span class="text-yellow-400">Survey Seismik & GPR</span> Profesional
           </h1>
           <p class="text-xl text-blue-100 leading-relaxed">
-            Wujudkan impian properti Anda dengan layanan konsultasi profesional.
-            Kami membantu dalam perencanaan, pengembangan, dan pengelolaan properti
-            dengan standar terbaik.
+            Spesialis survey seismik, Ground Penetrating Radar (GPR), dan georadar untuk deteksi utilitas, 
+            analisa struktur tanah, dan studi geoteknik. Tim ahli dengan teknologi canggih untuk hasil akurat.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
             <button
                 @click="scrollToContact"
                 class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 text-lg px-8 py-3 rounded-md font-semibold transition-colors cursor-pointer"
             >
-              Konsultasi Gratis
+              Konsultasi Survey Gratis
             </button>
             <button
                 @click="scrollToPortfolio"
                 class="border-white text-white hover:bg-white hover:text-blue-900 text-lg px-8 py-3 rounded-md font-semibold transition-colors border cursor-pointer"
             >
-              Lihat Portfolio
+              Lihat Proyek Survey
             </button>
           </div>
         </div>
@@ -63,17 +62,17 @@ const scrollToPortfolio = () => {
           <div class="relative z-10 bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20">
             <img
                 src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&h=400&fit=crop"
-                alt="Modern Building"
+                alt="Survey Seismik dan GPR Equipment"
                 class="w-full h-72 md:h-80 object-cover rounded-xl"
             />
             <div class="mt-6 space-y-4">
               <div class="flex items-center space-x-3 text-sm">
                 <MapPin class="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                <span>Melayani seluruh Indonesia</span>
+                <span>Survey di seluruh Indonesia</span>
               </div>
               <div class="flex items-center space-x-3 text-sm">
                 <Phone class="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                <a href="tel:+6281234567890" class="hover:text-yellow-300 transition-colors">+62 812-3456-7890</a>
+                <a href="tel:+6285886283658" class="hover:text-yellow-300 transition-colors">+62 858-8628-3658</a>
               </div>
               <div class="flex items-center space-x-3 text-sm">
                 <Mail class="w-5 h-5 text-yellow-400 flex-shrink-0" />

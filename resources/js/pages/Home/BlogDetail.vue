@@ -65,29 +65,42 @@ const description = getExcerpt(props.article.body);
 
 <template>
     <Head>
-        <title>{{ props.article.title }} | PT. Intergeo Mitigasi</title>
+        <title>{{ props.article.title }} - Blog Survey Geofisika | PT. Intergeo Mitigasi</title>
         <meta name="description" :content="description" />
         <link rel="canonical" :href="canonicalUrl" />
-        <meta name="keywords" content="survey seismik, jasa gpr, jasa georadar, ground penetrating radar, survey geofisika, deteksi utilitas, PT. Intergeo Mitigasi, artikel, blog" />
-        <meta property="og:title" :content="props.article.title + ' | PT. Intergeo Mitigasi'" />
+        <meta name="keywords" content="survey seismik, GPR, georadar, survey geofisika, ground penetrating radar, deteksi utilitas, PT. Intergeo Mitigasi, artikel survey, blog geofisika" />
+        <meta property="og:title" :content="props.article.title + ' - Blog Survey Geofisika | PT. Intergeo Mitigasi'" />
         <meta property="og:description" :content="description" />
         <meta property="og:image" :content="ogImage" />
         <meta property="og:url" :content="canonicalUrl" />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" :content="props.article.title + ' | PT. Intergeo Mitigasi'" />
+        <meta name="twitter:title" :content="props.article.title + ' - Blog Survey Geofisika | PT. Intergeo Mitigasi'" />
         <meta name="twitter:description" :content="description" />
         <meta name="twitter:image" :content="ogImage" />
     </Head>
     <NavMenu />
     <div class="min-h-screen bg-gray-50">
+        <!-- Breadcrumb -->
+        <nav class="bg-white py-4 shadow-sm">
+            <div class="mx-auto max-w-4xl px-6">
+                <div class="flex items-center space-x-2 text-sm text-gray-600">
+                    <button @click="() => router.visit('/')" class="hover:text-blue-600 cursor-pointer">Beranda</button>
+                    <ChevronLeft class="h-4 w-4 flex-shrink-0 rotate-180" />
+                    <button @click="goBack" class="hover:text-blue-600 cursor-pointer">Blog Survey Geofisika</button>
+                    <ChevronLeft class="h-4 w-4 flex-shrink-0 rotate-180" />
+                    <span class="font-medium text-blue-600">Artikel</span>
+                </div>
+            </div>
+        </nav>
+
         <!-- Article Header -->
         <div class="bg-white">
             <div class="mx-auto max-w-4xl px-6 py-8">
                 <button @click="goBack" class="mb-6 flex items-center text-blue-600 hover:text-blue-700">
                     <ArrowLeft class="mr-2 h-4 w-4" />
-                    Kembali ke Blog
+                    Kembali ke Blog Survey Geofisika
                 </button>
 
                 <div class="mb-6">
@@ -150,5 +163,31 @@ const description = getExcerpt(props.article.body);
             </div>
         </div>
     </div>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-blue-900 text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center space-y-6">
+            <h2 class="text-3xl font-bold">
+                Butuh Survey <span class="text-yellow-400">Seismik atau GPR?</span>
+            </h2>
+            <p class="text-xl text-blue-100">
+                Konsultasikan kebutuhan survey geofisika Anda dengan tim ahli kami. Dapatkan solusi terbaik untuk proyek Anda.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                    @click="() => router.visit('/contact')"
+                    class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 px-8 py-3 rounded-md text-lg font-semibold transition-colors cursor-pointer"
+                >
+                    Konsultasi Survey Gratis
+                </button>
+                <button
+                    @click="() => router.visit('/portfolio')"
+                    class="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-3 rounded-md text-lg font-semibold transition-colors border cursor-pointer"
+                >
+                    Lihat Portfolio Kami
+                </button>
+            </div>
+        </div>
+    </section>
     <Footer />
 </template>

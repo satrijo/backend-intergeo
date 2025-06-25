@@ -132,19 +132,19 @@ onMounted(() => {
 
 <template>
   <Head>
-    <title>Portfolio Proyek | PT. Intergeo Mitigasi</title>
-    <meta name="description" content="Lihat portfolio proyek-proyek terbaik PT. Intergeo Mitigasi di bidang survey, geoteknik, dan konsultasi. Bukti nyata kualitas dan profesionalisme kami." />
+    <title>Portfolio Proyek Survey Seismik & GPR | PT. Intergeo Mitigasi</title>
+    <meta name="description" content="Lihat portfolio proyek-proyek survey seismik, GPR, dan georadar terbaik PT. Intergeo Mitigasi. Bukti nyata keahlian kami dalam survey geofisika untuk berbagai industri." />
     <link rel="canonical" href="https://surveyseismikgpr.com/portfolios" />
-    <meta name="keywords" content="portfolio intergeo, proyek survey, proyek geoteknik, PT. Intergeo Mitigasi" />
-    <meta property="og:title" content="Portfolio Proyek | PT. Intergeo Mitigasi" />
-    <meta property="og:description" content="Lihat portfolio proyek-proyek terbaik PT. Intergeo Mitigasi di bidang survey, geoteknik, dan konsultasi." />
+    <meta name="keywords" content="portfolio survey seismik, proyek GPR, proyek georadar, survey geofisika, PT. Intergeo Mitigasi, portfolio intergeo" />
+    <meta property="og:title" content="Portfolio Proyek Survey Seismik & GPR | PT. Intergeo Mitigasi" />
+    <meta property="og:description" content="Lihat portfolio proyek-proyek survey seismik, GPR, dan georadar terbaik PT. Intergeo Mitigasi." />
     <meta property="og:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
     <meta property="og:url" content="https://surveyseismikgpr.com/portfolios" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Portfolio Proyek | PT. Intergeo Mitigasi" />
-    <meta name="twitter:description" content="Lihat portfolio proyek-proyek terbaik PT. Intergeo Mitigasi di bidang survey, geoteknik, dan konsultasi." />
+    <meta name="twitter:title" content="Portfolio Proyek Survey Seismik & GPR | PT. Intergeo Mitigasi" />
+    <meta name="twitter:description" content="Lihat portfolio proyek-proyek survey seismik, GPR, dan georadar terbaik PT. Intergeo Mitigasi." />
     <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
   </Head>
   <NavMenu />
@@ -153,20 +153,19 @@ onMounted(() => {
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center space-y-6">
           <h1 class="text-5xl font-bold">
-            Portfolio <span class="text-yellow-400">Proyek</span>
+            Portfolio <span class="text-yellow-400">Survey Geofisika</span>
           </h1>
           <p class="text-xl text-blue-100 max-w-3xl mx-auto">
-            Lihat koleksi proyek-proyek berkualitas tinggi yang telah kami selesaikan
-            dengan standar profesional dan kepuasan klien terbaik.
+            Lihat koleksi proyek-proyek survey seismik, GPR, dan georadar berkualitas tinggi yang telah kami selesaikan
+            dengan teknologi terdepan dan standar profesional untuk berbagai industri.
           </p>
           <div class="flex justify-center">
-            <router-link to="/">
-              <button
-                  class="border-white text-white hover:bg-white hover:text-blue-900 px-6 py-2 rounded-md font-semibold transition-colors border"
-              >
-                Kembali ke Beranda
-              </button>
-            </router-link>
+            <button
+                @click="() => router.visit('/')"
+                class="border-white text-white hover:bg-white hover:text-blue-900 px-6 py-2 rounded-md font-semibold transition-colors border cursor-pointer"
+            >
+              Kembali ke Beranda
+            </button>
           </div>
         </div>
       </div>
@@ -254,7 +253,7 @@ onMounted(() => {
                     <span>{{ project.project_date }}</span>
                   </div>
                   <div v-if="project.technologies && project.technologies.length" class="pt-2">
-                    <h4 class="font-semibold text-sm mb-2 text-gray-800">Technologies:</h4>
+                    <h4 class="font-semibold text-sm mb-2 text-gray-800">Teknologi Survey:</h4>
                     <div class="flex flex-wrap gap-1">
                       <span
                           v-for="(technology, tIndex) in project.technologies"
@@ -276,16 +275,16 @@ onMounted(() => {
     <section class="py-16 bg-blue-900 text-white">
       <div class="max-w-4xl mx-auto px-6 text-center space-y-6">
         <h2 class="text-3xl font-bold">
-          Siap Memulai Proyek <span class="text-yellow-400">Impian Anda?</span>
+          Siap Memulai Proyek <span class="text-yellow-400">Survey Geofisika?</span>
         </h2>
         <p class="text-xl text-blue-100">
-          Konsultasikan proyek Anda dengan tim ahli kami dan wujudkan visi Anda menjadi kenyataan.
+          Konsultasikan kebutuhan survey seismik, GPR, atau georadar Anda dengan tim ahli geofisika kami.
         </p>
         <button
             @click="scrollToContact"
             class="bg-yellow-400 text-blue-900 hover:bg-yellow-300 px-8 py-3 rounded-md text-lg font-semibold transition-colors cursor-pointer"
         >
-          Konsultasi Gratis Sekarang
+          Konsultasi Survey Gratis
         </button>
       </div>
     </section>
