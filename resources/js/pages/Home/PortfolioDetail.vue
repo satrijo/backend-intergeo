@@ -124,7 +124,7 @@ const closeZoom = () => { zoomedImage.value = null; };
             <CardHeader>
               <CardTitle>Detail Proyek Survey</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent class="prose prose-sm prose-invert">
               <div v-html="portfolio.description"></div>
             </CardContent>
           </Card>
