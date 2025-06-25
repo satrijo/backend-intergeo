@@ -3,9 +3,9 @@ import { shallowRef } from 'vue';
 import { CheckCircle, Award, Users, Calendar } from 'lucide-vue-next'; // Pastikan menggunakan lucide-vue-next
 
 const stats = shallowRef([
-  { icon: Users, number: "500+", label: "Klien Survey" },
-  { icon: CheckCircle, number: "1000+", label: "Proyek Survey Selesai" },
-  { icon: Award, number: "15+", label: "Tahun Pengalaman" },
+  { icon: Users, number: "30+", label: "Klien Survey" },
+  { icon: CheckCircle, number: "50+", label: "Proyek Survey Selesai" },
+  { icon: Award, number: "7+", label: "Tahun Pengalaman" },
   { icon: Calendar, number: "24/7", label: "Layanan Support" }
 ]);
 

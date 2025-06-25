@@ -14,7 +14,7 @@ const categories = ref([{ id: 'all', label: 'Semua' }]);
 
 const portfolioStats = ref([
   { number: '-', label: 'Total Proyek' },
-  { number: '-', label: 'Tahun Pengalaman' },
+  { number: '7+ Tahun', label: 'Tahun Pengalaman' },
   { number: '-', label: 'Client Unik' },
   { number: '-', label: 'Teknologi Unik' }
 ]);

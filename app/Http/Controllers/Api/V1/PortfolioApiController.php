@@ -47,7 +47,7 @@ class PortfolioApiController extends Controller
         $earliestYear = $firstProject && $firstProject->project_date ? (int)date('Y', strtotime($firstProject->project_date)) : null;
         $latestYear = $lastProject && $lastProject->project_date ? (int)date('Y', strtotime($lastProject->project_date)) : null;
         $currentYear = (int)date('Y');
-        $yearsExperience = $earliestYear ? max(1, $currentYear - $earliestYear + 1) : 0;
+        $yearsExperience = max(1, $currentYear - 2018 + 1);
         $uniqueClients = Portfolio::published()->whereNotNull('client')->distinct('client')->count('client');
         $allTechnologies = Portfolio::published()->pluck('technologies')->flatten()->unique()->filter()->count();
 

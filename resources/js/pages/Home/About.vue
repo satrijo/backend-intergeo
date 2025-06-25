@@ -49,9 +49,9 @@ const team = shallowRef([
 ]);
 
 const stats = shallowRef([
-  { icon: Users, number: "500+", label: "Klien Survey" },
-  { icon: CheckCircle, number: "1000+", label: "Proyek Survey Selesai" },
-  { icon: Award, number: "15+", label: "Tahun Pengalaman" },
+  { icon: Users, number: "30+", label: "Klien Survey" },
+  { icon: CheckCircle, number: "50+", label: "Proyek Survey Selesai" },
+  { icon: Award, number: "7+", label: "Tahun Pengalaman" },
   { icon: Calendar, number: "24/7", label: "Layanan Support" }
 ]);
 
@@ -83,18 +83,18 @@ const scrollToPortfolio = () => {
 <template>
   <Head>
     <title>Tentang PT. Intergeo Mitigasi | Spesialis Survey Seismik & GPR Profesional</title>
-    <meta name="description" content="Kenali PT. Intergeo Mitigasi, spesialis survey seismik, GPR, dan georadar dengan pengalaman lebih dari 15 tahun di Indonesia. Tim ahli survey geofisika, layanan terpercaya, hasil akurat." />
+    <meta name="description" content="Kenali PT. Intergeo Mitigasi, spesialis survey seismik, GPR, dan georadar dengan pengalaman lebih dari 7 tahun di Indonesia. Tim ahli survey geofisika, layanan terpercaya, hasil akurat." />
     <link rel="canonical" href="https://surveyseismikgpr.com/about" />
     <meta name="keywords" content="tentang intergeo, survey seismik, GPR, georadar, tim ahli survey, pengalaman survey geofisika, PT. Intergeo Mitigasi" />
     <meta property="og:title" content="Tentang PT. Intergeo Mitigasi | Spesialis Survey Seismik & GPR Profesional" />
-    <meta property="og:description" content="Kenali PT. Intergeo Mitigasi, spesialis survey seismik, GPR, dan georadar dengan pengalaman lebih dari 15 tahun di Indonesia." />
+    <meta property="og:description" content="Kenali PT. Intergeo Mitigasi, spesialis survey seismik, GPR, dan georadar dengan pengalaman lebih dari 7 tahun di Indonesia." />
     <meta property="og:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
     <meta property="og:url" content="https://surveyseismikgpr.com/about" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="PT. Intergeo Mitigasi" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Tentang PT. Intergeo Mitigasi | Spesialis Survey Seismik & GPR Profesional" />
-    <meta name="twitter:description" content="Kenali PT. Intergeo Mitigasi, spesialis survey seismik, GPR, dan georadar dengan pengalaman lebih dari 15 tahun di Indonesia." />
+    <meta name="twitter:description" content="Kenali PT. Intergeo Mitigasi, spesialis survey seismik, GPR, dan georadar dengan pengalaman lebih dari 7 tahun di Indonesia." />
     <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
   </Head>
   <NavMenu />
@@ -130,7 +130,7 @@ const scrollToPortfolio = () => {
             </h2>
             <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
               <p>
-                Didirikan pada tahun 2009, Intergeo Mitigasi lahir dari visi untuk
+                Didirikan pada tahun 2018, Intergeo Mitigasi lahir dari visi untuk
                 memberikan solusi terbaik dalam bidang survey geofisika. Kami memulai perjalanan 
                 dengan tim kecil yang berpengalaman dan komitmen tinggi untuk memberikan 
                 layanan survey seismik, GPR, dan georadar berkualitas.
@@ -143,7 +143,7 @@ const scrollToPortfolio = () => {
               </p>
               <p>
                 Hari ini, Intergeo Mitigasi telah menjadi nama terpercaya dalam survey geofisika
-                dengan lebih dari 500 klien survey puas dan 1000+ proyek survey yang berhasil diselesaikan
+                dengan lebih dari 30 klien survey puas dan 50+ proyek survey yang berhasil diselesaikan
                 di seluruh Indonesia.
               </p>
             </div>
@@ -156,7 +156,7 @@ const scrollToPortfolio = () => {
                 class="w-full h-96 object-cover rounded-2xl shadow-2xl"
             />
             <div class="absolute -bottom-8 -left-8 bg-yellow-400 text-blue-900 p-6 rounded-xl shadow-xl">
-              <div class="text-3xl font-bold">15+</div>
+              <div class="text-3xl font-bold">7+</div>
               <div class="text-sm font-medium">Tahun Pengalaman Survey</div>
             </div>
           </div>
