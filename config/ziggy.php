@@ -1,7 +1,5 @@
 <?php
 
 return [
-    'except' => [
-        'dashboard.*',
-    ],
+    'except' => [],
 ]; 
