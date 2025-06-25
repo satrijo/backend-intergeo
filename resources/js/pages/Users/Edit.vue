@@ -20,8 +20,8 @@ const props = defineProps<{
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Users', href: '/users' },
-    { title: `Edit: ${props.user.name}`, href: `/users/${props.user.id}/edit` },
+    { title: 'Users', href: '/dashboard/users' },
+    { title: `Edit: ${props.user.name}`, href: `/dashboard/users/${props.user.id}/edit` },
 ];
 
 const form = useForm({
@@ -32,7 +32,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.patch(route('users.update', props.user.id), {
+    form.patch(route('dashboard.users.update', props.user.id), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
@@ -75,7 +75,7 @@ const submit = () => {
                     </CardContent>
                     <CardFooter class="flex justify-end gap-2 pt-6">
                         <Button variant="outline" as-child>
-                            <Link :href="route('users.index')">Cancel</Link>
+                            <Link :href="route('dashboard.users.index')">Cancel</Link>
                         </Button>
                         <Button type="submit" :disabled="form.processing">Update User</Button>
                     </CardFooter>

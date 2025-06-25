@@ -42,7 +42,7 @@ class CategoryController extends Controller
             'is_active' => $validated['is_active'] ?? true,
         ]);
 
-        return redirect()->route('categories.index')
+        return redirect()->route('dashboard.categories.index')
             ->with('success', 'Category created successfully.');
     }
 
@@ -81,7 +81,7 @@ class CategoryController extends Controller
             'is_active' => $validated['is_active'] ?? true,
         ]);
 
-        return redirect()->route('categories.index')
+        return redirect()->route('dashboard.categories.index')
             ->with('success', 'Category updated successfully.');
     }
 
@@ -89,7 +89,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return redirect()->route('categories.index')
+        return redirect()->route('dashboard.categories.index')
             ->with('success', 'Category deleted successfully.');
     }
 } 

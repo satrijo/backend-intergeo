@@ -63,7 +63,7 @@ class PortfolioController extends Controller
             'sort_order' => $request->sort_order ?? 0,
         ]);
 
-        return redirect()->route('portfolios.index')
+        return redirect()->route('dashboard.portfolios.index')
             ->with('success', 'Portfolio created successfully.');
     }
 
@@ -137,7 +137,7 @@ class PortfolioController extends Controller
             'sort_order' => $request->sort_order ?? 0,
         ]);
 
-        return redirect()->route('portfolios.index')
+        return redirect()->route('dashboard.portfolios.index')
             ->with('success', 'Portfolio updated successfully.');
     }
 
@@ -162,7 +162,7 @@ class PortfolioController extends Controller
 
         $portfolio->delete();
 
-        return redirect()->route('portfolios.index')
+        return redirect()->route('dashboard.portfolios.index')
             ->with('success', 'Portfolio deleted successfully.');
     }
 }

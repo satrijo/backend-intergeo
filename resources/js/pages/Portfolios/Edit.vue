@@ -10,6 +10,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ArrowLeft, Plus, X } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 
 interface Portfolio {
     id: string;
@@ -31,18 +32,9 @@ interface Props {
 const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Portfolio',
-        href: '/portfolios',
-    },
-    {
-        title: 'Edit Project',
-        href: '#',
-    },
+    { title: 'Dashboard', href: '/dashboard' },
+    { title: 'Portfolios', href: '/dashboard/portfolios' },
+    { title: 'Edit', href: `/dashboard/portfolios/${props.portfolio.id}/edit` },
 ];
 
 const form = useForm({
@@ -71,7 +63,7 @@ const removeTechnology = (index: number) => {
 };
 
 const submit = () => {
-    form.put(route('portfolios.update', props.portfolio.id));
+    form.put(route('dashboard.portfolios.update', props.portfolio.id));
 };
 </script>
 
@@ -82,10 +74,10 @@ const submit = () => {
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex items-center gap-4">
                 <Button variant="ghost" size="sm" as-child>
-                    <a :href="route('portfolios.index')">
+                    <Link :href="route('dashboard.portfolios.index')">
                         <ArrowLeft class="mr-2 h-4 w-4" />
-                        Back to Portfolio
-                    </a>
+                        Back to Portfolios
+                    </Link>
                 </Button>
                 <div>
                     <h1 class="text-2xl font-bold">Edit Portfolio Project</h1>
@@ -243,7 +235,7 @@ const submit = () => {
                                 {{ form.processing ? 'Updating...' : 'Update Project' }}
                             </Button>
                             <Button type="button" variant="outline" as-child>
-                                <a :href="route('portfolios.index')">Cancel</a>
+                                <Link :href="route('dashboard.portfolios.index')">Cancel</Link>
                             </Button>
                         </div>
                     </form>

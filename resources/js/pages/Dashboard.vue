@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { Plus, FileText, Eye, Briefcase } from 'lucide-vue-next';
+import { Plus, FileText, Eye, Briefcase, MessageSquare } from 'lucide-vue-next';
 
 interface Article {
     id: string;
@@ -23,14 +23,27 @@ interface Portfolio {
     updated_at: string;
 }
 
+interface ContactInquiry {
+    id: string;
+    full_name: string;
+    email: string;
+    phone_number: string;
+    service_type: string;
+    status: string;
+    created_at: string;
+    updated_at: string;
+}
+
 interface Props {
     recentArticles?: Article[];
     recentPortfolios?: Portfolio[];
+    recentInquiries?: ContactInquiry[];
 }
 
 withDefaults(defineProps<Props>(), {
     recentArticles: () => [],
     recentPortfolios: () => [],
+    recentInquiries: () => [],
 });
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -53,13 +66,13 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
                 <div class="flex gap-2">
                     <Button as-child>
-                        <Link :href="route('articles.create')">
+                        <Link :href="route('dashboard.articles.create')">
                             <Plus class="mr-2 h-4 w-4" />
                             Create Article
                         </Link>
                     </Button>
                     <Button as-child>
-                        <Link :href="route('portfolios.create')">
+                        <Link :href="route('dashboard.portfolios.create')">
                             <Plus class="mr-2 h-4 w-4" />
                             Add Project
                         </Link>
@@ -87,7 +100,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </p>
                                 </div>
                                 <Button variant="ghost" size="sm" as-child>
-                                    <Link :href="route('articles.show', article.id)">
+                                    <Link :href="route('dashboard.articles.show', article.id)">
                                         <Eye class="h-4 w-4" />
                                     </Link>
                                 </Button>
@@ -97,7 +110,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <FileText class="mx-auto h-8 w-8 text-muted-foreground mb-2" />
                             <p class="text-sm text-muted-foreground">No articles yet</p>
                             <Button variant="outline" size="sm" class="mt-2" as-child>
-                                <Link :href="route('articles.create')">Create your first article</Link>
+                                <Link :href="route('dashboard.articles.create')">Create your first article</Link>
                             </Button>
                         </div>
                     </CardContent>
@@ -122,7 +135,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </p>
                                 </div>
                                 <Button variant="ghost" size="sm" as-child>
-                                    <Link :href="route('portfolios.show', portfolio.id)">
+                                    <Link :href="route('dashboard.portfolios.show', portfolio.id)">
                                         <Eye class="h-4 w-4" />
                                     </Link>
                                 </Button>
@@ -132,7 +145,45 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <Briefcase class="mx-auto h-8 w-8 text-muted-foreground mb-2" />
                             <p class="text-sm text-muted-foreground">No projects yet</p>
                             <Button variant="outline" size="sm" class="mt-2" as-child>
-                                <Link :href="route('portfolios.create')">Add your first project</Link>
+                                <Link :href="route('dashboard.portfolios.create')">Add your first project</Link>
+                            </Button>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <!-- Recent Contact Inquiries -->
+                <Card>
+                    <CardHeader>
+                        <CardTitle class="flex items-center gap-2">
+                            <MessageSquare class="h-5 w-5" />
+                            Recent Inquiries
+                        </CardTitle>
+                        <CardDescription>Latest contact inquiries</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div v-if="recentInquiries.length > 0" class="space-y-3">
+                            <div v-for="inquiry in recentInquiries.slice(0, 3)" :key="inquiry.id" class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <p class="font-medium">{{ inquiry.full_name }}</p>
+                                    <p class="text-sm text-muted-foreground">
+                                        {{ inquiry.service_type || 'No service specified' }}
+                                    </p>
+                                    <p class="text-xs text-muted-foreground">
+                                        {{ new Date(inquiry.created_at).toLocaleDateString() }}
+                                    </p>
+                                </div>
+                                <Button variant="ghost" size="sm" as-child>
+                                    <Link :href="route('dashboard.contact-inquiries.show', inquiry.id)">
+                                        <Eye class="h-4 w-4" />
+                                    </Link>
+                                </Button>
+                            </div>
+                        </div>
+                        <div v-else class="text-center py-4">
+                            <MessageSquare class="mx-auto h-8 w-8 text-muted-foreground mb-2" />
+                            <p class="text-sm text-muted-foreground">No inquiries yet</p>
+                            <Button variant="outline" size="sm" class="mt-2" as-child>
+                                <Link :href="route('dashboard.contact-inquiries.index')">View all inquiries</Link>
                             </Button>
                         </div>
                     </CardContent>
@@ -152,27 +203,33 @@ const breadcrumbs: BreadcrumbItem[] = [
                             </Link>
                         </Button>
                         <Button variant="outline" class="w-full justify-start" as-child>
-                            <Link :href="route('articles.index')">
+                            <Link :href="route('dashboard.articles.index')">
                                 <FileText class="mr-2 h-4 w-4" />
                                 View All Articles
                             </Link>
                         </Button>
                         <Button variant="outline" class="w-full justify-start" as-child>
-                            <Link :href="route('articles.create')">
+                            <Link :href="route('dashboard.articles.create')">
                                 <Plus class="mr-2 h-4 w-4" />
                                 Create New Article
                             </Link>
                         </Button>
                         <Button variant="outline" class="w-full justify-start" as-child>
-                            <Link :href="route('portfolios.index')">
+                            <Link :href="route('dashboard.portfolios.index')">
                                 <Briefcase class="mr-2 h-4 w-4" />
                                 View All Projects
                             </Link>
                         </Button>
                         <Button variant="outline" class="w-full justify-start" as-child>
-                            <Link :href="route('portfolios.create')">
+                            <Link :href="route('dashboard.portfolios.create')">
                                 <Plus class="mr-2 h-4 w-4" />
                                 Add New Project
+                            </Link>
+                        </Button>
+                        <Button variant="outline" class="w-full justify-start" as-child>
+                            <Link :href="route('dashboard.contact-inquiries.index')">
+                                <MessageSquare class="mr-2 h-4 w-4" />
+                                Contact Inquiries
                             </Link>
                         </Button>
                     </CardContent>
@@ -201,6 +258,10 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <div class="flex justify-between">
                                 <span>Published Projects:</span>
                                 <span class="font-medium">{{ recentPortfolios.filter(p => p.status === 'published').length }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>New Inquiries:</span>
+                                <span class="font-medium">{{ recentInquiries.filter(i => i.status === 'new').length }}</span>
                             </div>
                         </div>
                     </CardContent>

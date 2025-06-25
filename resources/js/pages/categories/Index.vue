@@ -32,13 +32,13 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
     {
         title: 'Categories',
-        href: '/categories',
+        href: '/dashboard/categories',
     },
 ];
 
 const deleteCategory = (categoryId: string) => {
     if (confirm('Are you sure you want to delete this category? This action cannot be undone.')) {
-        router.delete(route('categories.destroy', categoryId));
+        router.delete(route('dashboard.categories.destroy', categoryId));
     }
 };
 </script>
@@ -54,7 +54,7 @@ const deleteCategory = (categoryId: string) => {
                     <p class="text-muted-foreground">Manage your article categories</p>
                 </div>
                 <Button as-child>
-                    <Link :href="route('categories.create')">
+                    <Link :href="route('dashboard.categories.create')">
                         <Plus class="mr-2 h-4 w-4" />
                         Create Category
                     </Link>
@@ -111,12 +111,12 @@ const deleteCategory = (categoryId: string) => {
                                 <TableCell>
                                     <div class="flex items-center gap-2">
                                         <Button variant="ghost" size="sm" as-child>
-                                            <Link :href="route('categories.show', category.id)">
+                                            <Link :href="route('dashboard.categories.show', category.id)">
                                                 <Eye class="h-4 w-4" />
                                             </Link>
                                         </Button>
                                         <Button variant="ghost" size="sm" as-child>
-                                            <Link :href="route('categories.edit', category.id)">
+                                            <Link :href="route('dashboard.categories.edit', category.id)">
                                                 <Edit class="h-4 w-4" />
                                             </Link>
                                         </Button>

@@ -10,20 +10,12 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ArrowLeft, Plus, X } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Portfolio',
-        href: '/portfolios',
-    },
-    {
-        title: 'Create Project',
-        href: '/portfolios/create',
-    },
+    { title: 'Dashboard', href: '/dashboard' },
+    { title: 'Portfolios', href: '/dashboard/portfolios' },
+    { title: 'Create', href: '/dashboard/portfolios/create' },
 ];
 
 const form = useForm({
@@ -52,7 +44,7 @@ const removeTechnology = (index: number) => {
 };
 
 const submit = () => {
-    form.post(route('portfolios.store'));
+    form.post(route('dashboard.portfolios.store'));
 };
 </script>
 
@@ -63,10 +55,10 @@ const submit = () => {
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex items-center gap-4">
                 <Button variant="ghost" size="sm" as-child>
-                    <a :href="route('portfolios.index')">
+                    <Link :href="route('dashboard.portfolios.index')">
                         <ArrowLeft class="mr-2 h-4 w-4" />
-                        Back to Portfolio
-                    </a>
+                        Back to Portfolios
+                    </Link>
                 </Button>
                 <div>
                     <h1 class="text-2xl font-bold">Create Portfolio Project</h1>
@@ -221,7 +213,7 @@ const submit = () => {
                                 {{ form.processing ? 'Creating...' : 'Create Project' }}
                             </Button>
                             <Button type="button" variant="outline" as-child>
-                                <a :href="route('portfolios.index')">Cancel</a>
+                                <Link :href="route('dashboard.portfolios.index')">Cancel</Link>
                             </Button>
                         </div>
                     </form>

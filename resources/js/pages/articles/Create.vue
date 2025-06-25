@@ -9,6 +9,7 @@ import RichTextEditor from '@/components/RichTextEditor.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ArrowLeft } from 'lucide-vue-next';
+import { Link } from '@inertiajs/vue3';
 
 interface Category {
     id: string;
@@ -23,18 +24,9 @@ interface Props {
 defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Articles',
-        href: '/articles',
-    },
-    {
-        title: 'Create Article',
-        href: '/articles/create',
-    },
+    { title: 'Dashboard', href: '/dashboard' },
+    { title: 'Articles', href: '/dashboard/articles' },
+    { title: 'Create', href: '/dashboard/articles/create' },
 ];
 
 const form = useForm({
@@ -46,7 +38,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('articles.store'));
+    form.post(route('dashboard.articles.store'));
 };
 </script>
 
@@ -57,10 +49,10 @@ const submit = () => {
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex items-center gap-4">
                 <Button variant="ghost" size="sm" as-child>
-                    <a :href="route('articles.index')">
+                    <Link :href="route('dashboard.articles.index')">
                         <ArrowLeft class="mr-2 h-4 w-4" />
                         Back to Articles
-                    </a>
+                    </Link>
                 </Button>
                 <div>
                     <h1 class="text-2xl font-bold">Create Article</h1>
@@ -132,7 +124,7 @@ const submit = () => {
                                 {{ form.processing ? 'Creating...' : 'Create Article' }}
                             </Button>
                             <Button type="button" variant="outline" as-child>
-                                <a :href="route('articles.index')">Cancel</a>
+                                <Link :href="route('dashboard.articles.index')">Cancel</Link>
                             </Button>
                         </div>
                     </form>

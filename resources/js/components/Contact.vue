@@ -1,10 +1,11 @@
 <script setup>
-import { shallowRef, reactive } from 'vue';
+import { shallowRef, reactive, ref } from 'vue';
 import { MapPin, Phone, Mail, Clock } from 'lucide-vue-next'; // Pastikan menggunakan lucide-vue-next
-import { onMounted, onUnmounted, ref, computed } from 'vue';
-
+import { onMounted, onUnmounted } from 'vue';
+import { router } from '@inertiajs/vue3';
 
 const wasDarkMode = ref(false);
+const isLoading = ref(false);
 
 onMounted(() => {
     const htmlElement = document.documentElement;
@@ -55,21 +56,50 @@ const form = reactive({
   agreement: false,
 });
 
-const submitForm = () => {
+const submitForm = async () => {
   if (!form.agreement) {
     alert('Anda harus menyetujui syarat dan ketentuan.');
     return;
   }
-  // Logika untuk mengirim form, misalnya menggunakan fetch atau axios
-  console.log('Form Submitted:', form);
-  alert('Permintaan konsultasi survey Anda telah terkirim!');
-  // Reset form (opsional)
-  // form.fullName = '';
-  // form.email = '';
-  // form.phoneNumber = '';
-  // form.serviceType = '';
-  // form.projectDescription = '';
-  // form.agreement = false;
+
+  isLoading.value = true;
+
+  try {
+    const response = await fetch('/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+      body: JSON.stringify({
+        full_name: form.fullName,
+        email: form.email,
+        phone_number: form.phoneNumber,
+        service_type: form.serviceType,
+        project_description: form.projectDescription
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert(result.message);
+      // Reset form
+      form.fullName = '';
+      form.email = '';
+      form.phoneNumber = '';
+      form.serviceType = '';
+      form.projectDescription = '';
+      form.agreement = false;
+    } else {
+      alert('Terjadi kesalahan. Silakan coba lagi.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Terjadi kesalahan. Silakan coba lagi.');
+  } finally {
+    isLoading.value = false;
+  }
 };
 
 // Komponen Button, Input, Textarea, Card, CardContent, CardHeader, CardTitle
@@ -225,9 +255,16 @@ const submitForm = () => {
 
                 <button
                     type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-semibold rounded-md transition-colors"
+                    :disabled="isLoading"
+                    class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 text-lg font-semibold rounded-md transition-colors flex items-center justify-center"
                 >
-                  Kirim Permintaan Konsultasi Survey Geofisika
+                  <span v-if="isLoading" class="mr-2">
+                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  </span>
+                  {{ isLoading ? 'Mengirim...' : 'Kirim Permintaan Konsultasi Survey Geofisika' }}
                 </button>
 
                 <p class="text-center text-sm text-gray-500">

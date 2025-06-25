@@ -26,21 +26,12 @@ interface Props {
     portfolio: Portfolio;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Portfolio',
-        href: '/portfolios',
-    },
-    {
-        title: 'View Project',
-        href: '#',
-    },
+    { title: 'Dashboard', href: '/dashboard' },
+    { title: 'Portfolios', href: '/dashboard/portfolios' },
+    { title: 'Detail', href: `/dashboard/portfolios/${props.portfolio.id}` },
 ];
 </script>
 
@@ -52,9 +43,9 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     <Button variant="ghost" size="sm" as-child>
-                        <a :href="route('portfolios.index')">
+                        <a :href="route('dashboard.portfolios.index')">
                             <ArrowLeft class="mr-2 h-4 w-4" />
-                            Back to Portfolio
+                            Back to Portfolios
                         </a>
                     </Button>
                     <div>
@@ -63,7 +54,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </div>
                 </div>
                 <Button as-child>
-                    <Link :href="route('portfolios.edit', portfolio.id)">
+                    <Link :href="route('dashboard.portfolios.edit', portfolio.id)">
                         <Edit class="mr-2 h-4 w-4" />
                         Edit Project
                     </Link>

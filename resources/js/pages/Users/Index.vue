@@ -31,7 +31,7 @@ const authUser = computed(() => usePage().props.auth.user);
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Users', href: '/users' },
+    { title: 'Users', href: '/dashboard/users' },
 ];
 
 const confirmDelete = (userId: number, userName: string) => {
@@ -40,7 +40,7 @@ const confirmDelete = (userId: number, userName: string) => {
         return;
     }
     if (window.confirm(`Are you sure you want to delete the user "${userName}"?`)) {
-        router.delete(route('users.destroy', userId), {
+        router.delete(route('dashboard.users.destroy', userId), {
             preserveScroll: true,
         });
     }
@@ -58,9 +58,9 @@ const confirmDelete = (userId: number, userName: string) => {
                     <p class="text-muted-foreground">Create, view, and manage users.</p>
                 </div>
                 <Button as-child>
-                    <Link :href="route('users.create')">
+                    <Link :href="route('dashboard.users.create')">
                         <Plus class="mr-2 h-4 w-4" />
-                        Add User
+                        Create User
                     </Link>
                 </Button>
             </div>
@@ -91,7 +91,7 @@ const confirmDelete = (userId: number, userName: string) => {
                                     <TableCell class="text-right">
                                         <div class="flex items-center justify-end gap-2">
                                             <Button variant="ghost" size="sm" as-child>
-                                                <Link :href="route('users.edit', user.id)">
+                                                <Link :href="route('dashboard.users.edit', user.id)">
                                                     <Edit class="h-4 w-4" />
                                                 </Link>
                                             </Button>

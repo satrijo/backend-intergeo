@@ -2,6 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { ArrowLeft, Edit, Calendar, FileText } from 'lucide-vue-next';
@@ -38,7 +39,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
     {
         title: 'Categories',
-        href: '/categories',
+        href: '/dashboard/categories',
     },
     {
         title: 'View Category',
@@ -54,7 +55,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex items-center gap-4">
                 <Button variant="ghost" size="sm" as-child>
-                    <a :href="route('categories.index')">
+                    <a :href="route('dashboard.categories.index')">
                         <ArrowLeft class="mr-2 h-4 w-4" />
                         Back to Categories
                     </a>
@@ -82,7 +83,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </p>
                 </div>
                 <Button as-child>
-                    <Link :href="route('categories.edit', category.id)">
+                    <Link :href="route('dashboard.categories.edit', category.id)">
                         <Edit class="mr-2 h-4 w-4" />
                         Edit Category
                     </Link>
@@ -119,7 +120,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                         {{ article.published ? 'Published' : 'Draft' }}
                                     </span>
                                     <Button variant="ghost" size="sm" as-child>
-                                        <Link :href="route('articles.show', article.id)">
+                                        <Link :href="route('dashboard.articles.show', article.id)">
                                             View
                                         </Link>
                                     </Button>

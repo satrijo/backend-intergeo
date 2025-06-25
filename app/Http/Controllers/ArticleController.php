@@ -66,7 +66,7 @@ class ArticleController extends Controller
             $article->categories()->attach($validated['category_ids']);
         }
 
-        return redirect()->route('articles.index')
+        return redirect()->route('dashboard.articles.index')
             ->with('success', 'Article created successfully.');
     }
 
@@ -123,7 +123,7 @@ class ArticleController extends Controller
 
         $article->categories()->sync($validated['category_ids'] ?? []);
 
-        return redirect()->route('articles.index')
+        return redirect()->route('dashboard.articles.index')
             ->with('success', 'Article updated successfully.');
     }
 
@@ -134,7 +134,7 @@ class ArticleController extends Controller
     {
         $article->delete();
 
-        return redirect()->route('articles.index')
+        return redirect()->route('dashboard.articles.index')
             ->with('success', 'Article deleted successfully.');
     }
 }

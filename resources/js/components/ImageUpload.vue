@@ -63,7 +63,7 @@ const uploadImage = async (file: File) => {
         const formData = new FormData();
         formData.append('file', file);
         
-        const response = await fetch(route('media.upload'), {
+        const response = await fetch(route('dashboard.media.upload'), {
             method: 'POST',
             body: formData,
             credentials: 'same-origin',

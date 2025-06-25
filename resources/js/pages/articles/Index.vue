@@ -36,13 +36,13 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
     {
         title: 'Articles',
-        href: '/articles',
+        href: '/dashboard/articles',
     },
 ];
 
 const deleteArticle = (articleId: string) => {
     if (confirm('Are you sure you want to delete this article? This action cannot be undone.')) {
-        router.delete(route('articles.destroy', articleId));
+        router.delete(route('dashboard.articles.destroy', articleId));
     }
 };
 </script>
@@ -64,7 +64,7 @@ const deleteArticle = (articleId: string) => {
                         </Link>
                     </Button>
                     <Button as-child>
-                        <Link :href="route('articles.create')">
+                        <Link :href="route('dashboard.articles.create')">
                             <Plus class="mr-2 h-4 w-4" />
                             Create Article
                         </Link>
@@ -126,12 +126,12 @@ const deleteArticle = (articleId: string) => {
                                 <TableCell>
                                     <div class="flex items-center gap-2">
                                         <Button variant="ghost" size="sm" as-child>
-                                            <Link :href="route('articles.show', article.id)">
+                                            <Link :href="route('dashboard.articles.show', article.id)">
                                                 <Eye class="h-4 w-4" />
                                             </Link>
                                         </Button>
                                         <Button variant="ghost" size="sm" as-child>
-                                            <Link :href="route('articles.edit', article.id)">
+                                            <Link :href="route('dashboard.articles.edit', article.id)">
                                                 <Edit class="h-4 w-4" />
                                             </Link>
                                         </Button>

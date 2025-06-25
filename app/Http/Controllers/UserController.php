@@ -51,7 +51,7 @@ class UserController extends Controller
             'email_verified_at' => now(), // Automatically verify users created by admin
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('dashboard.users.index')->with('success', 'User created successfully.');
     }
 
     /**
@@ -88,7 +88,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('dashboard.users.index')->with('success', 'User updated successfully.');
     }
 
     /**
@@ -98,11 +98,11 @@ class UserController extends Controller
     {
         // Prevent user from deleting themselves
         if ($user->id === auth()->id()) {
-            return redirect()->route('users.index')->with('error', 'You cannot delete yourself.');
+            return redirect()->route('dashboard.users.index')->with('error', 'You cannot delete yourself.');
         }
 
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('dashboard.users.index')->with('success', 'User deleted successfully.');
     }
 } 

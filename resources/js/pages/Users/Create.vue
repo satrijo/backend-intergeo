@@ -10,8 +10,8 @@ import InputError from '@/components/InputError.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Users', href: '/users' },
-    { title: 'Create', href: '/users/create' },
+    { title: 'Users', href: '/dashboard/users' },
+    { title: 'Create', href: '/dashboard/users/create' },
 ];
 
 const form = useForm({
@@ -22,7 +22,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('users.store'), {
+    form.post(route('dashboard.users.store'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
@@ -65,7 +65,7 @@ const submit = () => {
                     </CardContent>
                     <CardFooter class="flex justify-end gap-2 pt-6">
                         <Button variant="outline" as-child>
-                            <Link :href="route('users.index')">Cancel</Link>
+                            <Link :href="route('dashboard.users.index')">Cancel</Link>
                         </Button>
                         <Button type="submit" :disabled="form.processing">Create User</Button>
                     </CardFooter>

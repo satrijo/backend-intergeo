@@ -30,7 +30,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
     {
         title: 'Categories',
-        href: '/categories',
+        href: '/dashboard/categories',
     },
     {
         title: 'Edit Category',
@@ -46,7 +46,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.put(route('categories.update', props.category.id));
+    form.put(route('dashboard.categories.update', props.category.id));
 };
 </script>
 
@@ -57,7 +57,7 @@ const submit = () => {
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div class="flex items-center gap-4">
                 <Button variant="ghost" size="sm" as-child>
-                    <a :href="route('categories.index')">
+                    <a :href="route('dashboard.categories.index')">
                         <ArrowLeft class="mr-2 h-4 w-4" />
                         Back to Categories
                     </a>
@@ -142,7 +142,7 @@ const submit = () => {
                                 {{ form.processing ? 'Updating...' : 'Update Category' }}
                             </Button>
                             <Button type="button" variant="outline" as-child>
-                                <a :href="route('categories.index')">Cancel</a>
+                                <a :href="route('dashboard.categories.index')">Cancel</a>
                             </Button>
                         </div>
                     </form>

@@ -36,19 +36,13 @@ interface Props {
 defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Portfolio',
-        href: '/portfolios',
-    },
+    { title: 'Dashboard', href: '/dashboard' },
+    { title: 'Portfolios', href: '/dashboard/portfolios' },
 ];
 
 const confirmDelete = (portfolioId: string, portfolioTitle: string) => {
     if (window.confirm(`Are you sure you want to delete the project "${portfolioTitle}"?`)) {
-        router.delete(route('portfolios.destroy', portfolioId), {
+        router.delete(route('dashboard.portfolios.destroy', portfolioId), {
             preserveScroll: true,
         });
     }
@@ -81,9 +75,9 @@ const getExcerpt = (html: string, maxLength = 120) => {
                     <p class="text-muted-foreground">Manage your portfolio projects</p>
                 </div>
                 <Button as-child>
-                    <Link :href="route('portfolios.create')">
+                    <Link :href="route('dashboard.portfolios.create')">
                         <Plus class="mr-2 h-4 w-4" />
-                        Add Project
+                        Create Portfolio
                     </Link>
                 </Button>
             </div>
@@ -167,12 +161,12 @@ const getExcerpt = (html: string, maxLength = 120) => {
                                     <TableCell class="text-right">
                                         <div class="flex items-center justify-end gap-2">
                                             <Button variant="ghost" size="sm" as-child>
-                                                <Link :href="route('portfolios.show', portfolio.id)">
+                                                <Link :href="route('dashboard.portfolios.show', portfolio.id)">
                                                     <Eye class="h-4 w-4" />
                                                 </Link>
                                             </Button>
                                             <Button variant="ghost" size="sm" as-child>
-                                                <Link :href="route('portfolios.edit', portfolio.id)">
+                                                <Link :href="route('dashboard.portfolios.edit', portfolio.id)">
                                                     <Edit class="h-4 w-4" />
                                                 </Link>
                                             </Button>
@@ -200,7 +194,7 @@ const getExcerpt = (html: string, maxLength = 120) => {
                                 size="sm"
                                 as-child
                             >
-                                <Link :href="route('portfolios.index', { page: portfolios.current_page - 1 })">
+                                <Link :href="route('dashboard.portfolios.index', { page: portfolios.current_page - 1 })">
                                     Previous
                                 </Link>
                             </Button>
@@ -210,7 +204,7 @@ const getExcerpt = (html: string, maxLength = 120) => {
                                 size="sm"
                                 as-child
                             >
-                                <Link :href="route('portfolios.index', { page: portfolios.current_page + 1 })">
+                                <Link :href="route('dashboard.portfolios.index', { page: portfolios.current_page + 1 })">
                                     Next
                                 </Link>
                             </Button>

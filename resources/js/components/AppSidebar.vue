@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, FileText, Tag, Briefcase, Users } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, FileText, Tag, Briefcase, Users, MessageSquare } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -16,22 +16,27 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Articles',
-        href: '/articles',
+        href: '/dashboard/articles',
         icon: FileText,
     },
     {
         title: 'Categories',
-        href: '/categories',
+        href: '/dashboard/categories',
         icon: Tag,
     },
     {
         title: 'Portfolio',
-        href: '/portfolios',
+        href: '/dashboard/portfolios',
         icon: Briefcase,
     },
     {
+        title: 'Contact Inquiries',
+        href: '/dashboard/contact-inquiries',
+        icon: MessageSquare,
+    },
+    {
         title: 'Users',
-        href: '/users',
+        href: '/dashboard/users',
         icon: Users,
     },
 ];
@@ -56,7 +61,7 @@ const footerNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="route('dashboard')">
+                        <Link :href="route('dashboard.index')">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>

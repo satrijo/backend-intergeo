@@ -50,7 +50,7 @@ const init = {
         'removeformat | image media | help',
     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
     placeholder: props.placeholder,
-    images_upload_url: route('media.upload'),
+    images_upload_url: route('dashboard.media.upload'),
     images_upload_handler: async (blobInfo: any, progress: any) => {
         isUploading.value = true;
         
@@ -59,7 +59,7 @@ const init = {
             const formData = new FormData();
             formData.append('file', blobInfo.blob(), blobInfo.filename());
             
-            xhr.open('POST', route('media.upload'));
+            xhr.open('POST', route('dashboard.media.upload'));
             xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '');
             xhr.setRequestHeader('Accept', 'application/json');
             
@@ -114,7 +114,7 @@ const init = {
             const formData = new FormData();
             formData.append('file', file);
             
-            xhr.open('POST', route('media.upload'));
+            xhr.open('POST', route('dashboard.media.upload'));
             xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '');
             xhr.setRequestHeader('Accept', 'application/json');
             
