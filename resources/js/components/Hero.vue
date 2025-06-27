@@ -61,7 +61,7 @@ const scrollToPortfolio = () => {
         <div class="relative animate-scale-in mt-10 lg:mt-0">
           <div class="relative z-10 bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20">
             <img
-                src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&h=400&fit=crop"
+                src="/images/gpr.jpg"
                 alt="Survey Seismik dan GPR Equipment"
                 class="w-full h-72 md:h-80 object-cover rounded-xl"
             />

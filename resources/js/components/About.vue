@@ -61,7 +61,7 @@ const goToContact = () => {
         <div class="relative">
           <div class="relative z-10">
             <img
-                src="https://images.unsplash.com/photo-1460574283810-2aab119d8511?w=600&h=500&fit=crop"
+                src="/images/georadar.jpg"
                 alt="Tim Survey Geofisika Intergeo Mitigasi"
                 class="w-full h-96 object-cover rounded-2xl shadow-2xl"
             />

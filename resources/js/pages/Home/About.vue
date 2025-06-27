@@ -150,7 +150,7 @@ const scrollToPortfolio = () => {
 
           <div class="relative">
             <img
-                src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=500&fit=crop"
+                src="/images/gpr.jpg"
                 alt="Tim Survey Geofisika Intergeo Mitigasi"
                 class="w-full h-96 object-cover rounded-2xl shadow-2xl"
             />
