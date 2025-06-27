@@ -13,6 +13,9 @@ interface Article {
     published: boolean;
     created_at: string;
     updated_at: string;
+    user: {
+        name: string;
+    };
 }
 
 interface Portfolio {
@@ -21,6 +24,9 @@ interface Portfolio {
     status: 'draft' | 'published';
     created_at: string;
     updated_at: string;
+    user: {
+        name: string;
+    };
 }
 
 interface ContactInquiry {

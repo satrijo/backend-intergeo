@@ -57,7 +57,7 @@ class MediaController extends Controller
 
     public function index()
     {
-        $files = MediaFile::where('user_id', auth()->id())
+        $files = MediaFile::with('user')
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
@@ -66,11 +66,6 @@ class MediaController extends Controller
 
     public function destroy(MediaFile $mediaFile)
     {
-        // Check if user owns this file
-        if ($mediaFile->user_id !== auth()->id()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
         $mediaFile->delete();
 
         return response()->json(['success' => true]);

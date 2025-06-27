@@ -21,6 +21,9 @@ interface Portfolio {
     sort_order: number;
     created_at: string;
     updated_at: string;
+    user: {
+        name: string;
+    };
 }
 
 interface Props {
@@ -96,6 +99,7 @@ const getExcerpt = (html: string, maxLength = 120) => {
                                 <TableRow>
                                     <TableHead>Image</TableHead>
                                     <TableHead>Title</TableHead>
+                                    <TableHead>Author</TableHead>
                                     <TableHead>Client</TableHead>
                                     <TableHead>Technologies</TableHead>
                                     <TableHead>Status</TableHead>
@@ -125,6 +129,12 @@ const getExcerpt = (html: string, maxLength = 120) => {
                                                 {{ getExcerpt(portfolio.description) }}
                                             </div>
                                         </div>
+                                    </TableCell>
+                                    <TableCell>
+                                        <span v-if="portfolio.user.name" class="text-sm">
+                                            {{ portfolio.user.name }}
+                                        </span>
+                                        <span v-else class="text-sm text-muted-foreground">-</span>
                                     </TableCell>
                                     <TableCell>
                                         <span v-if="portfolio.client" class="text-sm">

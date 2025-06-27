@@ -62,12 +62,12 @@ Route::get('/portfolio/{portfolio}', function (Portfolio $portfolio) {
 
 Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', function () {
-        $recentArticles = Article::where('user_id', auth()->id())
+        $recentArticles = Article::with('user')
             ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();
 
-        $recentPortfolios = Portfolio::where('user_id', auth()->id())
+        $recentPortfolios = Portfolio::with('user')
             ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();

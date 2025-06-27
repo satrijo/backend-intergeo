@@ -21,6 +21,9 @@ interface Article {
     created_at: string;
     updated_at: string;
     categories: Category[];
+    user: {
+        name: string;
+    };
 }
 
 interface Props {
@@ -82,6 +85,7 @@ const deleteArticle = (articleId: string) => {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Title</TableHead>
+                                <TableHead>Author</TableHead>
                                 <TableHead>Categories</TableHead>
                                 <TableHead>Status</TableHead>
                                 <TableHead>Created</TableHead>
@@ -91,6 +95,7 @@ const deleteArticle = (articleId: string) => {
                         <TableBody>
                             <TableRow v-for="article in articles" :key="article.id">
                                 <TableCell class="font-medium">{{ article.title }}</TableCell>
+                                <TableCell>{{ article.user.name }}</TableCell>
                                 <TableCell>
                                     <div class="flex flex-wrap gap-1">
                                         <span

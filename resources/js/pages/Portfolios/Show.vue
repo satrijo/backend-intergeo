@@ -20,6 +20,9 @@ interface Portfolio {
     sort_order: number;
     created_at: string;
     updated_at: string;
+    user: {
+        name: string;
+    };
 }
 
 interface Props {
@@ -117,6 +120,14 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <CardTitle>Project Details</CardTitle>
                         </CardHeader>
                         <CardContent class="space-y-4">
+                            <div class="flex items-center gap-2">
+                                <User class="h-4 w-4 text-muted-foreground" />
+                                <div>
+                                    <p class="text-sm font-medium">Created By</p>
+                                    <p class="text-sm text-muted-foreground">{{ portfolio.user.name }}</p>
+                                </div>
+                            </div>
+
                             <div v-if="portfolio.client" class="flex items-center gap-2">
                                 <User class="h-4 w-4 text-muted-foreground" />
                                 <div>

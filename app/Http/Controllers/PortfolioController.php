@@ -14,7 +14,7 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $portfolios = Portfolio::where('user_id', auth()->id())
+        $portfolios = Portfolio::with('user')
             ->ordered()
             ->paginate(10);
 
@@ -72,11 +72,8 @@ class PortfolioController extends Controller
      */
     public function show(Portfolio $portfolio)
     {
-        // Check if user owns this portfolio
-        if ($portfolio->user_id !== auth()->id()) {
-            abort(403);
-        }
-
+        $portfolio->load('user');
+        
         return Inertia::render('Portfolios/Show', [
             'portfolio' => $portfolio,
         ]);
@@ -87,11 +84,6 @@ class PortfolioController extends Controller
      */
     public function edit(Portfolio $portfolio)
     {
-        // Check if user owns this portfolio
-        if ($portfolio->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         // Kirim data sebagai array, project_date diformat yyyy-mm-dd
         $data = $portfolio->toArray();
         $data['project_date'] = $portfolio->project_date ? $portfolio->project_date->format('Y-m-d') : null;
@@ -106,11 +98,6 @@ class PortfolioController extends Controller
      */
     public function update(Request $request, Portfolio $portfolio)
     {
-        // Check if user owns this portfolio
-        if ($portfolio->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -146,11 +133,6 @@ class PortfolioController extends Controller
      */
     public function destroy(Portfolio $portfolio)
     {
-        // Check if user owns this portfolio
-        if ($portfolio->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         // Delete the image files if they exist
         if ($portfolio->images) {
             foreach ($portfolio->images as $image) {

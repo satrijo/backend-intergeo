@@ -15,8 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::where('user_id', auth()->id())
-            ->with('categories')
+        $articles = Article::with(['categories', 'user'])
             ->orderBy('created_at', 'desc')
             ->get();
 
