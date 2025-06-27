@@ -106,7 +106,7 @@ onMounted(() => {
               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
             <!-- Overlay -->
-            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+            <div class="absolute inset-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
               <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div class="bg-white bg-opacity-90 rounded-full p-3">
                   <Eye class="w-6 h-6 text-blue-600" />

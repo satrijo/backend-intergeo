@@ -112,7 +112,7 @@ const submitForm = async () => {
 
 
 <template>
-  <section id="contact" class="py-20 bg-gray-50">
+  <section id="contact" class="py-20">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
