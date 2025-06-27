@@ -9,6 +9,8 @@ const activeFilter = ref('all');
 const projects = ref([]);
 const loading = ref(true);
 const error = ref(null);
+const currentPage = ref(1);
+const projectsPerPage = 6;
 
 const categories = ref([{ id: 'all', label: 'Semua' }]);
 
@@ -40,8 +42,22 @@ const filteredProjects = computed(() => {
   );
 });
 
+const totalPages = computed(() => Math.ceil(filteredProjects.value.length / projectsPerPage));
+
+const currentProjects = computed(() => {
+  const startIndex = (currentPage.value - 1) * projectsPerPage;
+  return filteredProjects.value.slice(startIndex, startIndex + projectsPerPage);
+});
+
 const setActiveFilter = (filterId) => {
   activeFilter.value = filterId;
+  currentPage.value = 1; // Reset ke halaman pertama saat filter berubah
+};
+
+const changePage = (pageNumber) => {
+  if (pageNumber >= 1 && pageNumber <= totalPages.value) {
+    currentPage.value = pageNumber;
+  }
 };
 
 const scrollToContact = () => {
@@ -225,7 +241,7 @@ onMounted(() => {
           </div>
           <div v-else class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
             <div
-                v-for="project in filteredProjects"
+                v-for="project in currentProjects"
                 :key="project.id"
                 class="overflow-hidden hover:shadow-lg transition-shadow bg-white rounded-lg border"
                 @click="goToPortfolioDetail(project)"
@@ -267,6 +283,39 @@ onMounted(() => {
                 </div>
               </div>
             </div>
+          </div>
+          
+          <!-- Pagination -->
+          <div v-if="totalPages > 1" class="mt-12 flex justify-center space-x-2">
+            <button
+              @click="changePage(currentPage - 1)"
+              :disabled="currentPage === 1"
+              class="rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Sebelumnya
+            </button>
+
+            <button
+              v-for="pageNumber in totalPages"
+              :key="pageNumber"
+              @click="changePage(pageNumber)"
+              :class="[
+                'rounded-md px-4 py-2 font-medium transition-colors',
+                currentPage === pageNumber
+                  ? 'bg-blue-600 text-white hover:bg-blue-700'
+                  : 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-100',
+              ]"
+            >
+              {{ pageNumber }}
+            </button>
+
+            <button
+              @click="changePage(currentPage + 1)"
+              :disabled="currentPage === totalPages"
+              class="rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Selanjutnya
+            </button>
           </div>
         </div>
       </div>
