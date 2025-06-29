@@ -1,2 +1,135 @@
+# Robots.txt untuk Intergeo - Jasa Survey dan Pemetaan
+# https://intergeo.com
+
+# Allow all crawlers
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /storage/
+Disallow: /vendor/
+Disallow: /bootstrap/
+Disallow: /config/
+Disallow: /database/
+Disallow: /resources/
+Disallow: /routes/
+Disallow: /app/
+Disallow: /tests/
+Disallow: /node_modules/
+Disallow: /public/uploads/
+Disallow: /public/storage/
+Disallow: /public/vendor/
+Disallow: /public/css/
+Disallow: /public/js/
+Disallow: /public/mix-manifest.json
+Disallow: /public/.htaccess
+
+# Disallow temporary and cache files
+Disallow: /tmp/
+Disallow: /cache/
+Disallow: /logs/
+Disallow: /temp/
+Disallow: /*.log$
+Disallow: /*.cache$
+Disallow: /*.tmp$
+
+# Disallow search and filter pages
+Disallow: /search?
+Disallow: /filter?
+Disallow: /sort?
+Disallow: /page?
+
+# Allow important pages
+Allow: /blog/
+Allow: /portfolio/
+Allow: /about/
+Allow: /contact/
+Allow: /services/
+Allow: /faq/
+
+# Sitemap location
+Sitemap: https://intergeo.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: Screaming Frog SEO Spider
+Disallow: /
+
+# Block social media bots from admin areas
+User-agent: facebookexternalhit
+Disallow: /dashboard/
+Disallow: /admin/
+
+User-agent: Twitterbot
+Disallow: /dashboard/
+Disallow: /admin/
+
+User-agent: LinkedInBot
+Disallow: /dashboard/
+Disallow: /admin/
+
+User-agent: WhatsApp
+Disallow: /dashboard/
+Disallow: /admin/
+
+# Allow social media bots for public content
+User-agent: facebookexternalhit
+Allow: /blog/
+Allow: /portfolio/
+Allow: /about/
+Allow: /contact/
+
+User-agent: Twitterbot
+Allow: /blog/
+Allow: /portfolio/
+Allow: /about/
+Allow: /contact/
+
+User-agent: LinkedInBot
+Allow: /blog/
+Allow: /portfolio/
+Allow: /about/
+Allow: /contact/
+
+User-agent: WhatsApp
+Allow: /blog/
+Allow: /portfolio/
+Allow: /about/
+Allow: /contact/

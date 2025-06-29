@@ -5,6 +5,50 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        {{-- SEO Meta Tags --}}
+        <meta name="description" content="Intergeo - Jasa Survey dan Pemetaan profesional. Layanan survey tanah, pemetaan, dan konsultasi geospasial terpercaya di Indonesia.">
+        <meta name="keywords" content="survey tanah, pemetaan, jasa survey, konsultasi geospasial, surveyor, mapping, GIS, GPS, drone mapping, topografi">
+        <meta name="author" content="Intergeo">
+        <meta name="robots" content="index, follow">
+        <meta name="googlebot" content="index, follow">
+        
+        {{-- Open Graph Meta Tags --}}
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Intergeo - Jasa Survey dan Pemetaan Profesional">
+        <meta property="og:description" content="Layanan survey tanah, pemetaan, dan konsultasi geospasial terpercaya di Indonesia.">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:site_name" content="Intergeo">
+        <meta property="og:image" content="{{ url('/images/og-image.jpg') }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:locale" content="id_ID">
+        
+        {{-- Twitter Card Meta Tags --}}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Intergeo - Jasa Survey dan Pemetaan Profesional">
+        <meta name="twitter:description" content="Layanan survey tanah, pemetaan, dan konsultasi geospasial terpercaya di Indonesia.">
+        <meta name="twitter:image" content="{{ url('/images/og-image.jpg') }}">
+        
+        {{-- Additional SEO Meta Tags --}}
+        <meta name="theme-color" content="#2563eb">
+        <meta name="msapplication-TileColor" content="#2563eb">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="Intergeo">
+        
+        {{-- Canonical URL --}}
+        <link rel="canonical" href="{{ url()->current() }}">
+        
+        {{-- DNS Prefetch --}}
+        <link rel="dns-prefetch" href="//fonts.bunny.net">
+        <link rel="dns-prefetch" href="//www.google-analytics.com">
+        <link rel="dns-prefetch" href="//www.googletagmanager.com">
+        
+        {{-- Preconnect for performance --}}
+        <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+        <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
             (function() {

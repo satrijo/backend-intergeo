@@ -97,5 +97,97 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified'])
 // Contact form public route
 Route::post('/contact', [ContactInquiryController::class, 'store'])->name('contact.store');
 
+// Sitemap route
+Route::get('/sitemap.xml', function () {
+    $articles = \App\Models\Article::where('published', true)->get();
+    $portfolios = \App\Models\Portfolio::where('status', 'published')->get();
+    
+    $content = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $content .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    
+    // Homepage
+    $content .= '  <url>' . "\n";
+    $content .= '    <loc>https://intergeo.com/</loc>' . "\n";
+    $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
+    $content .= '    <changefreq>daily</changefreq>' . "\n";
+    $content .= '    <priority>1.0</priority>' . "\n";
+    $content .= '  </url>' . "\n";
+    
+    // About page
+    $content .= '  <url>' . "\n";
+    $content .= '    <loc>https://intergeo.com/about</loc>' . "\n";
+    $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
+    $content .= '    <changefreq>monthly</changefreq>' . "\n";
+    $content .= '    <priority>0.8</priority>' . "\n";
+    $content .= '  </url>' . "\n";
+    
+    // Services page
+    $content .= '  <url>' . "\n";
+    $content .= '    <loc>https://intergeo.com/services</loc>' . "\n";
+    $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
+    $content .= '    <changefreq>monthly</changefreq>' . "\n";
+    $content .= '    <priority>0.8</priority>' . "\n";
+    $content .= '  </url>' . "\n";
+    
+    // Portfolio page
+    $content .= '  <url>' . "\n";
+    $content .= '    <loc>https://intergeo.com/portfolio</loc>' . "\n";
+    $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
+    $content .= '    <changefreq>weekly</changefreq>' . "\n";
+    $content .= '    <priority>0.8</priority>' . "\n";
+    $content .= '  </url>' . "\n";
+    
+    // Blog page
+    $content .= '  <url>' . "\n";
+    $content .= '    <loc>https://intergeo.com/blog</loc>' . "\n";
+    $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
+    $content .= '    <changefreq>weekly</changefreq>' . "\n";
+    $content .= '    <priority>0.8</priority>' . "\n";
+    $content .= '  </url>' . "\n";
+    
+    // Contact page
+    $content .= '  <url>' . "\n";
+    $content .= '    <loc>https://intergeo.com/contact</loc>' . "\n";
+    $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
+    $content .= '    <changefreq>monthly</changefreq>' . "\n";
+    $content .= '    <priority>0.7</priority>' . "\n";
+    $content .= '  </url>' . "\n";
+    
+    // FAQ page
+    $content .= '  <url>' . "\n";
+    $content .= '    <loc>https://intergeo.com/faq</loc>' . "\n";
+    $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
+    $content .= '    <changefreq>monthly</changefreq>' . "\n";
+    $content .= '    <priority>0.6</priority>' . "\n";
+    $content .= '  </url>' . "\n";
+    
+    // Articles
+    foreach ($articles as $article) {
+        $content .= '  <url>' . "\n";
+        $content .= '    <loc>https://intergeo.com/blog/' . $article->slug . '</loc>' . "\n";
+        $content .= '    <lastmod>' . $article->updated_at->format('Y-m-d') . '</lastmod>' . "\n";
+        $content .= '    <changefreq>monthly</changefreq>' . "\n";
+        $content .= '    <priority>0.7</priority>' . "\n";
+        $content .= '  </url>' . "\n";
+    }
+    
+    // Portfolios
+    foreach ($portfolios as $portfolio) {
+        $content .= '  <url>' . "\n";
+        $content .= '    <loc>https://intergeo.com/portfolio/' . $portfolio->id . '</loc>' . "\n";
+        $content .= '    <lastmod>' . $portfolio->updated_at->format('Y-m-d') . '</lastmod>' . "\n";
+        $content .= '    <changefreq>monthly</changefreq>' . "\n";
+        $content .= '    <priority>0.6</priority>' . "\n";
+        $content .= '  </url>' . "\n";
+    }
+    
+    $content .= '</urlset>';
+    
+    return response($content, 200, [
+        'Content-Type' => 'application/xml',
+        'Cache-Control' => 'public, max-age=3600'
+    ]);
+})->name('sitemap.xml');
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
