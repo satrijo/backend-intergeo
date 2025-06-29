@@ -6,9 +6,27 @@ use App\Models\MediaFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class MediaController extends Controller
 {
+    public function index()
+    {
+        $files = MediaFile::with('user')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        // Add is_image attribute to each file
+        $files->getCollection()->transform(function ($file) {
+            $file->is_image = $file->isImage();
+            return $file;
+        });
+
+        return Inertia::render('Media/Index', [
+            'files' => $files,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -53,15 +71,6 @@ class MediaController extends Controller
                 'type' => $mimeType,
             ],
         ]);
-    }
-
-    public function index()
-    {
-        $files = MediaFile::with('user')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
-
-        return response()->json($files);
     }
 
     public function destroy(MediaFile $mediaFile)
