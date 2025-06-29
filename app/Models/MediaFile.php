@@ -28,6 +28,11 @@ class MediaFile extends Model
         'size' => 'integer',
     ];
 
+    protected $appends = [
+        'full_url',
+        'human_size',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -35,6 +40,9 @@ class MediaFile extends Model
 
     public function getFullUrlAttribute()
     {
+        if ($this->disk === 'public') {
+            return url('storage/' . $this->path);
+        }
         return Storage::disk($this->disk)->url($this->path);
     }
 

@@ -16,10 +16,23 @@ class MediaController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
-        // Add is_image attribute to each file
+        // Transform the data to include computed attributes
         $files->getCollection()->transform(function ($file) {
-            $file->is_image = $file->isImage();
-            return $file;
+            return [
+                'id' => $file->id,
+                'original_name' => $file->original_name,
+                'filename' => $file->filename,
+                'mime_type' => $file->mime_type,
+                'extension' => $file->extension,
+                'size' => $file->size,
+                'human_size' => $file->human_size,
+                'full_url' => $file->full_url,
+                'is_image' => $file->isImage(),
+                'created_at' => $file->created_at,
+                'user' => $file->user ? [
+                    'name' => $file->user->name,
+                ] : null,
+            ];
         });
 
         return Inertia::render('Media/Index', [
