@@ -114,7 +114,7 @@ const handleDragOver = (event: DragEvent) => {
         
         <!-- Current Image Preview -->
         <div v-if="modelValue" class="space-y-4">
-            <div class="relative group aspect-video rounded-lg overflow-hidden border bg-muted">
+            <div class="relative group max-w-md aspect-[4/3] rounded-lg overflow-hidden border bg-muted">
                 <img
                     :src="modelValue"
                     :alt="'Featured image'"
@@ -158,10 +158,10 @@ const handleDragOver = (event: DragEvent) => {
 
             <!-- File Upload Area -->
             <div
-                class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors"
+                class="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-border/80 transition-colors"
                 @drop="handleDrop"
                 @dragover="handleDragOver"
-                :class="{ 'border-blue-500 bg-blue-50': isUploading }"
+                :class="{ 'border-primary bg-primary/5': isUploading }"
             >
                 <input
                     type="file"
@@ -171,26 +171,26 @@ const handleDragOver = (event: DragEvent) => {
                     id="featured-image-upload"
                 />
                 <label for="featured-image-upload" class="cursor-pointer">
-                    <Upload class="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                    <p class="text-lg font-medium text-gray-700 mb-2">
+                    <Upload class="mx-auto h-10 w-10 text-muted-foreground mb-3" />
+                    <p class="text-base font-medium text-foreground mb-2">
                         Upload Featured Image
                     </p>
-                    <p class="text-sm text-gray-600 mb-4">
-                        <span class="font-medium text-blue-600 hover:text-blue-500">
+                    <p class="text-sm text-muted-foreground mb-3">
+                        <span class="font-medium text-primary hover:text-primary/80">
                             Click to upload
                         </span>
                         or drag and drop
                     </p>
-                    <p class="text-xs text-gray-500">
+                    <p class="text-xs text-muted-foreground">
                         PNG, JPG, GIF up to 10MB
                     </p>
                 </label>
             </div>
 
             <!-- Upload Progress -->
-            <div v-if="isUploading" class="text-center py-4">
-                <div class="inline-flex items-center gap-2 text-sm text-blue-600">
-                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+            <div v-if="isUploading" class="text-center py-3">
+                <div class="inline-flex items-center gap-2 text-sm text-primary">
+                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
                     Uploading image...
                 </div>
             </div>
@@ -213,25 +213,4 @@ const handleDragOver = (event: DragEvent) => {
             </ul>
         </div>
     </div>
-</template>
-
-<style scoped>
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    .border-dashed {
-        border-color: hsl(var(--border));
-    }
-    
-    .hover\:border-gray-400:hover {
-        border-color: hsl(var(--border));
-    }
-    
-    .border-blue-500 {
-        border-color: hsl(var(--primary));
-    }
-    
-    .bg-blue-50 {
-        background-color: hsl(var(--primary) / 0.1);
-    }
-}
-</style> 
+</template> 

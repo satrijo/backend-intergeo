@@ -145,10 +145,10 @@ const handleDragOver = (event: DragEvent) => {
 
             <!-- File Upload Area -->
             <div
-                class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors"
+                class="border-2 border-dashed border-border rounded-lg p-4 text-center hover:border-border/80 transition-colors"
                 @drop="handleDrop"
                 @dragover="handleDragOver"
-                :class="{ 'border-blue-500 bg-blue-50': isUploading }"
+                :class="{ 'border-primary bg-primary/5': isUploading }"
             >
                 <input
                     type="file"
@@ -159,17 +159,17 @@ const handleDragOver = (event: DragEvent) => {
                     :disabled="modelValue.length >= maxImages"
                 />
                 <label for="image-upload" class="cursor-pointer">
-                    <Upload class="mx-auto h-8 w-8 text-gray-400 mb-2" />
-                    <p class="text-sm text-gray-600">
-                        <span class="font-medium text-blue-600 hover:text-blue-500">
+                    <Upload class="mx-auto h-8 w-8 text-muted-foreground mb-2" />
+                    <p class="text-sm text-muted-foreground">
+                        <span class="font-medium text-primary hover:text-primary/80">
                             Click to upload
                         </span>
                         or drag and drop
                     </p>
-                    <p class="text-xs text-gray-500 mt-1">
+                    <p class="text-xs text-muted-foreground mt-1">
                         PNG, JPG, GIF up to 10MB
                     </p>
-                    <p class="text-xs text-gray-500">
+                    <p class="text-xs text-muted-foreground">
                         {{ modelValue.length }}/{{ maxImages }} images
                     </p>
                 </label>
@@ -177,8 +177,8 @@ const handleDragOver = (event: DragEvent) => {
 
             <!-- Upload Progress -->
             <div v-if="isUploading" class="text-center py-2">
-                <div class="inline-flex items-center gap-2 text-sm text-blue-600">
-                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                <div class="inline-flex items-center gap-2 text-sm text-primary">
+                    <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
                     Uploading image...
                 </div>
             </div>
@@ -233,25 +233,4 @@ const handleDragOver = (event: DragEvent) => {
             </ul>
         </div>
     </div>
-</template>
-
-<style scoped>
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    .border-dashed {
-        border-color: hsl(var(--border));
-    }
-    
-    .hover\:border-gray-400:hover {
-        border-color: hsl(var(--border));
-    }
-    
-    .border-blue-500 {
-        border-color: hsl(var(--primary));
-    }
-    
-    .bg-blue-50 {
-        background-color: hsl(var(--primary) / 0.1);
-    }
-}
-</style> 
+</template> 
