@@ -72,7 +72,7 @@ const scrollToPortfolio = () => {
               </div>
               <div class="flex items-center space-x-3 text-sm">
                 <Phone class="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                <a href="tel:+6285886283658" class="hover:text-yellow-300 transition-colors">+62 858-8628-3658</a>
+                <a href="tel:+6285886283658" class="hover:text-yellow-300 transition-colors">+62 858-8628-3668</a>
               </div>
               <div class="flex items-center space-x-3 text-sm">
                 <Mail class="w-5 h-5 text-yellow-400 flex-shrink-0" />

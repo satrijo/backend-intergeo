@@ -33,7 +33,7 @@ const contactInfo = shallowRef([
   {
     icon: Phone,
     title: "Telepon",
-    details: ["+62 858-8628-3658", "+62 858-1049-2011", "WhatsApp Available"]
+    details: ["+62 858-8628-3668", "+62 858-1049-2011", "WhatsApp Available"]
   },
   {
     icon: Mail,
@@ -199,7 +199,7 @@ const submitForm = async () => {
                         id="phoneNumber"
                         v-model="form.phoneNumber"
                         type="tel"
-                        placeholder="+62 858-8628-3658"
+                        placeholder="+62 858-8628-3668"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         required
                     />
@@ -288,7 +288,7 @@ const submitForm = async () => {
               href="tel:+6285886283658"
               class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
           >
-            📞 +62 858-8628-3658
+            📞 +62 858-8628-3668
           </a>
           <a
               href="https://wa.me/6285886283658"
