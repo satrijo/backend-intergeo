@@ -48,7 +48,7 @@
           <TableBody>
             <TableRow v-for="file in filteredFiles" :key="file.id">
               <TableCell>
-                <div class="h-16 w-16 rounded-md overflow-hidden bg-gray-100 border cursor-pointer hover:shadow-md transition-shadow" @click="openPreview(file)">
+                <div class="h-16 w-16 rounded-md overflow-hidden bg-muted border cursor-pointer hover:shadow-md transition-shadow" @click="openPreview(file)">
                   <img
                     v-if="file.is_image"
                     :src="file.full_url"
@@ -70,7 +70,7 @@
                 </div>
               </TableCell>
               <TableCell>
-                <Badge :variant="file.is_image ? 'default' : 'secondary'" :class="getFileColor(file)">
+                <Badge :variant="file.is_image ? 'default' : 'secondary'">
                   {{ getFileTypeLabel(file) }}
                 </Badge>
               </TableCell>
@@ -114,9 +114,9 @@
 
       <!-- Empty State -->
       <div v-else class="text-center py-12">
-        <Image class="w-16 h-16 mx-auto text-gray-300 mb-4" />
-        <h3 class="text-lg font-medium text-gray-900 mb-2">Tidak ada media</h3>
-        <p class="text-gray-500 mb-4">Belum ada file yang diupload.</p>
+        <Image class="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+        <h3 class="text-lg font-medium mb-2">Tidak ada media</h3>
+        <p class="text-muted-foreground mb-4">Belum ada file yang diupload.</p>
         <Button @click="showUploadDialog = true" variant="default">
           Upload File Pertama
         </Button>
@@ -147,8 +147,8 @@
             class="border-2 border-dashed rounded-lg p-6 text-center transition-colors"
             :class="[
               isDragOver 
-                ? 'border-blue-500 bg-blue-50' 
-                : 'border-gray-300 hover:border-gray-400'
+                ? 'border-primary bg-primary/5' 
+                : 'border-border hover:border-border/80'
             ]"
             @dragover="handleDragOver"
             @dragleave="handleDragLeave"
@@ -162,19 +162,19 @@
               class="hidden"
             />
             <div v-if="!uploading" @click="$refs.fileInput.click()" class="cursor-pointer">
-              <Upload class="w-12 h-12 mx-auto text-gray-400 mb-4" />
-              <p class="text-gray-600 mb-2">Klik untuk memilih file atau drag & drop</p>
-              <p class="text-sm text-gray-500">PNG, JPG, PDF, DOC, XLS, ZIP, MP4, MP3 hingga 10MB</p>
-              <div v-if="isDragOver" class="mt-4 p-2 bg-blue-100 rounded text-blue-700 text-sm">
+              <Upload class="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+              <p class="text-foreground mb-2">Klik untuk memilih file atau drag & drop</p>
+              <p class="text-sm text-muted-foreground">PNG, JPG, PDF, DOC, XLS, ZIP, MP4, MP3 hingga 10MB</p>
+              <div v-if="isDragOver" class="mt-4 p-2 bg-primary/10 rounded text-primary text-sm">
                 Lepas file di sini untuk upload
               </div>
             </div>
             <div v-else class="flex flex-col items-center justify-center">
-              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
-              <span class="text-gray-600 mb-2">Uploading... {{ uploadProgress }}%</span>
-              <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-2"></div>
+              <span class="text-foreground mb-2">Uploading... {{ uploadProgress }}%</span>
+              <div class="w-full bg-muted rounded-full h-2">
                 <div 
-                  class="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                  class="bg-primary h-2 rounded-full transition-all duration-300" 
                   :style="{ width: uploadProgress + '%' }"
                 ></div>
               </div>
@@ -208,43 +208,43 @@
           
           <!-- Document Preview -->
           <div v-else class="flex flex-col items-center justify-center py-8">
-            <div class="w-32 h-32 rounded-lg bg-gray-100 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center mb-4">
-              <component :is="getFileIcon(fileToPreview!)" class="w-12 h-12 text-gray-400 mb-2" />
-              <span class="text-sm text-gray-500">{{ fileToPreview?.extension.toUpperCase() }}</span>
+            <div class="w-32 h-32 rounded-lg bg-muted border-2 border-dashed border-border flex flex-col items-center justify-center mb-4">
+              <component :is="getFileIcon(fileToPreview!)" class="w-12 h-12 text-muted-foreground mb-2" />
+              <span class="text-sm text-muted-foreground">{{ fileToPreview?.extension.toUpperCase() }}</span>
             </div>
             <div class="text-center">
               <h3 class="font-medium text-lg">{{ fileToPreview?.original_name }}</h3>
-              <p class="text-sm text-gray-500 mt-1">{{ getFileTypeLabel(fileToPreview!) }}</p>
-              <p class="text-xs text-gray-400 mt-1">{{ fileToPreview?.human_size }} • {{ fileToPreview?.mime_type }}</p>
+              <p class="text-sm text-muted-foreground mt-1">{{ getFileTypeLabel(fileToPreview!) }}</p>
+              <p class="text-xs text-muted-foreground/70 mt-1">{{ fileToPreview?.human_size }} • {{ fileToPreview?.mime_type }}</p>
             </div>
           </div>
 
           <!-- File Details -->
-          <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+          <div class="bg-muted/50 rounded-lg p-4 space-y-3">
             <h4 class="font-medium text-sm">Detail File</h4>
             <div class="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span class="text-gray-500">Nama File:</span>
+                <span class="text-muted-foreground">Nama File:</span>
                 <p class="font-medium">{{ fileToPreview?.original_name }}</p>
               </div>
               <div>
-                <span class="text-gray-500">Tipe File:</span>
+                <span class="text-muted-foreground">Tipe File:</span>
                 <p class="font-medium">{{ getFileTypeLabel(fileToPreview!) }}</p>
               </div>
               <div>
-                <span class="text-gray-500">Ukuran:</span>
+                <span class="text-muted-foreground">Ukuran:</span>
                 <p class="font-medium">{{ fileToPreview?.human_size }}</p>
               </div>
               <div>
-                <span class="text-gray-500">Uploaded By:</span>
+                <span class="text-muted-foreground">Uploaded By:</span>
                 <p class="font-medium">{{ fileToPreview?.user?.name || '-' }}</p>
               </div>
               <div>
-                <span class="text-gray-500">Tanggal Upload:</span>
+                <span class="text-muted-foreground">Tanggal Upload:</span>
                 <p class="font-medium">{{ fileToPreview ? formatDate(fileToPreview.created_at) : '-' }}</p>
               </div>
               <div>
-                <span class="text-gray-500">MIME Type:</span>
+                <span class="text-muted-foreground">MIME Type:</span>
                 <p class="font-medium">{{ fileToPreview?.mime_type }}</p>
               </div>
             </div>
@@ -403,15 +403,15 @@ const getFileTypeLabel = (file: MediaFile) => {
 }
 
 const getFileColor = (file: MediaFile) => {
-  if (file.is_image) return 'bg-green-100 text-green-600 border-green-200'
-  if (file.mime_type.includes('video')) return 'bg-purple-100 text-purple-600 border-purple-200'
-  if (file.mime_type.includes('audio')) return 'bg-yellow-100 text-yellow-600 border-yellow-200'
-  if (file.mime_type.includes('pdf')) return 'bg-red-100 text-red-600 border-red-200'
-  if (file.mime_type.includes('word')) return 'bg-blue-100 text-blue-600 border-blue-200'
-  if (file.mime_type.includes('excel') || file.mime_type.includes('spreadsheet')) return 'bg-emerald-100 text-emerald-600 border-emerald-200'
-  if (file.mime_type.includes('zip') || file.mime_type.includes('rar') || file.mime_type.includes('tar')) return 'bg-orange-100 text-orange-600 border-orange-200'
-  if (file.mime_type.includes('text') || file.mime_type.includes('code')) return 'bg-gray-100 text-gray-600 border-gray-200'
-  return 'bg-gray-100 text-gray-600 border-gray-200'
+  if (file.is_image) return 'bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800'
+  if (file.mime_type.includes('video')) return 'bg-purple-100 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 border-purple-200 dark:border-purple-800'
+  if (file.mime_type.includes('audio')) return 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800'
+  if (file.mime_type.includes('pdf')) return 'bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800'
+  if (file.mime_type.includes('word')) return 'bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800'
+  if (file.mime_type.includes('excel') || file.mime_type.includes('spreadsheet')) return 'bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800'
+  if (file.mime_type.includes('zip') || file.mime_type.includes('rar') || file.mime_type.includes('tar')) return 'bg-orange-100 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-800'
+  if (file.mime_type.includes('text') || file.mime_type.includes('code')) return 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700'
+  return 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700'
 }
 
 const openPreview = (file: MediaFile) => {
