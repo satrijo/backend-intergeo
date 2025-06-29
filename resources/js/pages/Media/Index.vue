@@ -190,7 +190,7 @@ import { Label } from '@/components/ui/label'
 import { Select } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Icon } from '@/components/Icon.vue'
+import Icon from '@/components/Icon.vue'
 import Pagination from '@/components/Pagination.vue'
 
 interface MediaFile {
