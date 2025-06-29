@@ -48,15 +48,16 @@
           <TableBody>
             <TableRow v-for="file in filteredFiles" :key="file.id">
               <TableCell>
-                <div class="h-12 w-12 rounded-md overflow-hidden bg-gray-100">
+                <div class="h-16 w-16 rounded-md overflow-hidden bg-gray-100 border cursor-pointer hover:shadow-md transition-shadow" @click="openPreview(file)">
                   <img
                     v-if="file.is_image"
                     :src="file.full_url"
                     :alt="file.original_name"
                     class="h-full w-full object-cover"
                   />
-                  <div v-else class="h-full w-full flex items-center justify-center text-gray-400">
-                    <File class="w-6 h-6" />
+                  <div v-else class="h-full w-full flex flex-col items-center justify-center p-2" :class="getFileColor(file)">
+                    <component :is="getFileIcon(file)" class="w-6 h-6 mb-1" />
+                    <span class="text-xs text-center font-medium">{{ file.extension.toUpperCase() }}</span>
                   </div>
                 </div>
               </TableCell>
@@ -69,8 +70,8 @@
                 </div>
               </TableCell>
               <TableCell>
-                <Badge :variant="file.is_image ? 'default' : 'secondary'">
-                  {{ file.is_image ? 'Gambar' : 'Dokumen' }}
+                <Badge :variant="file.is_image ? 'default' : 'secondary'" :class="getFileColor(file)">
+                  {{ getFileTypeLabel(file) }}
                 </Badge>
               </TableCell>
               <TableCell>
@@ -87,6 +88,9 @@
               </TableCell>
               <TableCell class="text-right">
                 <div class="flex items-center justify-end gap-2">
+                  <Button variant="ghost" size="sm" @click="openPreview(file)">
+                    <Eye class="w-4 h-4" />
+                  </Button>
                   <Button variant="ghost" size="sm" @click="copyUrl(file.full_url)">
                     <Copy class="w-4 h-4" />
                   </Button>
@@ -139,27 +143,123 @@
           </DialogDescription>
         </DialogHeader>
         <div class="space-y-4">
-          <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+          <div 
+            class="border-2 border-dashed rounded-lg p-6 text-center transition-colors"
+            :class="[
+              isDragOver 
+                ? 'border-blue-500 bg-blue-50' 
+                : 'border-gray-300 hover:border-gray-400'
+            ]"
+            @dragover="handleDragOver"
+            @dragleave="handleDragLeave"
+            @drop="handleDrop"
+          >
             <input
               ref="fileInput"
               type="file"
               @change="handleFileUpload"
-              accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv"
+              accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv,.zip,.rar,.mp4,.mp3"
               class="hidden"
             />
             <div v-if="!uploading" @click="$refs.fileInput.click()" class="cursor-pointer">
               <Upload class="w-12 h-12 mx-auto text-gray-400 mb-4" />
-              <p class="text-gray-600">Klik untuk memilih file atau drag & drop</p>
-              <p class="text-sm text-gray-500 mt-2">PNG, JPG, PDF, DOC, XLS hingga 10MB</p>
+              <p class="text-gray-600 mb-2">Klik untuk memilih file atau drag & drop</p>
+              <p class="text-sm text-gray-500">PNG, JPG, PDF, DOC, XLS, ZIP, MP4, MP3 hingga 10MB</p>
+              <div v-if="isDragOver" class="mt-4 p-2 bg-blue-100 rounded text-blue-700 text-sm">
+                Lepas file di sini untuk upload
+              </div>
             </div>
-            <div v-else class="flex items-center justify-center">
-              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <span class="ml-2 text-gray-600">Uploading...</span>
+            <div v-else class="flex flex-col items-center justify-center">
+              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
+              <span class="text-gray-600 mb-2">Uploading... {{ uploadProgress }}%</span>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  class="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                  :style="{ width: uploadProgress + '%' }"
+                ></div>
+              </div>
             </div>
           </div>
         </div>
         <DialogFooter>
           <Button variant="outline" @click="showUploadDialog = false">Cancel</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+
+    <!-- Preview Dialog -->
+    <Dialog v-model:open="showPreviewDialog">
+      <DialogContent class="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>{{ fileToPreview?.original_name }}</DialogTitle>
+          <DialogDescription>
+            {{ getFileTypeLabel(fileToPreview!) }} • {{ fileToPreview?.human_size }} • {{ fileToPreview?.mime_type }}
+          </DialogDescription>
+        </DialogHeader>
+        <div class="space-y-4">
+          <!-- Image Preview -->
+          <div v-if="fileToPreview?.is_image" class="flex justify-center">
+            <img
+              :src="fileToPreview.full_url"
+              :alt="fileToPreview.original_name"
+              class="max-w-full max-h-96 object-contain rounded-lg border"
+            />
+          </div>
+          
+          <!-- Document Preview -->
+          <div v-else class="flex flex-col items-center justify-center py-8">
+            <div class="w-32 h-32 rounded-lg bg-gray-100 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center mb-4">
+              <component :is="getFileIcon(fileToPreview!)" class="w-12 h-12 text-gray-400 mb-2" />
+              <span class="text-sm text-gray-500">{{ fileToPreview?.extension.toUpperCase() }}</span>
+            </div>
+            <div class="text-center">
+              <h3 class="font-medium text-lg">{{ fileToPreview?.original_name }}</h3>
+              <p class="text-sm text-gray-500 mt-1">{{ getFileTypeLabel(fileToPreview!) }}</p>
+              <p class="text-xs text-gray-400 mt-1">{{ fileToPreview?.human_size }} • {{ fileToPreview?.mime_type }}</p>
+            </div>
+          </div>
+
+          <!-- File Details -->
+          <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+            <h4 class="font-medium text-sm">Detail File</h4>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <span class="text-gray-500">Nama File:</span>
+                <p class="font-medium">{{ fileToPreview?.original_name }}</p>
+              </div>
+              <div>
+                <span class="text-gray-500">Tipe File:</span>
+                <p class="font-medium">{{ getFileTypeLabel(fileToPreview!) }}</p>
+              </div>
+              <div>
+                <span class="text-gray-500">Ukuran:</span>
+                <p class="font-medium">{{ fileToPreview?.human_size }}</p>
+              </div>
+              <div>
+                <span class="text-gray-500">Uploaded By:</span>
+                <p class="font-medium">{{ fileToPreview?.user?.name || '-' }}</p>
+              </div>
+              <div>
+                <span class="text-gray-500">Tanggal Upload:</span>
+                <p class="font-medium">{{ fileToPreview ? formatDate(fileToPreview.created_at) : '-' }}</p>
+              </div>
+              <div>
+                <span class="text-gray-500">MIME Type:</span>
+                <p class="font-medium">{{ fileToPreview?.mime_type }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" @click="showPreviewDialog = false">Close</Button>
+          <Button @click="fileToPreview && copyUrl(fileToPreview.full_url)">
+            <Copy class="w-4 h-4 mr-2" />
+            Copy URL
+          </Button>
+          <Button @click="fileToPreview && downloadFile(fileToPreview)">
+            <Download class="w-4 h-4 mr-2" />
+            Download
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -197,7 +297,7 @@ import { Select } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Upload, File, Copy, Download, Trash2, Image } from 'lucide-vue-next'
+import { Upload, File, Copy, Download, Trash2, Image, Eye, FileText, FileImage, FileVideo, FileAudio, FileArchive, FileCode } from 'lucide-vue-next'
 import Pagination from '@/components/Pagination.vue'
 import { type BreadcrumbItem } from '@/types'
 
@@ -245,9 +345,13 @@ const search = ref('')
 const typeFilter = ref('')
 const showUploadDialog = ref(false)
 const showDeleteDialog = ref(false)
+const showPreviewDialog = ref(false)
 const fileToDelete = ref<MediaFile | null>(null)
+const fileToPreview = ref<MediaFile | null>(null)
 const uploading = ref(false)
 const deleting = ref(false)
+const isDragOver = ref(false)
+const uploadProgress = ref(0)
 
 const filteredFiles = computed(() => {
   let files = props.files.data
@@ -277,39 +381,123 @@ const formatDate = (dateString: string) => {
   })
 }
 
+const getFileIcon = (file: MediaFile) => {
+  if (file.is_image) return FileImage
+  if (file.mime_type.includes('video')) return FileVideo
+  if (file.mime_type.includes('audio')) return FileAudio
+  if (file.mime_type.includes('zip') || file.mime_type.includes('rar') || file.mime_type.includes('tar')) return FileArchive
+  if (file.mime_type.includes('text') || file.mime_type.includes('code')) return FileCode
+  return FileText
+}
+
+const getFileTypeLabel = (file: MediaFile) => {
+  if (file.is_image) return 'Gambar'
+  if (file.mime_type.includes('video')) return 'Video'
+  if (file.mime_type.includes('audio')) return 'Audio'
+  if (file.mime_type.includes('pdf')) return 'PDF'
+  if (file.mime_type.includes('word')) return 'Dokumen Word'
+  if (file.mime_type.includes('excel') || file.mime_type.includes('spreadsheet')) return 'Spreadsheet'
+  if (file.mime_type.includes('zip') || file.mime_type.includes('rar') || file.mime_type.includes('tar')) return 'Arsip'
+  if (file.mime_type.includes('text') || file.mime_type.includes('code')) return 'Teks'
+  return 'Dokumen'
+}
+
+const getFileColor = (file: MediaFile) => {
+  if (file.is_image) return 'bg-green-100 text-green-600 border-green-200'
+  if (file.mime_type.includes('video')) return 'bg-purple-100 text-purple-600 border-purple-200'
+  if (file.mime_type.includes('audio')) return 'bg-yellow-100 text-yellow-600 border-yellow-200'
+  if (file.mime_type.includes('pdf')) return 'bg-red-100 text-red-600 border-red-200'
+  if (file.mime_type.includes('word')) return 'bg-blue-100 text-blue-600 border-blue-200'
+  if (file.mime_type.includes('excel') || file.mime_type.includes('spreadsheet')) return 'bg-emerald-100 text-emerald-600 border-emerald-200'
+  if (file.mime_type.includes('zip') || file.mime_type.includes('rar') || file.mime_type.includes('tar')) return 'bg-orange-100 text-orange-600 border-orange-200'
+  if (file.mime_type.includes('text') || file.mime_type.includes('code')) return 'bg-gray-100 text-gray-600 border-gray-200'
+  return 'bg-gray-100 text-gray-600 border-gray-200'
+}
+
+const openPreview = (file: MediaFile) => {
+  fileToPreview.value = file
+  showPreviewDialog.value = true
+}
+
+const handleDragOver = (event: DragEvent) => {
+  event.preventDefault()
+  isDragOver.value = true
+}
+
+const handleDragLeave = (event: DragEvent) => {
+  event.preventDefault()
+  isDragOver.value = false
+}
+
+const handleDrop = (event: DragEvent) => {
+  event.preventDefault()
+  isDragOver.value = false
+  
+  const files = event.dataTransfer?.files
+  if (files && files.length > 0) {
+    const file = files[0]
+    uploadFile(file)
+  }
+}
+
+const uploadFile = async (file: File) => {
+  // Validate file size (10MB = 10 * 1024 * 1024 bytes)
+  const maxSize = 10 * 1024 * 1024
+  if (file.size > maxSize) {
+    alert('File terlalu besar. Maksimal ukuran file adalah 10MB.')
+    return
+  }
+
+  uploading.value = true
+  uploadProgress.value = 0
+  
+  const formData = new FormData()
+  formData.append('file', file)
+
+  try {
+    const xhr = new XMLHttpRequest()
+    
+    xhr.upload.addEventListener('progress', (event) => {
+      if (event.lengthComputable) {
+        uploadProgress.value = Math.round((event.loaded / event.total) * 100)
+      }
+    })
+
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        showUploadDialog.value = false
+        router.reload()
+      } else {
+        throw new Error('Upload failed')
+      }
+    })
+
+    xhr.addEventListener('error', () => {
+      throw new Error('Upload failed')
+    })
+
+    xhr.open('POST', '/dashboard/media/upload')
+    xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '')
+    xhr.send(formData)
+
+  } catch (error) {
+    console.error('Upload error:', error)
+    alert('Gagal mengupload file')
+  } finally {
+    uploading.value = false
+    uploadProgress.value = 0
+  }
+}
+
 const handleFileUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
   
   if (!file) return
 
-  uploading.value = true
+  await uploadFile(file)
   
-  const formData = new FormData()
-  formData.append('file', file)
-
-  try {
-    const response = await fetch('/dashboard/media/upload', {
-      method: 'POST',
-      headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-      },
-      body: formData
-    })
-
-    if (response.ok) {
-      showUploadDialog.value = false
-      router.reload()
-    } else {
-      throw new Error('Upload failed')
-    }
-  } catch (error) {
-    console.error('Upload error:', error)
-    alert('Gagal mengupload file')
-  } finally {
-    uploading.value = false
-    if (target) target.value = ''
-  }
+  if (target) target.value = ''
 }
 
 const confirmDelete = (file: MediaFile) => {
