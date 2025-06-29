@@ -107,7 +107,7 @@ Route::get('/sitemap.xml', function () {
     
     // Homepage
     $content .= '  <url>' . "\n";
-    $content .= '    <loc>https://intergeo.com/</loc>' . "\n";
+    $content .= '    <loc>https://surveyseismikgpr.com/</loc>' . "\n";
     $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
     $content .= '    <changefreq>daily</changefreq>' . "\n";
     $content .= '    <priority>1.0</priority>' . "\n";
@@ -115,7 +115,7 @@ Route::get('/sitemap.xml', function () {
     
     // About page
     $content .= '  <url>' . "\n";
-    $content .= '    <loc>https://intergeo.com/about</loc>' . "\n";
+    $content .= '    <loc>https://surveyseismikgpr.com/about</loc>' . "\n";
     $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
     $content .= '    <changefreq>monthly</changefreq>' . "\n";
     $content .= '    <priority>0.8</priority>' . "\n";
@@ -123,7 +123,7 @@ Route::get('/sitemap.xml', function () {
     
     // Services page
     $content .= '  <url>' . "\n";
-    $content .= '    <loc>https://intergeo.com/services</loc>' . "\n";
+    $content .= '    <loc>https://surveyseismikgpr.com/services</loc>' . "\n";
     $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
     $content .= '    <changefreq>monthly</changefreq>' . "\n";
     $content .= '    <priority>0.8</priority>' . "\n";
@@ -131,7 +131,7 @@ Route::get('/sitemap.xml', function () {
     
     // Portfolio page
     $content .= '  <url>' . "\n";
-    $content .= '    <loc>https://intergeo.com/portfolio</loc>' . "\n";
+    $content .= '    <loc>https://surveyseismikgpr.com/portfolio</loc>' . "\n";
     $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
     $content .= '    <changefreq>weekly</changefreq>' . "\n";
     $content .= '    <priority>0.8</priority>' . "\n";
@@ -139,7 +139,7 @@ Route::get('/sitemap.xml', function () {
     
     // Blog page
     $content .= '  <url>' . "\n";
-    $content .= '    <loc>https://intergeo.com/blog</loc>' . "\n";
+    $content .= '    <loc>https://surveyseismikgpr.com/blog</loc>' . "\n";
     $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
     $content .= '    <changefreq>weekly</changefreq>' . "\n";
     $content .= '    <priority>0.8</priority>' . "\n";
@@ -147,7 +147,7 @@ Route::get('/sitemap.xml', function () {
     
     // Contact page
     $content .= '  <url>' . "\n";
-    $content .= '    <loc>https://intergeo.com/contact</loc>' . "\n";
+    $content .= '    <loc>https://surveyseismikgpr.com/contact</loc>' . "\n";
     $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
     $content .= '    <changefreq>monthly</changefreq>' . "\n";
     $content .= '    <priority>0.7</priority>' . "\n";
@@ -155,7 +155,7 @@ Route::get('/sitemap.xml', function () {
     
     // FAQ page
     $content .= '  <url>' . "\n";
-    $content .= '    <loc>https://intergeo.com/faq</loc>' . "\n";
+    $content .= '    <loc>https://surveyseismikgpr.com/faq</loc>' . "\n";
     $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
     $content .= '    <changefreq>monthly</changefreq>' . "\n";
     $content .= '    <priority>0.6</priority>' . "\n";
@@ -164,7 +164,7 @@ Route::get('/sitemap.xml', function () {
     // Articles
     foreach ($articles as $article) {
         $content .= '  <url>' . "\n";
-        $content .= '    <loc>https://intergeo.com/blog/' . $article->slug . '</loc>' . "\n";
+        $content .= '    <loc>https://surveyseismikgpr.com/blog/' . $article->slug . '</loc>' . "\n";
         $content .= '    <lastmod>' . $article->updated_at->format('Y-m-d') . '</lastmod>' . "\n";
         $content .= '    <changefreq>monthly</changefreq>' . "\n";
         $content .= '    <priority>0.7</priority>' . "\n";
@@ -174,7 +174,7 @@ Route::get('/sitemap.xml', function () {
     // Portfolios
     foreach ($portfolios as $portfolio) {
         $content .= '  <url>' . "\n";
-        $content .= '    <loc>https://intergeo.com/portfolio/' . $portfolio->id . '</loc>' . "\n";
+        $content .= '    <loc>https://surveyseismikgpr.com/portfolio/' . $portfolio->id . '</loc>' . "\n";
         $content .= '    <lastmod>' . $portfolio->updated_at->format('Y-m-d') . '</lastmod>' . "\n";
         $content .= '    <changefreq>monthly</changefreq>' . "\n";
         $content .= '    <priority>0.6</priority>' . "\n";

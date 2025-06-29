@@ -51,7 +51,7 @@ Allow: /services/
 Allow: /faq/
 
 # Sitemap location
-Sitemap: https://intergeo.com/sitemap.xml
+Sitemap: https://surveyseismikgpr.com/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
