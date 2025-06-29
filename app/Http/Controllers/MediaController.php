@@ -48,7 +48,7 @@ class MediaController extends Controller
             'file' => [
                 'id' => $mediaFile->id,
                 'name' => $originalName,
-                'url' => url($mediaFile->full_url),
+                'url' => $mediaFile->full_url,
                 'size' => $mediaFile->human_size,
                 'type' => $mimeType,
             ],

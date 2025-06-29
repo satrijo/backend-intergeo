@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import CategorySelect from '@/components/CategorySelect.vue';
 import RichTextEditor from '@/components/RichTextEditor.vue';
+import FeaturedImageUpload from '@/components/FeaturedImageUpload.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ArrowLeft } from 'lucide-vue-next';
@@ -99,19 +100,10 @@ const submit = () => {
                             :height="500"
                         />
 
-                        <div class="space-y-2">
-                            <Label for="image">Featured Image URL (Optional)</Label>
-                            <Input
-                                id="image"
-                                v-model="form.image"
-                                type="url"
-                                placeholder="https://example.com/image.jpg"
-                                :class="{ 'border-red-500': form.errors.image }"
-                            />
-                            <p v-if="form.errors.image" class="text-sm text-red-500">
-                                {{ form.errors.image }}
-                            </p>
-                        </div>
+                        <FeaturedImageUpload
+                            v-model="form.image"
+                            :error="form.errors.image"
+                        />
 
                         <CategorySelect
                             v-model="form.category_ids"
