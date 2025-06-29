@@ -1,125 +1,131 @@
 <template>
-  <AppLayout title="Manajemen Media">
-    <template #header>
+  <AppLayout :breadcrumbs="breadcrumbs">
+    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
       <div class="flex items-center justify-between">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          Manajemen Media
-        </h2>
-        <div class="flex items-center gap-4">
-          <Button @click="showUploadDialog = true" variant="default">
-            <Icon name="upload" class="w-4 h-4 mr-2" />
-            Upload Media
-          </Button>
+        <div>
+          <h1 class="text-2xl font-bold">Media</h1>
+          <p class="text-muted-foreground">Kelola file media Anda</p>
+        </div>
+        <Button @click="showUploadDialog = true" variant="default">
+          <Upload class="w-4 h-4 mr-2" />
+          Upload Media
+        </Button>
+      </div>
+
+      <!-- Search and Filter -->
+      <div class="flex items-center gap-4">
+        <div class="flex-1">
+          <Input
+            v-model="search"
+            placeholder="Cari file..."
+            class="max-w-sm"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <Label for="type-filter">Tipe:</Label>
+          <Select v-model="typeFilter">
+            <option value="">Semua</option>
+            <option value="image">Gambar</option>
+            <option value="document">Dokumen</option>
+          </Select>
         </div>
       </div>
-    </template>
 
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-6">
-            <!-- Search and Filter -->
-            <div class="mb-6 flex items-center gap-4">
-              <div class="flex-1">
-                <Input
-                  v-model="search"
-                  placeholder="Cari file..."
-                  class="max-w-sm"
-                />
-              </div>
-              <div class="flex items-center gap-2">
-                <Label for="type-filter">Tipe:</Label>
-                <Select v-model="typeFilter">
-                  <option value="">Semua</option>
-                  <option value="image">Gambar</option>
-                  <option value="document">Dokumen</option>
-                </Select>
-              </div>
-            </div>
-
-            <!-- Media Grid -->
-            <div v-if="filteredFiles.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              <div
-                v-for="file in filteredFiles"
-                :key="file.id"
-                class="group relative bg-gray-50 rounded-lg overflow-hidden border hover:shadow-md transition-shadow"
-              >
-                <!-- Image Preview -->
-                <div class="aspect-square bg-gray-100 flex items-center justify-center">
+      <!-- Media Table -->
+      <div v-if="filteredFiles.length > 0" class="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Preview</TableHead>
+              <TableHead>Nama File</TableHead>
+              <TableHead>Tipe</TableHead>
+              <TableHead>Ukuran</TableHead>
+              <TableHead>Uploaded By</TableHead>
+              <TableHead>Tanggal Upload</TableHead>
+              <TableHead class="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow v-for="file in filteredFiles" :key="file.id">
+              <TableCell>
+                <div class="h-12 w-12 rounded-md overflow-hidden bg-gray-100">
                   <img
                     v-if="file.is_image"
                     :src="file.full_url"
                     :alt="file.original_name"
-                    class="w-full h-full object-cover"
+                    class="h-full w-full object-cover"
                   />
-                  <div v-else class="flex flex-col items-center justify-center p-4 text-gray-500">
-                    <Icon name="file" class="w-12 h-12 mb-2" />
-                    <span class="text-xs">{{ file.extension.toUpperCase() }}</span>
+                  <div v-else class="h-full w-full flex items-center justify-center text-gray-400">
+                    <File class="w-6 h-6" />
                   </div>
                 </div>
-
-                <!-- File Info -->
-                <div class="p-3">
-                  <h3 class="font-medium text-sm text-gray-900 truncate" :title="file.original_name">
-                    {{ file.original_name }}
-                  </h3>
-                  <p class="text-xs text-gray-500 mt-1">
-                    {{ file.human_size }} • {{ formatDate(file.created_at) }}
-                  </p>
-                  <p class="text-xs text-gray-400 mt-1">
-                    Uploaded by {{ file.user?.name }}
-                  </p>
+              </TableCell>
+              <TableCell>
+                <div>
+                  <div class="font-medium">{{ file.original_name }}</div>
+                  <div class="text-sm text-muted-foreground">
+                    {{ file.extension.toUpperCase() }} • {{ file.mime_type }}
+                  </div>
                 </div>
-
-                <!-- Actions -->
-                <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger as-child>
-                      <Button variant="secondary" size="sm" class="h-8 w-8 p-0">
-                        <Icon name="more-horizontal" class="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem @click="copyUrl(file.full_url)">
-                        <Icon name="copy" class="w-4 h-4 mr-2" />
-                        Copy URL
-                      </DropdownMenuItem>
-                      <DropdownMenuItem @click="downloadFile(file)">
-                        <Icon name="download" class="w-4 h-4 mr-2" />
-                        Download
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem @click="confirmDelete(file)" class="text-red-600">
-                        <Icon name="trash-2" class="w-4 h-4 mr-2" />
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+              </TableCell>
+              <TableCell>
+                <Badge :variant="file.is_image ? 'default' : 'secondary'">
+                  {{ file.is_image ? 'Gambar' : 'Dokumen' }}
+                </Badge>
+              </TableCell>
+              <TableCell>
+                <span class="text-sm">{{ file.human_size }}</span>
+              </TableCell>
+              <TableCell>
+                <span v-if="file.user?.name" class="text-sm">
+                  {{ file.user.name }}
+                </span>
+                <span v-else class="text-sm text-muted-foreground">-</span>
+              </TableCell>
+              <TableCell>
+                <span class="text-sm">{{ formatDate(file.created_at) }}</span>
+              </TableCell>
+              <TableCell class="text-right">
+                <div class="flex items-center justify-end gap-2">
+                  <Button variant="ghost" size="sm" @click="copyUrl(file.full_url)">
+                    <Copy class="w-4 h-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" @click="downloadFile(file)">
+                    <Download class="w-4 h-4" />
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    @click="confirmDelete(file)"
+                    class="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  >
+                    <Trash2 class="w-4 h-4" />
+                  </Button>
                 </div>
-              </div>
-            </div>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
 
-            <!-- Empty State -->
-            <div v-else class="text-center py-12">
-              <Icon name="image" class="w-16 h-16 mx-auto text-gray-300 mb-4" />
-              <h3 class="text-lg font-medium text-gray-900 mb-2">Tidak ada media</h3>
-              <p class="text-gray-500 mb-4">Belum ada file yang diupload.</p>
-              <Button @click="showUploadDialog = true" variant="default">
-                Upload File Pertama
-              </Button>
-            </div>
+      <!-- Empty State -->
+      <div v-else class="text-center py-12">
+        <Image class="w-16 h-16 mx-auto text-gray-300 mb-4" />
+        <h3 class="text-lg font-medium text-gray-900 mb-2">Tidak ada media</h3>
+        <p class="text-gray-500 mb-4">Belum ada file yang diupload.</p>
+        <Button @click="showUploadDialog = true" variant="default">
+          Upload File Pertama
+        </Button>
+      </div>
 
-            <!-- Pagination -->
-            <div v-if="files.data && files.data.length > 0" class="mt-6">
-              <Pagination 
-                :links="files.links" 
-                :total="files.total"
-                :per-page="files.per_page"
-                :current-page="files.current_page"
-              />
-            </div>
-          </div>
-        </div>
+      <!-- Pagination -->
+      <div v-if="files.data && files.data.length > 0" class="mt-6">
+        <Pagination 
+          :links="files.links" 
+          :total="files.total"
+          :per-page="files.per_page"
+          :current-page="files.current_page"
+        />
       </div>
     </div>
 
@@ -142,7 +148,7 @@
               class="hidden"
             />
             <div v-if="!uploading" @click="$refs.fileInput.click()" class="cursor-pointer">
-              <Icon name="upload" class="w-12 h-12 mx-auto text-gray-400 mb-4" />
+              <Upload class="w-12 h-12 mx-auto text-gray-400 mb-4" />
               <p class="text-gray-600">Klik untuk memilih file atau drag & drop</p>
               <p class="text-sm text-gray-500 mt-2">PNG, JPG, PDF, DOC, XLS hingga 10MB</p>
             </div>
@@ -188,10 +194,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select } from '@/components/ui/select'
+import { Badge } from '@/components/ui/badge'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import Icon from '@/components/Icon.vue'
+import { Upload, File, Copy, Download, Trash2, Image } from 'lucide-vue-next'
 import Pagination from '@/components/Pagination.vue'
+import { type BreadcrumbItem } from '@/types'
 
 interface MediaFile {
   id: string
@@ -221,6 +229,17 @@ interface PaginatedData {
 const props = defineProps<{
   files: PaginatedData
 }>()
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: '/dashboard',
+  },
+  {
+    title: 'Media',
+    href: '/dashboard/media',
+  },
+]
 
 const search = ref('')
 const typeFilter = ref('')
