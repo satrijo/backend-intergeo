@@ -1,5 +1,5 @@
-# Robots.txt untuk Intergeo - Jasa Survey dan Pemetaan
-# https://intergeo.com
+# Robots.txt untuk Survey Seismik GPR - Jasa Survey dan Pemetaan
+# https://surveyseismikgpr.com
 
 # Allow all crawlers
 User-agent: *
