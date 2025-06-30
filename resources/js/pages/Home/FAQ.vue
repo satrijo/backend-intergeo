@@ -151,7 +151,7 @@ const scrollToContact = () => {
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
               <div class="flex items-center space-x-2">
                 <Phone class="w-5 h-5 text-yellow-400 flex-shrink-0" />
-                <a href="tel:+6285886283658" class="hover:text-yellow-300 transition-colors">+62 858-8628-3668</a>
+                <a href="tel:+6285886283668" class="hover:text-yellow-300 transition-colors">+62 858-8628-3668</a>
               </div>
               <div class="flex items-center space-x-2">
                 <Mail class="w-5 h-5 text-yellow-400 flex-shrink-0" />

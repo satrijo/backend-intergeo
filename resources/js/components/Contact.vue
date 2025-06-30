@@ -285,13 +285,13 @@ const submitForm = async () => {
         </p>
         <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
           <a
-              href="tel:+6285886283658"
+              href="tel:+6285886283668"
               class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
           >
             📞 +62 858-8628-3668
           </a>
           <a
-              href="https://wa.me/6285886283658"
+              href="https://wa.me/6285886283668"
               target="_blank"
               rel="noopener noreferrer"
               class="bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors"

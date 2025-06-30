@@ -59,7 +59,7 @@
               </div>
               <div class="flex items-center space-x-3">
                 <Phone class="w-5 h-5 text-yellow-400" />
-                <a href="tel:+6285886283658" class="hover:text-white transition-colors">+62 858-8628-3668</a>
+                <a href="tel:+6285886283668" class="hover:text-white transition-colors">+62 858-8628-3668</a>
               </div>
               <div class="flex items-center space-x-3">
                 <Mail class="w-5 h-5 text-yellow-400" />
