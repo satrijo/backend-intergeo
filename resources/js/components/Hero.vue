@@ -34,8 +34,9 @@ const scrollToPortfolio = () => {
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 py-10 md:py-20">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="space-y-8 animate-fade-in">
-          <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+        <!-- Mobile: Video first, Desktop: Text first -->
+        <div class="order-2 lg:order-1 space-y-8 animate-fade-in">
+          <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight">
             Jasa <span class="text-yellow-400">Survey Seismik & GPR</span> Profesional
           </h1>
           <p class="text-xl text-blue-100 leading-relaxed">
@@ -58,13 +59,20 @@ const scrollToPortfolio = () => {
           </div>
         </div>
 
-        <div class="relative animate-scale-in mt-10 lg:mt-0">
+        <!-- Mobile: Video first, Desktop: Video second -->
+        <div class="order-1 lg:order-2 relative animate-scale-in mt-10 lg:mt-0">
           <div class="relative z-10 bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20">
-            <img
-                src="/images/gpr.jpg"
-                alt="Survey Seismik dan GPR Equipment"
-                class="w-full h-72 md:h-80 object-cover rounded-xl"
-            />
+            <!-- YouTube Video Embed -->
+            <div class="relative w-full h-72 md:h-80 rounded-xl overflow-hidden">
+              <iframe
+                src="https://www.youtube.com/embed/3ofooDdGXKI?rel=0&modestbranding=1&showinfo=0"
+                title="Survey Seismik dan GPR Equipment"
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
             <div class="mt-6 space-y-4">
               <div class="flex items-center space-x-3 text-sm">
                 <MapPin class="w-5 h-5 text-yellow-400 flex-shrink-0" />
