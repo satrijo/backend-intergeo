@@ -442,9 +442,9 @@ const handleDrop = (event: DragEvent) => {
 
 const uploadFile = async (file: File) => {
   // Validate file size (10MB = 10 * 1024 * 1024 bytes)
-  const maxSize = 10 * 1024 * 1024
+  const maxSize = 250 * 1024 * 1024
   if (file.size > maxSize) {
-    alert('File terlalu besar. Maksimal ukuran file adalah 10MB.')
+    alert('File terlalu besar. Maksimal ukuran file adalah 250MB.')
     return
   }
 
