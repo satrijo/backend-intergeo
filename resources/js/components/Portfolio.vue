@@ -28,7 +28,11 @@ const goToPortfolioDetail = (project) => {
 };
 
 const goToAllPortfolios = () => {
-  router.visit('/portfolios');
+  router.visit('/portfolio');
+};
+
+const getDocumentExperienceServices = () => {
+  router.visit('/storage/media/2025/08/6f828eba-b20e-4bba-a62c-1a14c7fd89e5.pdf');
 };
 
 // Fetch featured portfolios from API
@@ -182,12 +186,19 @@ onMounted(() => {
       </div>
 
       <!-- View All Button -->
-      <div v-if="featuredProjects.length > 0" class="text-center">
+      <div v-if="featuredProjects.length > 0" class="text-center flex justify-center gap-4">
         <button
           @click="goToAllPortfolios"
           class="inline-flex items-center bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
         >
           <span>Lihat Semua Portfolio</span>
+          <ArrowRight class="w-5 h-5 ml-2" />
+        </button>
+        <button
+          @click="getDocumentExperienceServices"
+          class="inline-flex items-center bg-blue-300 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-600 transition-colors shadow-lg hover:shadow-xl"
+        >
+          <span>Download Experience Services</span>
           <ArrowRight class="w-5 h-5 ml-2" />
         </button>
       </div>
