@@ -32,7 +32,7 @@ const goToAllPortfolios = () => {
 };
 
 const getDocumentExperienceServices = () => {
-  router.visit('/storage/media/2025/08/6f828eba-b20e-4bba-a62c-1a14c7fd89e5.pdf');
+  router.visit('/storage/media/2025/08/659c661e-6e92-44d0-adc3-fb9737d15d80.pdf');
 };
 
 // Fetch featured portfolios from API
