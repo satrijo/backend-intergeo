@@ -95,6 +95,16 @@ const scrollToPortfolio = () => {
       </div>
     </div>
 
+    <!-- Our Partners -->
+    <div class="flex justify-center items-center flex-col mx-auto">
+      <h2 class="font-bold">Our Clients</h2>
+      <div class="flex flex-wrap justify-center items-center gap-4 bg-white w-max mx-auto p-4 rounded-lg mt-4">
+        <img src="https://surveyseismikgpr.com/storage/media/2025/08/6ca595e8-a7b0-4d0d-aff1-72ceafbbbc87.png" alt="Pertamina" class="h-10 w-auto">
+        <img src="https://surveyseismikgpr.com/storage/media/2025/08/6a791828-6971-418b-843e-4e57c96eb984.png" alt="WIKA" class="h-10 w-auto"> 
+        <img src="https://surveyseismikgpr.com/storage/media/2025/08/87ba5de9-903c-4055-94b7-4470e4f51cf1.png" alt="MM2100" class="h-10 w-auto">
+      </div>
+    </div>
+
     <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
       <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center items-start pt-1">
         <div class="w-1 h-2 bg-white rounded-full animate-scroll-dot"></div>
