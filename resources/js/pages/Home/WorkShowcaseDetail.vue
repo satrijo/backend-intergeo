@@ -20,6 +20,7 @@ const generateMetaDescription = (video) => {
 };
 
 const wasDarkMode = ref(false);
+const shareUrl = ref('');
 
 onMounted(() => {
     const htmlElement = document.documentElement;
@@ -28,6 +29,10 @@ onMounted(() => {
         wasDarkMode.value = true;
         // Hapus class 'dark' untuk memaksa light mode
         htmlElement.classList.remove('dark');
+    }
+
+    if (typeof window !== 'undefined') {
+        shareUrl.value = window.location.href;
     }
 });
 
@@ -72,7 +77,7 @@ const thumbnailUrl = computed(() => {
     return props.video.thumbnail_url;
   }
   if (props.video?.youtube_id) {
-    return `https://img.youtube.com/vi/${props.video.youtube_id}/maxresdefault.jpg`;
+    return `https://img.youtube.com/vi/${props.video.youtube_id}/hqdefault.jpg`;
   }
   return null;
 });
@@ -180,7 +185,7 @@ const thumbnailUrl = computed(() => {
             <h2 class="text-xl font-bold text-gray-900 mb-4">Bagikan</h2>
             <div class="flex gap-2">
               <a
-                  :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`"
+                  :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md text-center hover:bg-blue-700 transition-colors"
@@ -188,7 +193,7 @@ const thumbnailUrl = computed(() => {
                 Facebook
               </a>
               <a
-                  :href="`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(video.title)}`"
+                  :href="`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(video.title)}`"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex-1 bg-blue-400 text-white px-4 py-2 rounded-md text-center hover:bg-blue-500 transition-colors"

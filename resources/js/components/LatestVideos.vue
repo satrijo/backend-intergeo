@@ -48,7 +48,7 @@ const fetchLatestVideos = async () => {
       // Generate thumbnail URL if not available
       let thumbnailUrl = item.thumbnail_url;
       if (!thumbnailUrl && item.youtube_id) {
-        thumbnailUrl = `https://img.youtube.com/vi/${item.youtube_id}/maxresdefault.jpg`;
+        thumbnailUrl = `https://img.youtube.com/vi/${item.youtube_id}/hqdefault.jpg`;
       }
       return {
         id: item.id,

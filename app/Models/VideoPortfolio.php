@@ -67,7 +67,7 @@ class VideoPortfolio extends Model
         // If no thumbnail_url but we have youtube_id, generate it
         $youtubeId = $this->getAttributes()['youtube_id'] ?? null;
         if ($youtubeId) {
-            return "https://img.youtube.com/vi/{$youtubeId}/maxresdefault.jpg";
+            return "https://img.youtube.com/vi/{$youtubeId}/hqdefault.jpg";
         }
 
         return null;
