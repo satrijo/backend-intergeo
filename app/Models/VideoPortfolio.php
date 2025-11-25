@@ -29,6 +29,7 @@ class VideoPortfolio extends Model
 
     protected $appends = [
         'embed_url',
+        'thumbnail_url',
     ];
 
     /**
@@ -59,18 +60,17 @@ class VideoPortfolio extends Model
      */
     public function getThumbnailUrlAttribute($value): ?string
     {
-        // If thumbnail_url is already set in database, return it
-        if ($value) {
+        // Allow custom thumbnails if they are not YouTube-generated URLs
+        if ($value && !str_contains($value, 'ytimg.com') && !str_contains($value, 'youtube.com')) {
             return $value;
         }
 
-        // If no thumbnail_url but we have youtube_id, generate it
         $youtubeId = $this->getAttributes()['youtube_id'] ?? null;
         if ($youtubeId) {
-            return "https://img.youtube.com/vi/{$youtubeId}/hqdefault.jpg";
+            return "https://i.ytimg.com/vi/{$youtubeId}/hqdefault.jpg";
         }
 
-        return null;
+        return $value ?: null;
     }
 
     /**
