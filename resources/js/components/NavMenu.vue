@@ -15,6 +15,7 @@ const navItems = [
   { name: "Home", href: route('home') },
   { name: "About", href: route('about') },
   { name: "Portfolio", href: route('portfolios') },
+  { name: "Work Showcase", href: route('work-showcase') },
   { name: "Blog", href: route('blog') },
   { name: "FAQ", href: route('faq') },
   { name: "Contact", href: route('contact') },

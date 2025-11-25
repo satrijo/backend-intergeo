@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\ArticleApiController;
 use App\Http\Controllers\Api\V1\PortfolioApiController;
 use App\Http\Controllers\Api\V1\CategoryApiController;
+use App\Http\Controllers\Api\V1\VideoPortfolioApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     // Portfolio Endpoints
     Route::get('portfolios/stats', [PortfolioApiController::class, 'stats']);
     Route::apiResource('portfolios', PortfolioApiController::class)->only(['index', 'show']);
+
+    // Video Portfolio Endpoints
+    Route::apiResource('video-portfolios', VideoPortfolioApiController::class)->only(['index', 'show']);
 
     // Category Endpoints
     Route::apiResource('categories', CategoryApiController::class)->only(['index', 'show']);

@@ -8,9 +8,11 @@ use App\Http\Controllers\ContactInquiryController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoPortfolioController;
 use App\Models\Article;
 use App\Models\Portfolio;
 use App\Models\ContactInquiry;
+use App\Models\VideoPortfolio;
 
 Route::get('/', function () {
     return Inertia::render('Home/Index');
@@ -60,6 +62,22 @@ Route::get('/portfolio/{portfolio}', function (Portfolio $portfolio) {
     ]);
 })->name('portfolio.show');
 
+// Public work showcase routes
+Route::get('/work-showcase', function () {
+    return Inertia::render('Home/WorkShowcase');
+})->name('work-showcase');
+
+// Public work showcase detail route
+Route::get('/work-showcase/{videoPortfolio}', function (VideoPortfolio $videoPortfolio) {
+    if ($videoPortfolio->status !== 'published') {
+        abort(404);
+    }
+    $videoPortfolio->load('user');
+    return Inertia::render('Home/WorkShowcaseDetail', [
+        'video' => $videoPortfolio,
+    ]);
+})->name('work-showcase.show');
+
 Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', function () {
         $recentArticles = Article::with('user')
@@ -86,6 +104,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified'])
     Route::resource('articles', ArticleController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('portfolios', PortfolioController::class);
+    Route::resource('video-portfolios', VideoPortfolioController::class);
     Route::resource('users', UserController::class);
     Route::resource('contact-inquiries', ContactInquiryController::class);
     // Media upload routes
