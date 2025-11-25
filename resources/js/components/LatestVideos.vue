@@ -124,11 +124,9 @@ onMounted(() => {
               <Video class="h-12 w-12" />
             </div>
             <!-- Play Button Overlay -->
-            <div class="pointer-events-none absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div class="bg-white bg-opacity-90 rounded-full p-4">
-                  <Play class="w-8 h-8 text-blue-600 ml-1" fill="currentColor" />
-                </div>
+            <div class="pointer-events-none absolute bottom-3 right-3">
+              <div class="bg-white/90 rounded-full p-3 shadow transition-transform duration-300 group-hover:scale-110 group-hover:bg-white">
+                <Play class="w-5 h-5 text-blue-600 ml-0.5" fill="currentColor" />
               </div>
             </div>
           </div>
