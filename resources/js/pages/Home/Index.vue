@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/vue3';
 
 import Hero from "@/components/Hero.vue";
 import Services from "@/components/Services.vue";
+import LatestVideos from "@/components/LatestVideos.vue";
 import About from "@/components/About.vue";
 import Portfolio from "@/components/Portfolio.vue";
 import Contact from "@/components/Contact.vue";
@@ -51,6 +52,7 @@ onUnmounted(() => {
   </Head>
   <Hero />
   <Services />
+  <LatestVideos />
   <About />
   <Portfolio />
   <Contact />
