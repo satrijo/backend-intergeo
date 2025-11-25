@@ -28,13 +28,9 @@ const changePage = (pageNumber) => {
   }
 };
 
-const handleThumbnailError = (event, youtubeId) => {
-  if (youtubeId) {
-    event.target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
-  } else {
-    event.target.src = '/images/placeholder-video.jpg';
-  }
-  event.target.onerror = null;
+const getEmbedUrl = (youtubeId) => {
+  if (!youtubeId) return '';
+  return `https://www.youtube.com/embed/${youtubeId}?rel=0&showinfo=0&controls=0`;
 };
 
 const goToVideoDetail = (video) => {
@@ -141,20 +137,20 @@ onMounted(() => {
                   @click="goToVideoDetail(video)"
               >
                 <div class="aspect-video overflow-hidden relative bg-gray-900">
-                <img
-                    v-if="video.thumbnail_url"
-                    :src="video.thumbnail_url"
-                    :alt="video.title"
-                    class="w-full h-full object-cover"
-                    referrerpolicy="no-referrer"
-                    @error="(event) => handleThumbnailError(event, video.youtube_id)"
-                />
+                  <iframe
+                      v-if="video.youtube_id"
+                      :src="getEmbedUrl(video.youtube_id)"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                      class="w-full h-full pointer-events-none"
+                  ></iframe>
                   <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
                     <Video class="h-12 w-12" />
                   </div>
                   <!-- Play Button Overlay -->
-                  <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 hover:bg-opacity-40 transition-opacity">
-                    <div class="bg-white bg-opacity-90 rounded-full p-4 hover:bg-opacity-100 transition-all">
+                  <div class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-30 transition-opacity">
+                    <div class="bg-white bg-opacity-90 rounded-full p-4">
                       <Play class="h-8 w-8 text-blue-600 ml-1" fill="currentColor" />
                     </div>
                   </div>

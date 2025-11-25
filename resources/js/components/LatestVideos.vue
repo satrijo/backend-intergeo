@@ -31,13 +31,9 @@ const goToAllVideos = () => {
   router.visit('/work-showcase');
 };
 
-const handleThumbnailError = (event, youtubeId) => {
-  if (youtubeId) {
-    event.target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
-  } else {
-    event.target.src = '/images/placeholder-video.jpg';
-  }
-  event.target.onerror = null;
+const getEmbedUrl = (youtubeId) => {
+  if (!youtubeId) return '';
+  return `https://www.youtube.com/embed/${youtubeId}?rel=0&showinfo=0&controls=0`;
 };
 
 // Fetch latest videos from API
@@ -112,21 +108,21 @@ onMounted(() => {
         >
           <!-- Video Thumbnail -->
           <div class="relative overflow-hidden aspect-video bg-gray-900">
-            <img
-              v-if="video.thumbnail_url"
-              :src="video.thumbnail_url"
-              :alt="`Video ${video.title}`"
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              referrerpolicy="no-referrer"
-              @error="(event) => handleThumbnailError(event, video.youtube_id)"
-            />
+            <iframe
+              v-if="video.youtube_id"
+              :src="getEmbedUrl(video.youtube_id)"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="w-full h-full pointer-events-none"
+            ></iframe>
             <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
               <Video class="h-12 w-12" />
             </div>
             <!-- Play Button Overlay -->
-            <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+            <div class="pointer-events-none absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
               <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div class="bg-white bg-opacity-90 rounded-full p-4 hover:bg-opacity-100 transition-all">
+                <div class="bg-white bg-opacity-90 rounded-full p-4">
                   <Play class="w-8 h-8 text-blue-600 ml-1" fill="currentColor" />
                 </div>
               </div>
