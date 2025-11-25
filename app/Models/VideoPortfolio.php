@@ -27,6 +27,10 @@ class VideoPortfolio extends Model
         'user_id',
     ];
 
+    protected $appends = [
+        'embed_url',
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -55,13 +59,15 @@ class VideoPortfolio extends Model
      */
     public function getThumbnailUrlAttribute($value): ?string
     {
+        // If thumbnail_url is already set in database, return it
         if ($value) {
             return $value;
         }
 
-        // Default YouTube thumbnail if not set
-        if ($this->youtube_id) {
-            return "https://img.youtube.com/vi/{$this->youtube_id}/maxresdefault.jpg";
+        // If no thumbnail_url but we have youtube_id, generate it
+        $youtubeId = $this->getAttributes()['youtube_id'] ?? null;
+        if ($youtubeId) {
+            return "https://img.youtube.com/vi/{$youtubeId}/maxresdefault.jpg";
         }
 
         return null;

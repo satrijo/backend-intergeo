@@ -73,8 +73,14 @@ Route::get('/work-showcase/{videoPortfolio}', function (VideoPortfolio $videoPor
         abort(404);
     }
     $videoPortfolio->load('user');
+    
+    // Ensure thumbnail_url is set
+    if (!$videoPortfolio->thumbnail_url && $videoPortfolio->youtube_id) {
+        $videoPortfolio->thumbnail_url = "https://img.youtube.com/vi/{$videoPortfolio->youtube_id}/maxresdefault.jpg";
+    }
+    
     return Inertia::render('Home/WorkShowcaseDetail', [
-        'video' => $videoPortfolio,
+        'video' => $videoPortfolio->toArray(),
     ]);
 })->name('work-showcase.show');
 

@@ -45,12 +45,17 @@ const fetchLatestVideos = async () => {
     latestVideos.value = items.map(item => {
       const cleanDesc = stripHtml(item.description || '');
       const excerpt = cleanDesc.length > 100 ? cleanDesc.substring(0, 100) + '...' : cleanDesc;
+      // Generate thumbnail URL if not available
+      let thumbnailUrl = item.thumbnail_url;
+      if (!thumbnailUrl && item.youtube_id) {
+        thumbnailUrl = `https://img.youtube.com/vi/${item.youtube_id}/maxresdefault.jpg`;
+      }
       return {
         id: item.id,
         title: item.title,
         description: excerpt,
         youtube_id: item.youtube_id,
-        thumbnail_url: item.thumbnail_url,
+        thumbnail_url: thumbnailUrl,
         published_at: item.published_at ? formatDate(item.published_at) : '-',
         created_at: item.created_at,
       };
