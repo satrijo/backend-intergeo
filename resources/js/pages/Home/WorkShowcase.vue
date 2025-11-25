@@ -28,10 +28,14 @@ const changePage = (pageNumber) => {
   }
 };
 
-const getEmbedUrl = (video) => {
-  if (video.embed_url) return `${video.embed_url}?rel=0&showinfo=0&controls=0`;
-  if (video.youtube_id) return `https://www.youtube.com/embed/${video.youtube_id}?rel=0&showinfo=0&controls=0`;
-  return '';
+const getFallbackThumbnail = (youtubeId) => {
+  if (!youtubeId) return '/images/placeholder-video.jpg';
+  return `https://i.ytimg.com/vi/${youtubeId}/mqdefault.jpg`;
+};
+
+const handleThumbnailError = (event, youtubeId) => {
+  event.target.onerror = null;
+  event.target.src = getFallbackThumbnail(youtubeId);
 };
 
 const goToVideoDetail = (video) => {
@@ -69,8 +73,8 @@ const fetchVideos = async () => {
       const excerpt = cleanDesc.length > 120 ? cleanDesc.substring(0, 120) + '...' : cleanDesc;
       // Generate thumbnail URL if not available
       let thumbnailUrl = item.thumbnail_url;
-      if (!thumbnailUrl && item.youtube_id) {
-        thumbnailUrl = `https://img.youtube.com/vi/${item.youtube_id}/hqdefault.jpg`;
+      if (!thumbnailUrl) {
+        thumbnailUrl = getFallbackThumbnail(item.youtube_id);
       }
       return {
         id: item.id,
@@ -139,23 +143,18 @@ onMounted(() => {
                   @click="goToVideoDetail(video)"
               >
                 <div class="aspect-video overflow-hidden relative bg-gray-900">
-                  <iframe
-                      v-if="getEmbedUrl(video)"
-                      :src="getEmbedUrl(video)"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  <img
+                      :src="video.thumbnail_url"
+                      :alt="video.title"
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       referrerpolicy="no-referrer"
                       loading="lazy"
-                      allowfullscreen
-                      class="w-full h-full pointer-events-none"
-                  ></iframe>
-                  <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
-                    <Video class="h-12 w-12" />
-                  </div>
+                      @error="(event) => handleThumbnailError(event, video.youtube_id)"
+                  />
                   <!-- Play Button Overlay -->
-                  <div class="pointer-events-none absolute bottom-3 right-3">
+                  <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
                     <div class="bg-white/90 rounded-full p-3 shadow transition-transform duration-300 group-hover:scale-110 group-hover:bg-white">
-                      <Play class="h-5 w-5 text-blue-600 ml-0.5" fill="currentColor" />
+                      <Play class="h-6 w-6 text-blue-600 ml-0.5" fill="currentColor" />
                     </div>
                   </div>
                 </div>

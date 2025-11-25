@@ -31,10 +31,14 @@ const goToAllVideos = () => {
   router.visit('/work-showcase');
 };
 
-const getEmbedUrl = (video) => {
-  if (video.embed_url) return `${video.embed_url}?rel=0&showinfo=0&controls=0`;
-  if (video.youtube_id) return `https://www.youtube.com/embed/${video.youtube_id}?rel=0&showinfo=0&controls=0`;
-  return '';
+const getFallbackThumbnail = (youtubeId) => {
+  if (!youtubeId) return '/images/placeholder-video.jpg';
+  return `https://i.ytimg.com/vi/${youtubeId}/mqdefault.jpg`;
+};
+
+const handleThumbnailError = (event, youtubeId) => {
+  event.target.onerror = null;
+  event.target.src = getFallbackThumbnail(youtubeId);
 };
 
 // Fetch latest videos from API
@@ -53,8 +57,8 @@ const fetchLatestVideos = async () => {
       const excerpt = cleanDesc.length > 100 ? cleanDesc.substring(0, 100) + '...' : cleanDesc;
       // Generate thumbnail URL if not available
       let thumbnailUrl = item.thumbnail_url;
-      if (!thumbnailUrl && item.youtube_id) {
-        thumbnailUrl = `https://img.youtube.com/vi/${item.youtube_id}/hqdefault.jpg`;
+      if (!thumbnailUrl) {
+        thumbnailUrl = getFallbackThumbnail(item.youtube_id);
       }
       return {
         id: item.id,
@@ -110,23 +114,17 @@ onMounted(() => {
         >
           <!-- Video Thumbnail -->
           <div class="relative overflow-hidden aspect-video bg-gray-900">
-            <iframe
-              v-if="getEmbedUrl(video)"
-              :src="getEmbedUrl(video)"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            <img
+              :src="video.thumbnail_url"
+              :alt="`Video ${video.title}`"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               referrerpolicy="no-referrer"
               loading="lazy"
-              allowfullscreen
-              class="w-full h-full pointer-events-none"
-            ></iframe>
-            <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
-              <Video class="h-12 w-12" />
-            </div>
-            <!-- Play Button Overlay -->
-            <div class="pointer-events-none absolute bottom-3 right-3">
-              <div class="bg-white/90 rounded-full p-3 shadow transition-transform duration-300 group-hover:scale-110 group-hover:bg-white">
-                <Play class="w-5 h-5 text-blue-600 ml-0.5" fill="currentColor" />
+              @error="(event) => handleThumbnailError(event, video.youtube_id)"
+            />
+            <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <div class="bg-white/90 rounded-full p-3 shadow transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/100">
+                <Play class="w-6 h-6 text-blue-600 ml-0.5" fill="currentColor" />
               </div>
             </div>
           </div>
