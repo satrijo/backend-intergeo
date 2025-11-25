@@ -31,9 +31,10 @@ const goToAllVideos = () => {
   router.visit('/work-showcase');
 };
 
-const getEmbedUrl = (youtubeId) => {
-  if (!youtubeId) return '';
-  return `https://www.youtube.com/embed/${youtubeId}?rel=0&showinfo=0&controls=0`;
+const getEmbedUrl = (video) => {
+  if (video.embed_url) return `${video.embed_url}?rel=0&showinfo=0&controls=0`;
+  if (video.youtube_id) return `https://www.youtube.com/embed/${video.youtube_id}?rel=0&showinfo=0&controls=0`;
+  return '';
 };
 
 // Fetch latest videos from API
@@ -60,6 +61,7 @@ const fetchLatestVideos = async () => {
         title: item.title,
         description: excerpt,
         youtube_id: item.youtube_id,
+        embed_url: item.embed_url,
         thumbnail_url: thumbnailUrl,
         published_at: item.published_at ? formatDate(item.published_at) : '-',
         created_at: item.created_at,
@@ -109,10 +111,12 @@ onMounted(() => {
           <!-- Video Thumbnail -->
           <div class="relative overflow-hidden aspect-video bg-gray-900">
             <iframe
-              v-if="video.youtube_id"
-              :src="getEmbedUrl(video.youtube_id)"
+              v-if="getEmbedUrl(video)"
+              :src="getEmbedUrl(video)"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              referrerpolicy="no-referrer"
+              loading="lazy"
               allowfullscreen
               class="w-full h-full pointer-events-none"
             ></iframe>
