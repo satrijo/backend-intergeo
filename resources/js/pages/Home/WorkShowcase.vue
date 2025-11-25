@@ -28,6 +28,15 @@ const changePage = (pageNumber) => {
   }
 };
 
+const handleThumbnailError = (event, youtubeId) => {
+  if (youtubeId) {
+    event.target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+  } else {
+    event.target.src = '/images/placeholder-video.jpg';
+  }
+  event.target.onerror = null;
+};
+
 const goToVideoDetail = (video) => {
   router.visit(`/work-showcase/${video.id}`);
 };
@@ -132,12 +141,14 @@ onMounted(() => {
                   @click="goToVideoDetail(video)"
               >
                 <div class="aspect-video overflow-hidden relative bg-gray-900">
-                  <img
-                      v-if="video.thumbnail_url"
-                      :src="video.thumbnail_url"
-                      :alt="video.title"
-                      class="w-full h-full object-cover"
-                  />
+                <img
+                    v-if="video.thumbnail_url"
+                    :src="video.thumbnail_url"
+                    :alt="video.title"
+                    class="w-full h-full object-cover"
+                    referrerpolicy="no-referrer"
+                    @error="(event) => handleThumbnailError(event, video.youtube_id)"
+                />
                   <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
                     <Video class="h-12 w-12" />
                   </div>

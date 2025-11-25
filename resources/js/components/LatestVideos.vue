@@ -31,6 +31,15 @@ const goToAllVideos = () => {
   router.visit('/work-showcase');
 };
 
+const handleThumbnailError = (event, youtubeId) => {
+  if (youtubeId) {
+    event.target.src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+  } else {
+    event.target.src = '/images/placeholder-video.jpg';
+  }
+  event.target.onerror = null;
+};
+
 // Fetch latest videos from API
 const fetchLatestVideos = async () => {
   try {
@@ -108,6 +117,8 @@ onMounted(() => {
               :src="video.thumbnail_url"
               :alt="`Video ${video.title}`"
               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              referrerpolicy="no-referrer"
+              @error="(event) => handleThumbnailError(event, video.youtube_id)"
             />
             <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
               <Video class="h-12 w-12" />
