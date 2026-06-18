@@ -6,7 +6,9 @@ use App\Models\ContactInquiry;
 use App\Models\ContactInquiryStatusLog;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Throwable;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -94,10 +96,22 @@ class ContactInquiryController extends Controller
             'message' => 'required|string|max:5000',
         ]);
 
-        Mail::raw($validated['message'], function ($mail) use ($contactInquiry, $validated) {
-            $mail->to($contactInquiry->email, $contactInquiry->full_name)
-                ->subject($validated['subject']);
-        });
+        try {
+            Mail::raw($validated['message'], function ($mail) use ($contactInquiry, $validated) {
+                $mail->to($contactInquiry->email, $contactInquiry->full_name)
+                    ->subject($validated['subject']);
+            });
+        } catch (Throwable $exception) {
+            Log::error('Failed to send contact inquiry reply email', [
+                'contact_inquiry_id' => $contactInquiry->id,
+                'email' => $contactInquiry->email,
+                'error' => $exception->getMessage(),
+            ]);
+
+            return redirect()
+                ->route('dashboard.contact-inquiries.show', $contactInquiry->id)
+                ->with('error', 'Email balasan gagal dikirim. Periksa konfigurasi SMTP lalu coba lagi.');
+        }
 
         $contactInquiry->update([
             'status' => $contactInquiry->status === 'new' ? 'contacted' : $contactInquiry->status,
