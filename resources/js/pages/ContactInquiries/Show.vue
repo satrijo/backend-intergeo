@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import { ArrowLeft, Phone, Mail, Calendar, MessageSquare, User, MapPin } from 'lucide-vue-next';
 import { ref } from 'vue';
 
@@ -67,6 +67,11 @@ const form = ref({
 
 const isLoading = ref(false);
 
+const replyForm = useForm({
+  subject: `Balasan permintaan konsultasi - ${props.inquiry.service_type || 'PT. Intergeo Mitigasi'}`,
+  message: `Halo ${props.inquiry.full_name},\n\nTerima kasih telah menghubungi PT. Intergeo Mitigasi.\n\n`,
+});
+
 const updateStatus = async () => {
   isLoading.value = true;
   
@@ -77,6 +82,13 @@ const updateStatus = async () => {
   } finally {
     isLoading.value = false;
   }
+};
+
+const sendReply = () => {
+  replyForm.post(route('dashboard.contact-inquiries.reply', props.inquiry.id), {
+    preserveScroll: true,
+    onSuccess: () => replyForm.reset('message'),
+  });
 };
 
 const formatDate = (dateString: string) => {
@@ -195,7 +207,7 @@ const formatDate = (dateString: string) => {
                     <div class="text-xs text-muted-foreground">
                       Oleh: <span class="font-medium">{{ log.user?.name || 'System' }}</span>
                     </div>
-                    <div v-if="log.notes" class="text-sm mt-1 text-muted-foreground">Catatan: {{ log.notes }}</div>
+                    <div v-if="log.notes" class="text-sm mt-1 text-muted-foreground">Catatan internal: {{ log.notes }}</div>
                   </div>
                 </div>
               </div>
@@ -205,15 +217,60 @@ const formatDate = (dateString: string) => {
 
         <!-- Sidebar -->
         <div class="space-y-6">
+          <!-- Reply Email -->
+          <Card>
+            <CardHeader>
+              <CardTitle class="flex items-center gap-2">
+                <Mail class="h-5 w-5" />
+                Balas via Email
+              </CardTitle>
+              <CardDescription>
+                Pesan di form ini akan dikirim ke email pengirim: {{ props.inquiry.email }}.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form @submit.prevent="sendReply" class="space-y-4">
+                <div>
+                  <Label for="reply_subject">Subjek Email</Label>
+                  <Input
+                    id="reply_subject"
+                    v-model="replyForm.subject"
+                    class="mt-1"
+                    placeholder="Subjek email balasan"
+                  />
+                  <p v-if="replyForm.errors.subject" class="mt-1 text-sm text-red-500">{{ replyForm.errors.subject }}</p>
+                </div>
+                <div>
+                  <Label for="reply_message">Isi Balasan</Label>
+                  <textarea
+                    id="reply_message"
+                    v-model="replyForm.message"
+                    rows="7"
+                    class="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                    placeholder="Tulis balasan yang akan dikirim ke pengirim..."
+                  ></textarea>
+                  <p class="mt-1 text-xs text-muted-foreground">Gunakan form ini untuk menjawab pesan pengirim melalui email.</p>
+                  <p v-if="replyForm.errors.message" class="mt-1 text-sm text-red-500">{{ replyForm.errors.message }}</p>
+                </div>
+                <Button type="submit" :disabled="replyForm.processing" class="w-full">
+                  {{ replyForm.processing ? 'Mengirim...' : 'Kirim Email Balasan' }}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
           <!-- Status Update -->
           <Card>
             <CardHeader>
-              <CardTitle>Update Status</CardTitle>
+              <CardTitle>Update Status Internal</CardTitle>
+              <CardDescription>
+                Bagian ini hanya untuk tracking internal admin. Catatan tidak dikirim ke pengirim.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <form @submit.prevent="updateStatus" class="space-y-4">
                 <div>
-                  <Label for="status">Status</Label>
+                  <Label for="status">Status Internal</Label>
                   <select
                     id="status"
                     v-model="form.status"
@@ -229,14 +286,17 @@ const formatDate = (dateString: string) => {
                   </select>
                 </div>
                 <div>
-                  <Label for="notes">Catatan</Label>
+                  <Label for="notes">Catatan Internal Admin</Label>
                   <textarea
                     id="notes"
                     v-model="form.notes"
                     rows="4"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mt-1"
-                    placeholder="Tambahkan catatan internal..."
+                    class="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                    placeholder="Contoh: sudah dihubungi via WhatsApp, menunggu jadwal survey, perlu follow-up besok..."
                   ></textarea>
+                  <p class="mt-1 text-xs text-muted-foreground">
+                    Catatan ini hanya terlihat di dashboard dan timeline internal. Tidak akan dikirim ke pengirim.
+                  </p>
                 </div>
                 <Button
                   type="submit"
@@ -265,7 +325,7 @@ const formatDate = (dateString: string) => {
                   </span>
                 </div>
                 <div v-if="props.inquiry.notes" class="text-sm text-muted-foreground">
-                  <p class="font-medium mb-1">Catatan:</p>
+                  <p class="font-medium mb-1">Catatan Internal:</p>
                   <p class="whitespace-pre-wrap">{{ props.inquiry.notes }}</p>
                 </div>
               </div>
@@ -279,12 +339,6 @@ const formatDate = (dateString: string) => {
             </CardHeader>
             <CardContent>
               <div class="space-y-3">
-                <Button variant="outline" class="w-full justify-start" as-child>
-                  <a :href="`mailto:${props.inquiry.email}`">
-                    <Mail class="mr-2 h-4 w-4" />
-                    Kirim Email
-                  </a>
-                </Button>
                 <Button variant="outline" class="w-full justify-start" as-child>
                   <a :href="`tel:${props.inquiry.phone_number}`">
                     <Phone class="mr-2 h-4 w-4" />

@@ -6,6 +6,7 @@ use App\Models\ContactInquiry;
 use App\Models\ContactInquiryStatusLog;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -65,7 +66,7 @@ class ContactInquiryController extends Controller
 
         $contactInquiry->update($validated);
 
-        // Tambah log status
+        // Tambah log status internal
         ContactInquiryStatusLog::create([
             'contact_inquiry_id' => $contactInquiry->id,
             'status' => $validated['status'],
@@ -84,5 +85,34 @@ class ContactInquiryController extends Controller
         return redirect()
             ->route('dashboard.contact-inquiries.show', $contactInquiry->id)
             ->with('success', 'Status inquiry berhasil diperbarui.');
+    }
+
+    public function reply(Request $request, ContactInquiry $contactInquiry)
+    {
+        $validated = $request->validate([
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string|max:5000',
+        ]);
+
+        Mail::raw($validated['message'], function ($mail) use ($contactInquiry, $validated) {
+            $mail->to($contactInquiry->email, $contactInquiry->full_name)
+                ->subject($validated['subject']);
+        });
+
+        $contactInquiry->update([
+            'status' => $contactInquiry->status === 'new' ? 'contacted' : $contactInquiry->status,
+            'notes' => trim(($contactInquiry->notes ? $contactInquiry->notes . "\n\n" : '') . 'Email balasan dikirim pada ' . now()->format('d M Y H:i') . ' oleh ' . optional(auth()->user())->name . '.'),
+        ]);
+
+        ContactInquiryStatusLog::create([
+            'contact_inquiry_id' => $contactInquiry->id,
+            'status' => $contactInquiry->status,
+            'notes' => 'Email balasan dikirim ke ' . $contactInquiry->email . '. Subject: ' . $validated['subject'],
+            'updated_by' => auth()->id(),
+        ]);
+
+        return redirect()
+            ->route('dashboard.contact-inquiries.show', $contactInquiry->id)
+            ->with('success', 'Email balasan berhasil dikirim.');
     }
 }
