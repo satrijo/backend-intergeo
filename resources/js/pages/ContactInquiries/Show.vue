@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import { ArrowLeft, Phone, Mail, Calendar, MessageSquare, User, MapPin } from 'lucide-vue-next';
+import { ArrowLeft, Phone, Mail, Calendar, MessageSquare, User, MapPin, ClipboardList, Zap } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 interface ContactInquiry {
@@ -119,6 +119,68 @@ const formatDate = (dateString: string) => {
             Kembali ke Daftar
           </Link>
         </Button>
+      </div>
+
+      <!-- Status Summary & Quick Actions -->
+      <div class="grid grid-cols-1 gap-4 xl:grid-cols-3">
+        <Card class="overflow-hidden border-2 border-blue-200 bg-blue-50/60 shadow-sm dark:border-blue-900 dark:bg-blue-950/30 xl:col-span-2">
+          <CardHeader class="border-b border-blue-100 bg-white/70 dark:border-blue-900 dark:bg-background/60">
+            <CardTitle class="flex items-center gap-2 text-blue-900 dark:text-blue-200">
+              <ClipboardList class="h-5 w-5" />
+              Status Saat Ini
+            </CardTitle>
+            <CardDescription>Status dan catatan internal terakhir untuk inquiry ini.</CardDescription>
+          </CardHeader>
+          <CardContent class="grid gap-4 pt-5 md:grid-cols-[220px_1fr]">
+            <div class="rounded-lg border border-blue-200 bg-white p-4 dark:border-blue-900 dark:bg-background">
+              <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Status</p>
+              <span :class="[
+                'inline-flex px-3 py-1.5 text-sm font-semibold rounded-full shadow-sm',
+                statusColors[props.inquiry.status as keyof typeof statusColors]
+              ]">
+                {{ statusOptions.find(opt => opt.value === props.inquiry.status)?.label }}
+              </span>
+            </div>
+
+            <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950/30">
+              <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-amber-800 dark:text-amber-300">
+                Catatan Internal Admin
+              </p>
+              <p v-if="props.inquiry.notes" class="whitespace-pre-wrap text-sm leading-relaxed text-amber-950 dark:text-amber-100">
+                {{ props.inquiry.notes }}
+              </p>
+              <p v-else class="text-sm text-amber-800/80 dark:text-amber-200/80">
+                Belum ada catatan internal untuk inquiry ini.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card class="overflow-hidden border-2 border-emerald-200 bg-emerald-50/60 shadow-sm dark:border-emerald-900 dark:bg-emerald-950/30">
+          <CardHeader class="border-b border-emerald-100 bg-white/70 dark:border-emerald-900 dark:bg-background/60">
+            <CardTitle class="flex items-center gap-2 text-emerald-900 dark:text-emerald-200">
+              <Zap class="h-5 w-5" />
+              Aksi Cepat
+            </CardTitle>
+            <CardDescription>Hubungi pengirim secara langsung melalui nomor kontak.</CardDescription>
+          </CardHeader>
+          <CardContent class="pt-5">
+            <div class="space-y-3">
+              <Button variant="default" class="w-full justify-start bg-blue-600 text-white hover:bg-blue-700" as-child>
+                <a :href="`tel:${props.inquiry.phone_number}`">
+                  <Phone class="mr-2 h-4 w-4" />
+                  Telepon Pengirim
+                </a>
+              </Button>
+              <Button variant="default" class="w-full justify-start bg-emerald-600 text-white hover:bg-emerald-700" as-child>
+                <a :href="`https://wa.me/${props.inquiry.phone_number.replace(/[^0-9]/g, '')}`" target="_blank" rel="noopener noreferrer">
+                  <MessageSquare class="mr-2 h-4 w-4" />
+                  WhatsApp Pengirim
+                </a>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -309,51 +371,6 @@ const formatDate = (dateString: string) => {
             </CardContent>
           </Card>
 
-          <!-- Current Status -->
-          <Card>
-            <CardHeader>
-              <CardTitle>Status Saat Ini</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div class="space-y-4">
-                <div>
-                  <span :class="[
-                    'inline-flex px-3 py-1 text-sm font-semibold rounded-full',
-                    statusColors[props.inquiry.status as keyof typeof statusColors]
-                  ]">
-                    {{ statusOptions.find(opt => opt.value === props.inquiry.status)?.label }}
-                  </span>
-                </div>
-                <div v-if="props.inquiry.notes" class="text-sm text-muted-foreground">
-                  <p class="font-medium mb-1">Catatan Internal:</p>
-                  <p class="whitespace-pre-wrap">{{ props.inquiry.notes }}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <!-- Quick Actions -->
-          <Card>
-            <CardHeader>
-              <CardTitle>Aksi Cepat</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div class="space-y-3">
-                <Button variant="outline" class="w-full justify-start" as-child>
-                  <a :href="`tel:${props.inquiry.phone_number}`">
-                    <Phone class="mr-2 h-4 w-4" />
-                    Telepon
-                  </a>
-                </Button>
-                <Button variant="outline" class="w-full justify-start" as-child>
-                  <a :href="`https://wa.me/${props.inquiry.phone_number.replace(/[^0-9]/g, '')}`" target="_blank">
-                    <MessageSquare class="mr-2 h-4 w-4" />
-                    WhatsApp
-                  </a>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
