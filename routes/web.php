@@ -7,10 +7,14 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactInquiryController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoPortfolioController;
 use App\Models\Article;
 use App\Models\Portfolio;
+use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\ContactInquiry;
 use App\Models\VideoPortfolio;
 
@@ -50,6 +54,25 @@ Route::get('/contact', function () {
 Route::get('/portfolio', function () {
     return Inertia::render('Home/Portfolios');
 })->name('portfolios');
+
+Route::get('/products', function () {
+    return Inertia::render('Home/Products', [
+        'products' => Product::with('category')->published()->ordered()->paginate(12),
+        'categories' => ProductCategory::active()->ordered()->get(),
+    ]);
+})->name('products');
+
+Route::get('/products/{product:slug}', function (Product $product) {
+    if ($product->status !== 'published') {
+        abort(404);
+    }
+
+    $product->load(['category', 'user']);
+
+    return Inertia::render('Home/ProductDetail', [
+        'product' => $product,
+    ]);
+})->name('products.show');
 
 // Public portfolio view route
 Route::get('/portfolio/{portfolio}', function (Portfolio $portfolio) {
@@ -109,6 +132,8 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified'])
 
     Route::resource('articles', ArticleController::class);
     Route::resource('categories', CategoryController::class);
+    Route::resource('product-categories', ProductCategoryController::class)->except(['show']);
+    Route::resource('products', ProductController::class);
     Route::resource('portfolios', PortfolioController::class);
     Route::resource('video-portfolios', VideoPortfolioController::class);
     Route::resource('users', UserController::class);
@@ -126,6 +151,7 @@ Route::post('/contact', [ContactInquiryController::class, 'store'])->name('conta
 Route::get('/sitemap.xml', function () {
     $articles = \App\Models\Article::where('published', true)->get();
     $portfolios = \App\Models\Portfolio::where('status', 'published')->get();
+    $products = \App\Models\Product::where('status', 'published')->get();
     
     $content = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     $content .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
@@ -169,6 +195,14 @@ Route::get('/sitemap.xml', function () {
     $content .= '    <changefreq>weekly</changefreq>' . "\n";
     $content .= '    <priority>0.8</priority>' . "\n";
     $content .= '  </url>' . "\n";
+
+    // Products page
+    $content .= '  <url>' . "\n";
+    $content .= '    <loc>https://surveyseismikgpr.com/products</loc>' . "\n";
+    $content .= '    <lastmod>' . date('Y-m-d') . '</lastmod>' . "\n";
+    $content .= '    <changefreq>weekly</changefreq>' . "\n";
+    $content .= '    <priority>0.8</priority>' . "\n";
+    $content .= '  </url>' . "\n";
     
     // Contact page
     $content .= '  <url>' . "\n";
@@ -201,6 +235,16 @@ Route::get('/sitemap.xml', function () {
         $content .= '  <url>' . "\n";
         $content .= '    <loc>https://surveyseismikgpr.com/portfolio/' . $portfolio->id . '</loc>' . "\n";
         $content .= '    <lastmod>' . $portfolio->updated_at->format('Y-m-d') . '</lastmod>' . "\n";
+        $content .= '    <changefreq>monthly</changefreq>' . "\n";
+        $content .= '    <priority>0.6</priority>' . "\n";
+        $content .= '  </url>' . "\n";
+    }
+
+    // Products
+    foreach ($products as $product) {
+        $content .= '  <url>' . "\n";
+        $content .= '    <loc>https://surveyseismikgpr.com/products/' . $product->slug . '</loc>' . "\n";
+        $content .= '    <lastmod>' . $product->updated_at->format('Y-m-d') . '</lastmod>' . "\n";
         $content .= '    <changefreq>monthly</changefreq>' . "\n";
         $content .= '    <priority>0.6</priority>' . "\n";
         $content .= '  </url>' . "\n";
