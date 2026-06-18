@@ -145,7 +145,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified'])
     Route::resource('video-portfolios', VideoPortfolioController::class);
     Route::resource('users', UserController::class);
     Route::post('contact-inquiries/{contactInquiry}/reply', [ContactInquiryController::class, 'reply'])->name('contact-inquiries.reply');
-    Route::resource('contact-inquiries', ContactInquiryController::class)->only(['index', 'show', 'update']);
+    Route::resource('contact-inquiries', ContactInquiryController::class)->only(['index', 'show', 'update', 'destroy']);
     // Media upload routes
     Route::post('media/upload', [MediaController::class, 'store'])->name('media.upload');
     Route::get('media', [MediaController::class, 'index'])->name('media.index');

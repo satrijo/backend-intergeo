@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import { Calendar, Eye, Mail, MessageSquare, Phone } from 'lucide-vue-next';
+import { Head, Link, router } from '@inertiajs/vue3';
+import { Calendar, Eye, Mail, MessageSquare, Phone, Trash2 } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 type InquiryStatus = 'new' | 'contacted' | 'in_progress' | 'completed' | 'cancelled';
@@ -86,6 +86,14 @@ const whatsappUrl = (phoneNumber: string) => {
   const digits = phoneNumber.replace(/[^0-9]/g, '');
   const normalized = digits.startsWith('0') ? `62${digits.slice(1)}` : digits;
   return `https://wa.me/${normalized}`;
+};
+
+const confirmDelete = (inquiry: ContactInquiry) => {
+  if (window.confirm(`Hapus inquiry dari ${inquiry.full_name}? Data dan timeline internal akan dihapus permanen.`)) {
+    router.delete(route('dashboard.contact-inquiries.destroy', inquiry.id), {
+      preserveScroll: true,
+    });
+  }
 };
 </script>
 
@@ -198,6 +206,10 @@ const whatsappUrl = (phoneNumber: string) => {
                           <Eye class="mr-2 h-4 w-4" />
                           Detail
                         </Link>
+                      </Button>
+                      <Button variant="outline" size="sm" class="text-red-600 hover:text-red-700" @click="confirmDelete(inquiry)">
+                        <Trash2 class="mr-2 h-4 w-4" />
+                        Hapus
                       </Button>
                     </div>
                   </TableCell>

@@ -57,17 +57,30 @@ class ContactInquiryController extends Controller
         $adminEmail = config('mail.admin_notification_address', env('CONTACT_INQUIRY_NOTIFICATION_EMAIL', 'intergeo.mitigasi@gmail.com'));
         $dashboardUrl = route('dashboard.contact-inquiries.show', $inquiry->id);
 
-        $message = "Ada pesan/contact inquiry baru dari website PT. Intergeo Mitigasi.\n\n" .
-            "Nama: {$inquiry->full_name}\n" .
-            "Email: {$inquiry->email}\n" .
-            "Nomor Telepon: {$inquiry->phone_number}\n" .
-            "Jenis Layanan: " . ($inquiry->service_type ?: 'Tidak ditentukan') . "\n\n" .
-            "Deskripsi Proyek:\n{$inquiry->project_description}\n\n" .
-            "Cara membalas:\n" .
-            "1. Buka detail inquiry di dashboard: {$dashboardUrl}\n" .
-            "2. Gunakan form 'Balas via Email' agar balasan tercatat di sistem dan status inquiry ikut ter-update.\n" .
-            "3. Jika ingin balas langsung dari email client, klik Reply pada email notifikasi ini. Reply-To sudah diarahkan ke email pengirim ({$inquiry->email}).\n\n" .
-            "Catatan: Jangan tulis balasan di field Catatan Internal Admin karena catatan tersebut hanya untuk tracking internal dashboard.";
+        $message = "[NOTIFIKASI INQUIRY BARU]\n" .
+            "PT. Intergeo Mitigasi\n" .
+            "==================================================\n\n" .
+            "Ada permintaan konsultasi baru dari website.\n\n" .
+            "DATA PENGIRIM\n" .
+            "--------------------------------------------------\n" .
+            "Nama          : {$inquiry->full_name}\n" .
+            "Email         : {$inquiry->email}\n" .
+            "Nomor Telepon : {$inquiry->phone_number}\n" .
+            "Jenis Layanan : " . ($inquiry->service_type ?: 'Tidak ditentukan') . "\n\n" .
+            "PESAN / DESKRIPSI PROYEK\n" .
+            "--------------------------------------------------\n" .
+            "{$inquiry->project_description}\n\n" .
+            "TINDAK LANJUT YANG DISARANKAN\n" .
+            "--------------------------------------------------\n" .
+            "1. Buka detail inquiry di dashboard:\n" .
+            "   {$dashboardUrl}\n\n" .
+            "2. Gunakan form 'Balas via Email' di dashboard jika ingin balasan tercatat di sistem.\n\n" .
+            "3. Jika ingin membalas langsung dari inbox email, klik Reply pada email ini.\n" .
+            "   Reply-To sudah diarahkan ke email pengirim: {$inquiry->email}\n\n" .
+            "CATATAN INTERNAL\n" .
+            "--------------------------------------------------\n" .
+            "Field 'Catatan Internal Admin' di dashboard hanya untuk tracking internal.\n" .
+            "Jangan gunakan field tersebut sebagai balasan ke pengirim.";
 
         try {
             Mail::raw($message, function ($mail) use ($adminEmail, $inquiry) {
@@ -121,6 +134,16 @@ class ContactInquiryController extends Controller
         return redirect()
             ->route('dashboard.contact-inquiries.show', $contactInquiry->id)
             ->with('success', 'Status inquiry berhasil diperbarui.');
+    }
+
+    public function destroy(ContactInquiry $contactInquiry)
+    {
+        $contactInquiry->statusLogs()->delete();
+        $contactInquiry->delete();
+
+        return redirect()
+            ->route('dashboard.contact-inquiries.index')
+            ->with('success', 'Inquiry berhasil dihapus.');
     }
 
     public function reply(Request $request, ContactInquiry $contactInquiry)

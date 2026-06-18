@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import { ArrowLeft, Phone, Mail, Calendar, MessageSquare, User, MapPin, ClipboardList, Zap } from 'lucide-vue-next';
+import { ArrowLeft, Phone, Mail, Calendar, MessageSquare, User, MapPin, ClipboardList, Zap, Trash2 } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 interface ContactInquiry {
@@ -91,6 +91,12 @@ const sendReply = () => {
   });
 };
 
+const confirmDelete = () => {
+  if (window.confirm(`Hapus inquiry dari ${props.inquiry.full_name}? Data dan timeline internal akan dihapus permanen.`)) {
+    router.delete(route('dashboard.contact-inquiries.destroy', props.inquiry.id));
+  }
+};
+
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString('id-ID', {
     year: 'numeric',
@@ -113,12 +119,18 @@ const formatDate = (dateString: string) => {
           <h1 class="text-2xl font-bold">Detail Contact Inquiry</h1>
           <p class="text-muted-foreground">Informasi lengkap permintaan konsultasi survey</p>
         </div>
-        <Button variant="outline" as-child>
-          <Link :href="route('dashboard.contact-inquiries.index')">
-            <ArrowLeft class="mr-2 h-4 w-4" />
-            Kembali ke Daftar
-          </Link>
-        </Button>
+        <div class="flex gap-2">
+          <Button variant="outline" as-child>
+            <Link :href="route('dashboard.contact-inquiries.index')">
+              <ArrowLeft class="mr-2 h-4 w-4" />
+              Kembali ke Daftar
+            </Link>
+          </Button>
+          <Button variant="outline" class="text-red-600 hover:text-red-700" @click="confirmDelete">
+            <Trash2 class="mr-2 h-4 w-4" />
+            Hapus Inquiry
+          </Button>
+        </div>
       </div>
 
       <!-- Status Summary & Quick Actions -->
