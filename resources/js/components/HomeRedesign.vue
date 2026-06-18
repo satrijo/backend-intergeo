@@ -8,6 +8,7 @@ import {
     Building2,
     CheckCircle,
     ClipboardCheck,
+    Compass,
     FileText,
     HardHat,
     Mail,
@@ -15,6 +16,8 @@ import {
     Phone,
     Radar,
     Search,
+    Settings,
+    Calculator,
     ShieldCheck,
     Users,
 } from 'lucide-vue-next';
@@ -40,26 +43,56 @@ const services = [
     {
         icon: Radar,
         title: 'Survey Seismik',
-        description: 'Analisis struktur bawah permukaan untuk kebutuhan geoteknik, energi, dan infrastruktur.',
+        description: 'Layanan survey seismik untuk analisis struktur bawah permukaan, deteksi reservoir, investigasi lapisan tanah, dan kebutuhan studi geoteknik dengan teknologi akuisisi data yang presisi.',
         points: ['Seismic Reflection', 'Seismic Refraction', 'Cross-hole Seismic'],
     },
     {
         icon: Search,
         title: 'Ground Penetrating Radar (GPR)',
-        description: 'Deteksi utilitas, struktur beton, rongga, dan objek bawah permukaan secara non-destruktif.',
+        description: 'Deteksi utilitas bawah tanah, analisis struktur beton, identifikasi rongga, dan pemetaan objek bawah permukaan secara non-destruktif untuk area konstruksi maupun industri.',
         points: ['Deteksi Utilitas', 'Analisis Beton', 'Pemetaan Bawah Tanah'],
     },
     {
         icon: MapPin,
-        title: 'Survey Georadar & Pemetaan',
-        description: 'Pemetaan area, investigasi geologi, dan dukungan data lapangan untuk perencanaan proyek.',
-        points: ['Survey Topografi', 'Georadar', 'Pemetaan Geologi'],
+        title: 'Survey Georadar',
+        description: 'Pemetaan geologi bawah permukaan, identifikasi anomali, deteksi air tanah, dan analisis struktur tanah untuk mendukung pekerjaan konstruksi, eksplorasi, dan mitigasi risiko.',
+        points: ['Pemetaan Geologi', 'Deteksi Air Tanah', 'Analisis Struktur Tanah'],
+    },
+    {
+        icon: Compass,
+        title: 'Survey dan Pemetaan',
+        description: 'Layanan survey topografi, batimetri, pemetaan geologi permukaan, dan pengukuran area untuk kebutuhan perencanaan proyek, desain teknis, dan dokumentasi lapangan.',
+        points: ['Survey Topografi', 'Survey Batimetri', 'Pemetaan Geologi'],
     },
     {
         icon: HardHat,
-        title: 'Studi Geoteknik & Tambang',
-        description: 'Evaluasi teknis untuk stabilitas tanah, kelayakan tambang, dan rekomendasi pekerjaan.',
-        points: ['Analisis Kelayakan', 'Studi Geologi', 'Rekomendasi Teknis'],
+        title: 'Studi Kelayakan Tambang',
+        description: 'Analisis kelayakan tambang, studi geologi ekonomi, pemetaan potensi mineral, dan evaluasi teknis untuk membantu pengambilan keputusan pada industri pertambangan.',
+        points: ['Analisis Kelayakan', 'Studi Geologi Ekonomi', 'Evaluasi Potensi Mineral'],
+    },
+    {
+        icon: Settings,
+        title: 'Survey Infrastruktur & Jembatan',
+        description: 'Inspeksi kondisi fondasi jembatan, utilitas, struktur infrastruktur, dan pemantauan keamanan bangunan dengan pendekatan survey geofisika yang minim gangguan.',
+        points: ['Inspeksi Fondasi', 'Analisis Struktur', 'Pemantauan Keamanan'],
+    },
+    {
+        icon: FileText,
+        title: 'Analisis Geoteknik',
+        description: 'Studi kelayakan tanah, analisis stabilitas lereng, interpretasi kondisi bawah permukaan, serta rekomendasi teknis untuk pondasi dan perencanaan konstruksi.',
+        points: ['Studi Kelayakan', 'Analisis Stabilitas', 'Rekomendasi Fondasi'],
+    },
+    {
+        icon: Calculator,
+        title: 'Interpretasi Data Survey',
+        description: 'Pengolahan dan interpretasi data survey seismik, GPR, georadar, dan geolistrik menjadi laporan teknis yang ringkas, akurat, dan mudah digunakan oleh tim proyek.',
+        points: ['Pengolahan Data', 'Interpretasi Hasil', 'Laporan Teknis'],
+    },
+    {
+        icon: Users,
+        title: 'Konsultasi Survey',
+        description: 'Konsultasi lengkap untuk menentukan metode survey, kebutuhan data, cakupan area, estimasi pekerjaan, dan strategi implementasi survey geofisika di lapangan.',
+        points: ['Perencanaan Survey', 'Pemilihan Metode', 'Implementasi Proyek'],
     },
 ];
 
@@ -193,31 +226,36 @@ const workflow = [
         <!-- Services -->
         <section class="bg-gray-50 py-20">
             <div class="mx-auto max-w-7xl px-6">
-                <div class="mx-auto mb-14 max-w-3xl text-center">
+                <div class="mx-auto mb-10 max-w-3xl text-center">
                     <h2 class="text-4xl font-bold text-gray-900 lg:text-5xl">
                         Layanan <span class="text-blue-600">Survey Geofisika</span> Kami
                     </h2>
                     <p class="mt-5 text-xl leading-relaxed text-gray-600">
-                        Layanan inti Intergeo disusun untuk membantu proyek mendapatkan data lapangan yang akurat,
-                        mudah dianalisis, dan siap digunakan untuk keputusan teknis.
+                        Solusi lengkap survey seismik, GPR, georadar, survey dan pemetaan, studi kelayakan tambang,
+                        infrastruktur, analisis geoteknik, hingga interpretasi data teknis.
+                    </p>
+                    <p class="mt-3 text-sm font-medium text-blue-600">
+                        Geser kartu layanan untuk melihat seluruh layanan kami →
                     </p>
                 </div>
 
-                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    <div
-                        v-for="service in services"
-                        :key="service.title"
-                        class="group rounded-xl bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
-                    >
-                        <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 transition group-hover:bg-blue-600">
-                            <component :is="service.icon" class="h-7 w-7 text-blue-600 transition group-hover:text-white" />
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600">{{ service.title }}</h3>
-                        <p class="mt-3 text-sm leading-relaxed text-gray-600">{{ service.description }}</p>
-                        <div class="mt-5 space-y-2">
-                            <div v-for="point in service.points" :key="point" class="flex items-center text-sm text-gray-500">
-                                <CheckCircle class="mr-2 h-4 w-4 text-green-500" />
-                                {{ point }}
+                <div class="-mx-6 overflow-x-auto px-6 pb-4 [scrollbar-width:thin]">
+                    <div class="flex snap-x snap-mandatory gap-6">
+                        <div
+                            v-for="service in services"
+                            :key="service.title"
+                            class="group flex min-h-[360px] w-[310px] flex-none snap-start flex-col rounded-xl bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl md:w-[360px]"
+                        >
+                            <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 transition group-hover:bg-blue-600">
+                                <component :is="service.icon" class="h-7 w-7 text-blue-600 transition group-hover:text-white" />
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600">{{ service.title }}</h3>
+                            <p class="mt-3 flex-1 text-sm leading-relaxed text-gray-600">{{ service.description }}</p>
+                            <div class="mt-5 space-y-2 border-t border-gray-100 pt-4">
+                                <div v-for="point in service.points" :key="point" class="flex items-center text-sm text-gray-500">
+                                    <CheckCircle class="mr-2 h-4 w-4 flex-shrink-0 text-green-500" />
+                                    {{ point }}
+                                </div>
                             </div>
                         </div>
                     </div>
