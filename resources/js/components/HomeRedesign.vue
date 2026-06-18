@@ -2,7 +2,22 @@
 import Footer from '@/components/Footer.vue';
 import NavMenu from '@/components/NavMenu.vue';
 import { Head, router } from '@inertiajs/vue3';
-import { Activity, ArrowRight, CheckCircle, ClipboardCheck, Compass, Drill, MapPin, Phone, Radar, ShieldCheck, Users } from 'lucide-vue-next';
+import {
+    ArrowRight,
+    Award,
+    Building2,
+    CheckCircle,
+    ClipboardCheck,
+    FileText,
+    HardHat,
+    Mail,
+    MapPin,
+    Phone,
+    Radar,
+    Search,
+    ShieldCheck,
+    Users,
+} from 'lucide-vue-next';
 
 interface Client {
     id?: string;
@@ -22,157 +37,261 @@ const fallbackClients: Client[] = [
 ];
 
 const services = [
-    { icon: Radar, title: 'Survey Seismik & GPR', text: 'Deteksi utilitas, struktur tanah, rongga, dan kondisi bawah permukaan secara non-destruktif.' },
-    { icon: Compass, title: 'Survey & Pemetaan', text: 'Pengukuran topografi, pemetaan area, dan dukungan data spasial untuk perencanaan proyek.' },
-    { icon: Drill, title: 'Geoteknik & Tambang', text: 'Studi kelayakan, investigasi geologi, dan interpretasi data untuk keputusan teknis.' },
+    {
+        icon: Radar,
+        title: 'Survey Seismik',
+        description: 'Analisis struktur bawah permukaan untuk kebutuhan geoteknik, energi, dan infrastruktur.',
+        points: ['Seismic Reflection', 'Seismic Refraction', 'Cross-hole Seismic'],
+    },
+    {
+        icon: Search,
+        title: 'Ground Penetrating Radar (GPR)',
+        description: 'Deteksi utilitas, struktur beton, rongga, dan objek bawah permukaan secara non-destruktif.',
+        points: ['Deteksi Utilitas', 'Analisis Beton', 'Pemetaan Bawah Tanah'],
+    },
+    {
+        icon: MapPin,
+        title: 'Survey Georadar & Pemetaan',
+        description: 'Pemetaan area, investigasi geologi, dan dukungan data lapangan untuk perencanaan proyek.',
+        points: ['Survey Topografi', 'Georadar', 'Pemetaan Geologi'],
+    },
+    {
+        icon: HardHat,
+        title: 'Studi Geoteknik & Tambang',
+        description: 'Evaluasi teknis untuk stabilitas tanah, kelayakan tambang, dan rekomendasi pekerjaan.',
+        points: ['Analisis Kelayakan', 'Studi Geologi', 'Rekomendasi Teknis'],
+    },
 ];
 
-const process = [
-    'Konsultasi kebutuhan survey',
-    'Perencanaan metode & area kerja',
-    'Akuisisi data lapangan',
-    'Analisis, interpretasi, dan laporan',
+const stats = [
+    { icon: Users, number: '30+', label: 'Klien Survey' },
+    { icon: ClipboardCheck, number: '50+', label: 'Proyek Selesai' },
+    { icon: Award, number: '7+', label: 'Tahun Pengalaman' },
+    { icon: ShieldCheck, number: '24/7', label: 'Support' },
+];
+
+const workflow = [
+    'Konsultasi kebutuhan dan tujuan survey',
+    'Pemilihan metode serta perencanaan area kerja',
+    'Akuisisi data lapangan oleh tim teknis',
+    'Interpretasi data dan penyusunan laporan teknis',
 ];
 </script>
 
 <template>
     <Head>
-        <title>PT. Intergeo Mitigasi - Survey Seismik, GPR & Geofisika</title>
-        <meta name="description" content="Layanan survey seismik, GPR, georadar, pemetaan, dan studi geoteknik dengan tim profesional dan teknologi survey modern." />
+        <title>PT. Intergeo Mitigasi - Jasa Survey Seismik, GPR & Georadar</title>
+        <meta
+            name="description"
+            content="Jasa survey seismik, GPR, georadar, pemetaan, geoteknik, dan studi kelayakan tambang oleh PT. Intergeo Mitigasi."
+        />
     </Head>
 
-    <div class="min-h-screen bg-slate-950 text-white">
-        <section class="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,#1d4ed8,transparent_38%),linear-gradient(135deg,#0f172a,#1e3a8a_55%,#0f172a)]">
-            <div class="absolute inset-0 opacity-20" :style="{ backgroundImage: 'linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)', backgroundSize: '48px 48px' }"></div>
+    <div class="min-h-screen bg-white text-gray-900 light-mode">
+        <!-- Hero: tetap dekat dengan existing, tapi lebih rapi dan corporate -->
+        <section class="relative overflow-hidden bg-gradient-to-br from-blue-950 via-blue-900 to-blue-700 text-white">
+            <div
+                class="absolute inset-0 opacity-10"
+                :style="{ backgroundImage: 'radial-gradient(circle at 25px 25px, rgba(255,255,255,0.25) 2px, transparent 0)', backgroundSize: '50px 50px' }"
+            ></div>
+
             <NavMenu :transparentBg="true" />
 
-            <div class="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[1.1fr_.9fr] lg:py-28">
-                <div class="space-y-8">
-                    <div class="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-blue-100 backdrop-blur">
-                        <Activity class="mr-2 h-4 w-4 text-yellow-400" />
-                        Survey geofisika profesional di seluruh Indonesia
+            <div class="relative z-10 mx-auto max-w-7xl px-6 py-14 lg:py-20">
+                <div class="grid items-center gap-12 lg:grid-cols-2">
+                    <div class="space-y-8">
+                        <div class="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-blue-100 backdrop-blur-sm">
+                            <Building2 class="mr-2 h-4 w-4 text-yellow-400" />
+                            PT. Intergeo Mitigasi • Survey Geofisika Profesional
+                        </div>
+
+                        <div class="space-y-5">
+                            <h1 class="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+                                Jasa <span class="text-yellow-400">Survey Seismik, GPR & Georadar</span> Profesional
+                            </h1>
+                            <p class="max-w-2xl text-lg leading-relaxed text-blue-100 lg:text-xl">
+                                Solusi survey bawah permukaan untuk deteksi utilitas, analisis struktur tanah, studi geoteknik,
+                                pemetaan, dan kelayakan tambang dengan tim berpengalaman serta teknologi survey modern.
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col gap-4 sm:flex-row">
+                            <button
+                                @click="router.visit('/contact')"
+                                class="inline-flex items-center justify-center rounded-md bg-yellow-400 px-7 py-3 text-lg font-semibold text-blue-950 transition hover:bg-yellow-300"
+                            >
+                                Konsultasi Survey Gratis
+                                <ArrowRight class="ml-2 h-5 w-5" />
+                            </button>
+                            <button
+                                @click="router.visit('/portfolio')"
+                                class="inline-flex items-center justify-center rounded-md border border-white px-7 py-3 text-lg font-semibold text-white transition hover:bg-white hover:text-blue-900"
+                            >
+                                Lihat Proyek Survey
+                            </button>
+                        </div>
+
+                        <div class="grid gap-3 pt-2 text-sm text-blue-100 sm:grid-cols-3">
+                            <div class="flex items-center gap-2">
+                                <MapPin class="h-5 w-5 text-yellow-400" />
+                                Seluruh Indonesia
+                            </div>
+                            <a href="tel:+6285886283668" class="flex items-center gap-2 transition hover:text-yellow-300">
+                                <Phone class="h-5 w-5 text-yellow-400" />
+                                +62 858-8628-3668
+                            </a>
+                            <a href="mailto:intergeo.mitigasi@gmail.com" class="flex items-center gap-2 transition hover:text-yellow-300">
+                                <Mail class="h-5 w-5 text-yellow-400" />
+                                Email Kami
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="space-y-6">
-                        <h1 class="text-4xl font-bold leading-tight md:text-6xl">
-                            Data bawah permukaan yang <span class="text-yellow-400">akurat</span> untuk keputusan proyek yang tepat.
-                        </h1>
-                        <p class="max-w-2xl text-lg leading-relaxed text-blue-100 md:text-xl">
-                            Intergeo Mitigasi membantu proyek konstruksi, infrastruktur, energi, dan tambang melalui survey Seismik, GPR, Georadar, pemetaan, serta analisis geoteknik berbasis data lapangan.
-                        </p>
+                    <div class="relative">
+                        <div class="rounded-2xl border border-white/20 bg-white/10 p-5 shadow-2xl backdrop-blur-sm">
+                            <div class="overflow-hidden rounded-xl bg-blue-950">
+                                <iframe
+                                    src="https://www.youtube.com/embed/3ofooDdGXKI?rel=0&modestbranding=1&showinfo=0"
+                                    title="Survey Seismik dan GPR Equipment"
+                                    class="h-72 w-full md:h-80"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="mt-5 grid grid-cols-2 gap-3">
+                                <div v-for="stat in stats.slice(0, 2)" :key="stat.label" class="rounded-lg bg-white/10 p-4 text-center">
+                                    <component :is="stat.icon" class="mx-auto mb-2 h-6 w-6 text-yellow-400" />
+                                    <div class="text-2xl font-bold">{{ stat.number }}</div>
+                                    <div class="text-xs text-blue-100">{{ stat.label }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Clients -->
+                <div class="mt-12 flex flex-col items-center">
+                    <h2 class="text-sm font-semibold uppercase tracking-widest text-blue-100">Our Clients</h2>
+                    <div class="mt-4 flex max-w-4xl flex-wrap items-center justify-center gap-4 rounded-xl bg-white p-4 shadow-lg">
+                        <component
+                            :is="client.website_url ? 'a' : 'div'"
+                            v-for="client in (clients.length ? clients : fallbackClients)"
+                            :key="client.id || client.name"
+                            :href="client.website_url || undefined"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex h-12 min-w-28 items-center justify-center rounded-md px-3 transition hover:scale-105"
+                        >
+                            <img :src="client.logo_url" :alt="client.name" class="max-h-10 max-w-32 object-contain" />
+                        </component>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="bg-gray-50 py-20">
+            <div class="mx-auto max-w-7xl px-6">
+                <div class="mx-auto mb-14 max-w-3xl text-center">
+                    <h2 class="text-4xl font-bold text-gray-900 lg:text-5xl">
+                        Layanan <span class="text-blue-600">Survey Geofisika</span> Kami
+                    </h2>
+                    <p class="mt-5 text-xl leading-relaxed text-gray-600">
+                        Layanan inti Intergeo disusun untuk membantu proyek mendapatkan data lapangan yang akurat,
+                        mudah dianalisis, dan siap digunakan untuk keputusan teknis.
+                    </p>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                    <div
+                        v-for="service in services"
+                        :key="service.title"
+                        class="group rounded-xl bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                    >
+                        <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 transition group-hover:bg-blue-600">
+                            <component :is="service.icon" class="h-7 w-7 text-blue-600 transition group-hover:text-white" />
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600">{{ service.title }}</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-gray-600">{{ service.description }}</p>
+                        <div class="mt-5 space-y-2">
+                            <div v-for="point in service.points" :key="point" class="flex items-center text-sm text-gray-500">
+                                <CheckCircle class="mr-2 h-4 w-4 text-green-500" />
+                                {{ point }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why choose us -->
+        <section class="bg-white py-20">
+            <div class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2">
+                <div class="space-y-6">
+                    <h2 class="text-4xl font-bold text-gray-900 lg:text-5xl">
+                        Mengapa Memilih <span class="text-blue-600">Intergeo Mitigasi?</span>
+                    </h2>
+                    <p class="text-lg leading-relaxed text-gray-600">
+                        Kami memahami bahwa setiap proyek membutuhkan metode survey yang tepat. Karena itu, tim kami
+                        membantu sejak tahap konsultasi awal, perencanaan metode, pengambilan data, hingga interpretasi teknis.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div v-for="item in workflow" :key="item" class="flex items-start gap-3">
+                            <CheckCircle class="mt-1 h-6 w-6 flex-shrink-0 text-green-500" />
+                            <span class="text-lg text-gray-700">{{ item }}</span>
+                        </div>
                     </div>
 
-                    <div class="flex flex-col gap-4 sm:flex-row">
-                        <button @click="router.visit('/contact')" class="inline-flex items-center justify-center rounded-lg bg-yellow-400 px-6 py-3 font-semibold text-blue-950 transition hover:bg-yellow-300">
-                            Konsultasi Survey Gratis
-                            <ArrowRight class="ml-2 h-5 w-5" />
-                        </button>
-                        <button @click="router.visit('/portfolio')" class="inline-flex items-center justify-center rounded-lg border border-white/40 px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-blue-950">
-                            Lihat Portfolio
-                        </button>
-                    </div>
-
-                    <div class="grid max-w-2xl grid-cols-3 gap-4 pt-4">
-                        <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur">
-                            <div class="text-2xl font-bold text-yellow-400">50+</div>
-                            <div class="text-sm text-blue-100">Proyek Survey</div>
-                        </div>
-                        <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur">
-                            <div class="text-2xl font-bold text-yellow-400">7+</div>
-                            <div class="text-sm text-blue-100">Tahun Pengalaman</div>
-                        </div>
-                        <div class="rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur">
-                            <div class="text-2xl font-bold text-yellow-400">24/7</div>
-                            <div class="text-sm text-blue-100">Support Survey</div>
-                        </div>
-                    </div>
+                    <button
+                        @click="router.visit('/contact')"
+                        class="rounded-lg bg-blue-600 px-8 py-3 text-lg font-semibold text-white transition hover:bg-blue-700"
+                    >
+                        Diskusikan Kebutuhan Survey
+                    </button>
                 </div>
 
                 <div class="relative">
-                    <div class="rounded-3xl border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur">
-                        <div class="overflow-hidden rounded-2xl bg-slate-900">
-                            <iframe
-                                src="https://www.youtube.com/embed/3ofooDdGXKI?rel=0&modestbranding=1&showinfo=0"
-                                title="Survey Seismik dan GPR Equipment"
-                                class="h-72 w-full md:h-96"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen
-                            ></iframe>
-                        </div>
-                        <div class="mt-5 grid gap-3 text-sm text-blue-100">
-                            <div class="flex items-center gap-3"><MapPin class="h-5 w-5 text-yellow-400" />Survey di seluruh Indonesia</div>
-                            <div class="flex items-center gap-3"><Phone class="h-5 w-5 text-yellow-400" />+62 858-8628-3668</div>
+                    <img src="/images/georadar.jpg" alt="Tim Survey Geofisika Intergeo Mitigasi" class="h-96 w-full rounded-2xl object-cover shadow-2xl" />
+                    <div class="absolute -bottom-8 left-6 right-6 rounded-xl bg-white p-6 shadow-xl">
+                        <div class="grid grid-cols-2 gap-5 sm:grid-cols-4">
+                            <div v-for="stat in stats" :key="stat.label" class="text-center">
+                                <component :is="stat.icon" class="mx-auto mb-2 h-7 w-7 text-blue-600" />
+                                <div class="text-2xl font-bold text-gray-900">{{ stat.number }}</div>
+                                <div class="text-xs text-gray-600">{{ stat.label }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="bg-white py-16 text-slate-900">
-            <div class="mx-auto max-w-7xl px-6">
-                <div class="mb-10 text-center">
-                    <p class="font-semibold uppercase tracking-widest text-blue-600">Layanan Utama</p>
-                    <h2 class="mt-3 text-3xl font-bold md:text-4xl">Solusi survey dari perencanaan hingga laporan teknis</h2>
-                </div>
-                <div class="grid gap-6 md:grid-cols-3">
-                    <div v-for="service in services" :key="service.title" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                        <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-100 text-blue-700">
-                            <component :is="service.icon" class="h-7 w-7" />
-                        </div>
-                        <h3 class="text-xl font-bold">{{ service.title }}</h3>
-                        <p class="mt-3 text-slate-600">{{ service.text }}</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-slate-50 py-16 text-slate-900">
-            <div class="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-2 lg:items-center">
-                <div>
-                    <p class="font-semibold uppercase tracking-widest text-blue-600">Workflow</p>
-                    <h2 class="mt-3 text-3xl font-bold md:text-4xl">Proses kerja yang jelas dan terukur</h2>
-                    <p class="mt-5 text-lg text-slate-600">Setiap pekerjaan disusun mulai dari pemahaman kebutuhan, pemilihan metode survey, pengambilan data, hingga laporan yang mudah dipakai untuk pengambilan keputusan.</p>
-                </div>
-                <div class="space-y-4">
-                    <div v-for="(item, index) in process" :key="item" class="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm">
-                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-bold text-white">{{ index + 1 }}</div>
-                        <div class="font-semibold">{{ item }}</div>
-                        <CheckCircle class="ml-auto h-5 w-5 text-green-500" />
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-white py-14 text-slate-900">
+        <!-- CTA -->
+        <section class="bg-blue-900 py-20 text-white">
             <div class="mx-auto max-w-7xl px-6 text-center">
-                <p class="font-semibold uppercase tracking-widest text-blue-600">Our Clients</p>
-                <h2 class="mt-3 text-3xl font-bold">Dipercaya oleh berbagai klien dan industri</h2>
-                <div class="mt-8 flex flex-wrap items-center justify-center gap-5 rounded-2xl border bg-slate-50 p-6">
-                    <component
-                        :is="client.website_url ? 'a' : 'div'"
-                        v-for="client in (clients.length ? clients : fallbackClients)"
-                        :key="client.id || client.name"
-                        :href="client.website_url || undefined"
+                <FileText class="mx-auto mb-5 h-12 w-12 text-yellow-400" />
+                <h2 class="text-4xl font-bold">Siap Memulai Survey Geofisika Anda?</h2>
+                <p class="mx-auto mt-5 max-w-3xl text-xl leading-relaxed text-blue-100">
+                    Hubungi kami untuk konsultasi awal. Tim Intergeo akan membantu memilih metode survey yang sesuai
+                    dengan kebutuhan teknis dan kondisi proyek Anda.
+                </p>
+                <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+                    <button
+                        @click="router.visit('/contact')"
+                        class="rounded-lg bg-yellow-400 px-8 py-3 text-lg font-semibold text-blue-950 transition hover:bg-yellow-300"
+                    >
+                        Konsultasi Sekarang
+                    </button>
+                    <a
+                        href="https://wa.me/6285886283668"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="flex h-16 min-w-36 items-center justify-center rounded-xl bg-white px-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                        class="rounded-lg border border-white px-8 py-3 text-lg font-semibold text-white transition hover:bg-white hover:text-blue-900"
                     >
-                        <img :src="client.logo_url" :alt="client.name" class="max-h-10 max-w-32 object-contain" />
-                    </component>
+                        WhatsApp
+                    </a>
                 </div>
-            </div>
-        </section>
-
-        <section class="bg-blue-900 py-16 text-white">
-            <div class="mx-auto flex max-w-7xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between">
-                <div>
-                    <p class="flex items-center gap-2 text-yellow-400"><ShieldCheck class="h-5 w-5" /> Siap membantu kebutuhan survey Anda</p>
-                    <h2 class="mt-3 text-3xl font-bold">Diskusikan kebutuhan survey geofisika proyek Anda.</h2>
-                </div>
-                <button @click="router.visit('/contact')" class="rounded-lg bg-yellow-400 px-6 py-3 font-semibold text-blue-950 transition hover:bg-yellow-300">
-                    Hubungi Tim Intergeo
-                </button>
             </div>
         </section>
 
