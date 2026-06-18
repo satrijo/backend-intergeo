@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import Contact from '@/components/Contact.vue';
 import Footer from '@/components/Footer.vue';
+import LatestVideos from '@/components/LatestVideos.vue';
 import NavMenu from '@/components/NavMenu.vue';
+import Portfolio from '@/components/Portfolio.vue';
 import { Head, router } from '@inertiajs/vue3';
 import {
     ArrowRight,
@@ -21,6 +24,7 @@ import {
     ShieldCheck,
     Users,
 } from 'lucide-vue-next';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 interface Client {
     id?: string;
@@ -109,6 +113,37 @@ const workflow = [
     'Akuisisi data lapangan oleh tim teknis',
     'Interpretasi data dan penyusunan laporan teknis',
 ];
+
+const servicesScroller = ref<HTMLElement | null>(null);
+let servicesInterval: number | undefined;
+
+const stopServicesAutoScroll = () => {
+    if (servicesInterval) {
+        window.clearInterval(servicesInterval);
+        servicesInterval = undefined;
+    }
+};
+
+const startServicesAutoScroll = () => {
+    stopServicesAutoScroll();
+
+    servicesInterval = window.setInterval(() => {
+        const el = servicesScroller.value;
+        if (!el) return;
+
+        const nextLeft = el.scrollLeft + 380;
+        const nearEnd = nextLeft + el.clientWidth >= el.scrollWidth - 20;
+
+        el.scrollTo({
+            left: nearEnd ? 0 : nextLeft,
+            behavior: 'smooth',
+        });
+    }, 3500);
+};
+
+onMounted(startServicesAutoScroll);
+
+onUnmounted(stopServicesAutoScroll);
 </script>
 
 <template>
@@ -239,7 +274,12 @@ const workflow = [
                     </p>
                 </div>
 
-                <div class="-mx-6 overflow-x-auto px-6 pb-4 [scrollbar-width:thin]">
+                <div
+                    ref="servicesScroller"
+                    class="-mx-6 overflow-x-auto px-6 pb-4 [scrollbar-width:thin]"
+                    @mouseenter="stopServicesAutoScroll"
+                    @mouseleave="startServicesAutoScroll"
+                >
                     <div class="flex snap-x snap-mandatory gap-6">
                         <div
                             v-for="service in services"
@@ -304,6 +344,10 @@ const workflow = [
                 </div>
             </div>
         </section>
+
+        <LatestVideos />
+        <Portfolio />
+        <Contact />
 
         <!-- CTA -->
         <section class="bg-blue-900 py-20 text-white">
