@@ -8,6 +8,7 @@ import About from "@/components/About.vue";
 import Portfolio from "@/components/Portfolio.vue";
 import Contact from "@/components/Contact.vue";
 import Footer from "@/components/Footer.vue";
+import HomeRedesign from '@/components/HomeRedesign.vue';
 
 import { onMounted, onUnmounted, ref, computed } from 'vue';
 
@@ -20,6 +21,7 @@ interface Client {
 
 defineProps<{
     clients?: Client[];
+    homepageVariant?: 'classic' | 'redesign';
 }>();
 
 const wasDarkMode = ref(false);
@@ -60,13 +62,16 @@ onUnmounted(() => {
     <meta name="twitter:description" content="Spesialis survey seismik, GPR, georadar, survey dan pemetaan, serta studi kelayakan tambang dengan teknologi canggih." />
     <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
   </Head>
-  <Hero :clients="clients || []" />
-  <Services />
-  <LatestVideos />
-  <About />
-  <Portfolio />
-  <Contact />
-  <Footer />
+  <HomeRedesign v-if="homepageVariant === 'redesign'" :clients="clients || []" />
+  <template v-else>
+    <Hero :clients="clients || []" />
+    <Services />
+    <LatestVideos />
+    <About />
+    <Portfolio />
+    <Contact />
+    <Footer />
+  </template>
 </template>
 
 <style scoped>

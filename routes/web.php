@@ -17,12 +17,14 @@ use App\Models\Client;
 use App\Models\Portfolio;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\SiteSetting;
 use App\Models\ContactInquiry;
 use App\Models\VideoPortfolio;
 
 Route::get('/', function () {
     return Inertia::render('Home/Index', [
         'clients' => Client::active()->ordered()->get(),
+        'homepageVariant' => SiteSetting::getValue('homepage_variant', 'classic'),
     ]);
 })->name('home');
 

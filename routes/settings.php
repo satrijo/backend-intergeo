@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Settings\HomepageController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -18,4 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/appearance', function () {
         return Inertia::render('settings/Appearance');
     })->name('appearance');
+
+    Route::get('settings/homepage', [HomepageController::class, 'edit'])->name('homepage.edit');
+    Route::put('settings/homepage', [HomepageController::class, 'update'])->name('homepage.update');
 });
