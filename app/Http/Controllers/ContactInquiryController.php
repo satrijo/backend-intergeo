@@ -43,11 +43,45 @@ class ContactInquiryController extends Controller
             'updated_by' => null,
         ]);
 
+        $this->sendNewInquiryNotification($inquiry);
+
         return response()->json([
             'success' => true,
             'message' => 'Permintaan konsultasi survey Anda telah terkirim! Tim kami akan menghubungi Anda dalam 24 jam.',
             'inquiry' => $inquiry
         ]);
+    }
+
+    private function sendNewInquiryNotification(ContactInquiry $inquiry): void
+    {
+        $adminEmail = config('mail.admin_notification_address', env('CONTACT_INQUIRY_NOTIFICATION_EMAIL', 'intergeo.mitigasi@gmail.com'));
+        $dashboardUrl = route('dashboard.contact-inquiries.show', $inquiry->id);
+
+        $message = "Ada pesan/contact inquiry baru dari website PT. Intergeo Mitigasi.\n\n" .
+            "Nama: {$inquiry->full_name}\n" .
+            "Email: {$inquiry->email}\n" .
+            "Nomor Telepon: {$inquiry->phone_number}\n" .
+            "Jenis Layanan: " . ($inquiry->service_type ?: 'Tidak ditentukan') . "\n\n" .
+            "Deskripsi Proyek:\n{$inquiry->project_description}\n\n" .
+            "Cara membalas:\n" .
+            "1. Buka detail inquiry di dashboard: {$dashboardUrl}\n" .
+            "2. Gunakan form 'Balas via Email' agar balasan tercatat di sistem dan status inquiry ikut ter-update.\n" .
+            "3. Jika ingin balas langsung dari email client, klik Reply pada email notifikasi ini. Reply-To sudah diarahkan ke email pengirim ({$inquiry->email}).\n\n" .
+            "Catatan: Jangan tulis balasan di field Catatan Internal Admin karena catatan tersebut hanya untuk tracking internal dashboard.";
+
+        try {
+            Mail::raw($message, function ($mail) use ($adminEmail, $inquiry) {
+                $mail->to($adminEmail, 'PT. Intergeo Mitigasi')
+                    ->replyTo($inquiry->email, $inquiry->full_name)
+                    ->subject('Pesan masuk baru dari website - ' . $inquiry->full_name);
+            });
+        } catch (Throwable $exception) {
+            Log::error('Failed to send new contact inquiry notification email', [
+                'contact_inquiry_id' => $inquiry->id,
+                'admin_email' => $adminEmail,
+                'error' => $exception->getMessage(),
+            ]);
+        }
     }
 
     public function show(ContactInquiry $contactInquiry): Response
@@ -100,6 +134,10 @@ class ContactInquiryController extends Controller
             Mail::raw($validated['message'], function ($mail) use ($contactInquiry, $validated) {
                 $mail->to($contactInquiry->email, $contactInquiry->full_name)
                     ->subject($validated['subject']);
+
+                if (config('mail.reply_to.address')) {
+                    $mail->replyTo(config('mail.reply_to.address'), config('mail.reply_to.name'));
+                }
             });
         } catch (Throwable $exception) {
             Log::error('Failed to send contact inquiry reply email', [
