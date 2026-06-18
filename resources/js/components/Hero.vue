@@ -2,6 +2,19 @@
 import Navbar from '@/components/NavMenu.vue'; // Sesuaikan path jika perlu
 import { MapPin, Phone, Mail } from 'lucide-vue-next';
 
+const props = defineProps({
+  clients: {
+    type: Array,
+    default: () => []
+  }
+});
+
+const fallbackClients = [
+  { name: 'Pertamina', logo_url: 'https://surveyseismikgpr.com/storage/media/2025/08/6ca595e8-a7b0-4d0d-aff1-72ceafbbbc87.png', website_url: null },
+  { name: 'WIKA', logo_url: 'https://surveyseismikgpr.com/storage/media/2025/08/6a791828-6971-418b-843e-4e57c96eb984.png', website_url: null },
+  { name: 'MM2100', logo_url: 'https://surveyseismikgpr.com/storage/media/2025/08/87ba5de9-903c-4055-94b7-4470e4f51cf1.png', website_url: null },
+];
+
 const scrollToContact = () => {
   const section = document.getElementById('contact');
   if (section) {
@@ -95,13 +108,21 @@ const scrollToPortfolio = () => {
       </div>
     </div>
 
-    <!-- Our Partners -->
-    <div class="flex justify-center items-center flex-col mx-auto">
+    <!-- Our Clients -->
+    <div class="flex justify-center items-center flex-col mx-auto px-6">
       <h2 class="font-bold">Our Clients</h2>
-      <div class="flex flex-wrap justify-center items-center gap-4 bg-white w-max mx-auto p-4 rounded-lg mt-4">
-        <img src="https://surveyseismikgpr.com/storage/media/2025/08/6ca595e8-a7b0-4d0d-aff1-72ceafbbbc87.png" alt="Pertamina" class="h-10 w-auto">
-        <img src="https://surveyseismikgpr.com/storage/media/2025/08/6a791828-6971-418b-843e-4e57c96eb984.png" alt="WIKA" class="h-10 w-auto"> 
-        <img src="https://surveyseismikgpr.com/storage/media/2025/08/87ba5de9-903c-4055-94b7-4470e4f51cf1.png" alt="MM2100" class="h-10 w-auto">
+      <div class="flex flex-wrap justify-center items-center gap-4 bg-white max-w-4xl mx-auto p-4 rounded-lg mt-4">
+        <component
+          :is="client.website_url ? 'a' : 'div'"
+          v-for="client in (props.clients.length ? props.clients : fallbackClients)"
+          :key="client.id || client.name"
+          :href="client.website_url || undefined"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex h-12 items-center justify-center rounded-md px-3 transition-transform hover:scale-105"
+        >
+          <img :src="client.logo_url" :alt="client.name" class="h-10 w-auto max-w-[140px] object-contain" />
+        </component>
       </div>
     </div>
 

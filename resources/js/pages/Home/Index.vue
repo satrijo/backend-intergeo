@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 
 import Hero from "@/components/Hero.vue";
@@ -11,6 +11,16 @@ import Footer from "@/components/Footer.vue";
 
 import { onMounted, onUnmounted, ref, computed } from 'vue';
 
+interface Client {
+    id: string;
+    name: string;
+    logo_url: string;
+    website_url?: string | null;
+}
+
+defineProps<{
+    clients?: Client[];
+}>();
 
 const wasDarkMode = ref(false);
 
@@ -50,7 +60,7 @@ onUnmounted(() => {
     <meta name="twitter:description" content="Spesialis survey seismik, GPR, georadar, survey dan pemetaan, serta studi kelayakan tambang dengan teknologi canggih." />
     <meta name="twitter:image" content="https://surveyseismikgpr.com/images/og-image.jpg" />
   </Head>
-  <Hero />
+  <Hero :clients="clients || []" />
   <Services />
   <LatestVideos />
   <About />

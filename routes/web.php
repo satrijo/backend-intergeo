@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactInquiryController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PortfolioController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoPortfolioController;
 use App\Models\Article;
+use App\Models\Client;
 use App\Models\Portfolio;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -19,7 +21,9 @@ use App\Models\ContactInquiry;
 use App\Models\VideoPortfolio;
 
 Route::get('/', function () {
-    return Inertia::render('Home/Index');
+    return Inertia::render('Home/Index', [
+        'clients' => Client::active()->ordered()->get(),
+    ]);
 })->name('home');
 
 Route::get('/about', function () {
@@ -132,6 +136,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified'])
 
     Route::resource('articles', ArticleController::class);
     Route::resource('categories', CategoryController::class);
+    Route::resource('clients', ClientController::class)->except(['show']);
     Route::resource('product-categories', ProductCategoryController::class)->except(['show']);
     Route::resource('products', ProductController::class);
     Route::resource('portfolios', PortfolioController::class);
