@@ -57,10 +57,11 @@ class ContactInquiryController extends Controller
         $adminEmail = config('mail.admin_notification_address', env('CONTACT_INQUIRY_NOTIFICATION_EMAIL', 'intergeo.mitigasi@gmail.com'));
         $dashboardUrl = route('dashboard.contact-inquiries.show', $inquiry->id);
 
-        $message = "[NOTIFIKASI INQUIRY BARU]\n" .
+        $message = "[PESAN BARU DARI WEBSITE]\n" .
             "PT. Intergeo Mitigasi\n" .
             "==================================================\n\n" .
-            "Ada permintaan konsultasi baru dari website.\n\n" .
+            "Halo Admin, ada permintaan konsultasi baru dari website.\n" .
+            "Jika ingin membalas langsung lewat email, cukup klik Reply pada email ini.\n\n" .
             "DATA PENGIRIM\n" .
             "--------------------------------------------------\n" .
             "Nama          : {$inquiry->full_name}\n" .
@@ -70,17 +71,8 @@ class ContactInquiryController extends Controller
             "PESAN / DESKRIPSI PROYEK\n" .
             "--------------------------------------------------\n" .
             "{$inquiry->project_description}\n\n" .
-            "TINDAK LANJUT YANG DISARANKAN\n" .
-            "--------------------------------------------------\n" .
-            "1. Buka detail inquiry di dashboard:\n" .
-            "   {$dashboardUrl}\n\n" .
-            "2. Gunakan form 'Balas via Email' di dashboard jika ingin balasan tercatat di sistem.\n\n" .
-            "3. Jika ingin membalas langsung dari inbox email, klik Reply pada email ini.\n" .
-            "   Reply-To sudah diarahkan ke email pengirim: {$inquiry->email}\n\n" .
-            "CATATAN INTERNAL\n" .
-            "--------------------------------------------------\n" .
-            "Field 'Catatan Internal Admin' di dashboard hanya untuk tracking internal.\n" .
-            "Jangan gunakan field tersebut sebagai balasan ke pengirim.";
+            "==================================================\n" .
+            "Email ini otomatis dibuat dari form website PT. Intergeo Mitigasi.";
 
         try {
             Mail::raw($message, function ($mail) use ($adminEmail, $inquiry) {
