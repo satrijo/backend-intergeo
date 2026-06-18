@@ -145,8 +145,16 @@ class ContactInquiryController extends Controller
             'message' => 'required|string|max:5000',
         ]);
 
+        $messageWithFooter = trim($validated['message']) . "\n\n" .
+            "--\n" .
+            "PT. Intergeo Mitigasi\n" .
+            "Spesialis Survey Seismik, GPR, Georadar & Geofisika\n" .
+            "Telepon/WhatsApp: +62 858-8628-3668\n" .
+            "Email: intergeo.mitigasi@gmail.com\n" .
+            "Website: https://surveyseismikgpr.com";
+
         try {
-            Mail::raw($validated['message'], function ($mail) use ($contactInquiry, $validated) {
+            Mail::raw($messageWithFooter, function ($mail) use ($contactInquiry, $validated) {
                 $mail->to($contactInquiry->email, $contactInquiry->full_name)
                     ->subject($validated['subject']);
 
