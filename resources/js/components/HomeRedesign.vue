@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import Contact from '@/components/Contact.vue';
 import Footer from '@/components/Footer.vue';
-import LatestVideos from '@/components/LatestVideos.vue';
 import NavMenu from '@/components/NavMenu.vue';
-import Portfolio from '@/components/Portfolio.vue';
 import { Head, router } from '@inertiajs/vue3';
 import {
     ArrowRight,
@@ -17,8 +14,10 @@ import {
     Mail,
     MapPin,
     Phone,
+    PlayCircle,
     Radar,
     Search,
+    Send,
     Settings,
     Calculator,
     ShieldCheck,
@@ -115,6 +114,18 @@ const workflow = [
 ];
 
 const servicesScroller = ref<HTMLElement | null>(null);
+const latestVideos = ref<any[]>([]);
+const latestPortfolios = ref<any[]>([]);
+const contactSuccess = ref('');
+const contactError = ref('');
+const contactSubmitting = ref(false);
+const contactForm = ref({
+    full_name: '',
+    email: '',
+    phone_number: '',
+    service_type: '',
+    project_description: '',
+});
 let servicesInterval: number | undefined;
 
 const stopServicesAutoScroll = () => {
@@ -141,7 +152,62 @@ const startServicesAutoScroll = () => {
     }, 3500);
 };
 
-onMounted(startServicesAutoScroll);
+const fetchHomepageContent = async () => {
+    try {
+        const [videosResponse, portfoliosResponse] = await Promise.all([
+            fetch('/api/v1/video-portfolios?per_page=3'),
+            fetch('/api/v1/portfolios?per_page=3'),
+        ]);
+
+        if (videosResponse.ok) {
+            const videos = await videosResponse.json();
+            latestVideos.value = videos.data || [];
+        }
+
+        if (portfoliosResponse.ok) {
+            const portfolios = await portfoliosResponse.json();
+            latestPortfolios.value = portfolios.data || [];
+        }
+    } catch (error) {
+        console.error('Failed to fetch homepage content:', error);
+    }
+};
+
+const submitContact = async () => {
+    contactSubmitting.value = true;
+    contactSuccess.value = '';
+    contactError.value = '';
+
+    try {
+        const response = await fetch('/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+            },
+            body: JSON.stringify(contactForm.value),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || 'Gagal mengirim permintaan konsultasi.');
+        }
+
+        contactSuccess.value = result.message || 'Permintaan konsultasi berhasil dikirim. Tim kami akan segera menghubungi Anda.';
+        contactForm.value = { full_name: '', email: '', phone_number: '', service_type: '', project_description: '' };
+    } catch (error) {
+        contactError.value = error instanceof Error ? error.message : 'Gagal mengirim permintaan konsultasi.';
+    } finally {
+        contactSubmitting.value = false;
+    }
+};
+
+onMounted(() => {
+    startServicesAutoScroll();
+    fetchHomepageContent();
+});
 
 onUnmounted(stopServicesAutoScroll);
 </script>
@@ -345,9 +411,107 @@ onUnmounted(stopServicesAutoScroll);
             </div>
         </section>
 
-        <LatestVideos />
-        <Portfolio />
-        <Contact />
+        <!-- Latest Videos -->
+        <section class="bg-gray-50 py-20">
+            <div class="mx-auto max-w-7xl px-6">
+                <div class="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                    <div>
+                        <p class="font-semibold uppercase tracking-widest text-blue-600">Video Terbaru</p>
+                        <h2 class="mt-3 text-4xl font-bold text-gray-900">Dokumentasi pekerjaan survey geofisika</h2>
+                        <p class="mt-4 max-w-2xl text-lg text-gray-600">Lihat dokumentasi video dari proyek dan pekerjaan survey terbaru yang telah kami selesaikan.</p>
+                    </div>
+                    <button @click="router.visit('/work-showcase')" class="inline-flex items-center font-semibold text-blue-600 hover:text-blue-800">
+                        Lihat Semua Video <ArrowRight class="ml-2 h-4 w-4" />
+                    </button>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-3">
+                    <div v-for="video in latestVideos" :key="video.id" class="overflow-hidden rounded-xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                        <div class="relative aspect-video bg-blue-950">
+                            <img v-if="video.thumbnail_url" :src="video.thumbnail_url" :alt="video.title" class="h-full w-full object-cover" />
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/25">
+                                <PlayCircle class="h-14 w-14 text-white" />
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="line-clamp-2 text-xl font-bold text-gray-900">{{ video.title }}</h3>
+                            <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-600">{{ video.description }}</p>
+                            <button @click="router.visit(`/work-showcase/${video.id}`)" class="mt-5 font-semibold text-blue-600 hover:text-blue-800">Lihat Video →</button>
+                        </div>
+                    </div>
+                    <div v-if="latestVideos.length === 0" class="rounded-xl bg-white p-8 text-center text-gray-500 shadow-sm md:col-span-3">Belum ada video terbaru.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Portfolio -->
+        <section class="bg-white py-20">
+            <div class="mx-auto max-w-7xl px-6">
+                <div class="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                    <div>
+                        <p class="font-semibold uppercase tracking-widest text-blue-600">Portfolio Terbaru</p>
+                        <h2 class="mt-3 text-4xl font-bold text-gray-900">Bukti pengalaman kami di lapangan</h2>
+                        <p class="mt-4 max-w-2xl text-lg text-gray-600">Beberapa proyek survey seismik, GPR, georadar, dan pemetaan yang telah kami kerjakan untuk berbagai kebutuhan industri.</p>
+                    </div>
+                    <button @click="router.visit('/portfolio')" class="inline-flex items-center font-semibold text-blue-600 hover:text-blue-800">
+                        Lihat Semua Portfolio <ArrowRight class="ml-2 h-4 w-4" />
+                    </button>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-3">
+                    <div v-for="project in latestPortfolios" :key="project.id" class="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                        <div class="aspect-video bg-gray-100">
+                            <img v-if="project.image_url" :src="project.image_url" :alt="project.title" class="h-full w-full object-cover" />
+                            <div v-else class="flex h-full items-center justify-center text-gray-400">No Image</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="line-clamp-2 text-xl font-bold text-gray-900">{{ project.title }}</h3>
+                            <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-600" v-html="project.description"></p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span v-for="tech in (project.technologies || []).slice(0, 3)" :key="tech" class="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">{{ tech }}</span>
+                            </div>
+                            <button @click="router.visit(`/portfolio/${project.id}`)" class="mt-5 font-semibold text-blue-600 hover:text-blue-800">Lihat Detail →</button>
+                        </div>
+                    </div>
+                    <div v-if="latestPortfolios.length === 0" class="rounded-xl bg-gray-50 p-8 text-center text-gray-500 md:col-span-3">Belum ada portfolio terbaru.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="bg-gray-50 py-20">
+            <div class="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[.9fr_1.1fr]">
+                <div class="space-y-6">
+                    <p class="font-semibold uppercase tracking-widest text-blue-600">Konsultasi Survey</p>
+                    <h2 class="text-4xl font-bold text-gray-900">Siap Memulai Survey Geofisika Anda?</h2>
+                    <p class="text-lg leading-relaxed text-gray-600">Isi form konsultasi dan tim kami akan menghubungi Anda untuk membahas kebutuhan survey, metode yang sesuai, serta estimasi pekerjaan.</p>
+                    <div class="space-y-4 rounded-xl bg-blue-900 p-6 text-white">
+                        <div class="flex items-center gap-3"><MapPin class="h-5 w-5 text-yellow-400" /> Jakarta Selatan, DKI Jakarta, Indonesia</div>
+                        <div class="flex items-center gap-3"><Phone class="h-5 w-5 text-yellow-400" /> +62 858-8628-3668</div>
+                        <div class="flex items-center gap-3"><Mail class="h-5 w-5 text-yellow-400" /> intergeo.mitigasi@gmail.com</div>
+                    </div>
+                </div>
+
+                <form @submit.prevent="submitContact" class="rounded-2xl bg-white p-6 shadow-xl">
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <input v-model="contactForm.full_name" required class="rounded-md border px-4 py-3" placeholder="Nama Lengkap *" />
+                        <input v-model="contactForm.email" required type="email" class="rounded-md border px-4 py-3" placeholder="Email *" />
+                        <input v-model="contactForm.phone_number" required class="rounded-md border px-4 py-3" placeholder="Nomor Telepon *" />
+                        <select v-model="contactForm.service_type" class="rounded-md border px-4 py-3">
+                            <option value="">Jenis Layanan Survey</option>
+                            <option v-for="service in services" :key="service.title" :value="service.title">{{ service.title }}</option>
+                        </select>
+                    </div>
+                    <textarea v-model="contactForm.project_description" required rows="5" class="mt-4 w-full rounded-md border px-4 py-3" placeholder="Deskripsi Proyek Survey Geofisika *"></textarea>
+                    <button :disabled="contactSubmitting" class="mt-4 inline-flex w-full items-center justify-center rounded-md bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60">
+                        <Send class="mr-2 h-5 w-5" />
+                        {{ contactSubmitting ? 'Mengirim...' : 'Kirim Permintaan Konsultasi' }}
+                    </button>
+                    <p v-if="contactSuccess" class="mt-4 rounded-md bg-green-50 p-3 text-sm text-green-700">{{ contactSuccess }}</p>
+                    <p v-if="contactError" class="mt-4 rounded-md bg-red-50 p-3 text-sm text-red-700">{{ contactError }}</p>
+                </form>
+            </div>
+        </section>
 
         <!-- CTA -->
         <section class="bg-blue-900 py-20 text-white">
